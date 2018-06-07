@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { IndexComponent } from './index/index.component';
+import { MindmapComponent } from './mindmap/mindmap.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { IndexComponent } from './index/index.component';
     LoginComponent,
     LessonsComponent,
     IndexComponent,
+    MindmapComponent,
   ],
   imports: [
     BrowserModule,
