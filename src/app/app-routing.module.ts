@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import {LoginComponent} from './login/login.component';
 import {IndexComponent} from './index/index.component';
-import {LessonsComponent} from './lessons/lessons.component';
-import {MindmapComponent} from './mindmap/mindmap.component';
+import {LessonsComponent} from './teacher/lessons/lessons.component';
+import {MindmapComponent} from './teacher/mindmap/mindmap.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },

@@ -1,8 +1,6 @@
 <head> 
   <meta charset="utf-8"> 
-  <title>{{ title }}</title> 
   <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
-  
 </head>
 
 <body>
@@ -29,13 +27,14 @@
 
       <div class="col-xs-6 col-sm-10">
         <ul class="nav nav-tabs">
-          <li class="active"><a>思维导图{{currentMap + 1}}</a></li>
-          <li><a>作业</a></li>
-          <li><a>资源</a></li>
-          <li><a>课件</a></li>
-      </ul>
+          <li class="active"><a href="#tab1" data-toggle="tab">思维导图{{currentMap + 1}}</a></li>
+          <li *ngIf="mindMap.get_selected_node()"><a>作业</a></li>
+          <li *ngIf="mindMap.get_selected_node()"><a>资源</a></li>
+          <li *ngIf="mindMap.get_selected_node()"><a>课件</a></li>
+        </ul>
       
-      <div class="btn-group">
+      <div id="node-edit" *ngIf="mindMap.get_selected_node()">
+       <div class="btn-group">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               新增节点 
           </button>
@@ -44,7 +43,7 @@
 
              <li><a (click)="addChildNode()">新增子节点</a></li>
           </ul>
-      </div>
+        </div>
       
       <button type="button" class="btn btn-default" (click)="removeNode()">删除</button>
 
@@ -60,7 +59,7 @@
             <li><a id="black" (click)="changeNodeColor($event)">黑色</a></li>            
           </ul>
       </div>
-
+     </div>
       <div id="jsmind_container"></div> 
       </div>
     </div>

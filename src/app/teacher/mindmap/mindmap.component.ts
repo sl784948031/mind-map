@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '../../services/user.service';
 
-import * as jsMind from '../jsmind/js/jsmind.js';
-import '../jsmind/js/jsmind.screenshot.js'
+import * as jsMind from '../../jsmind/js/jsmind.js';
+import '../../jsmind/js/jsmind.screenshot.js'
 
 const options = {
   container:'jsmind_container',
@@ -14,7 +15,8 @@ const options = {
 @Component({
   selector: 'app-mindmap',
   templateUrl: './mindmap.component.html',
-  styleUrls: ['./mindmap.component.css']
+  styleUrls: ['./mindmap.component.css'],
+  providers: [UserService]
 })
 
 export class MindmapComponent implements OnInit {
@@ -24,16 +26,25 @@ export class MindmapComponent implements OnInit {
 
   currentMap : number = 0;
 
+  user : any;
+  userId : any;
+  userType : any;
+
   show_hide_val1 : boolean =false;
   show_hide_val2 : boolean =false;
   show_hide_val3 : boolean =false;
   items : any[] = [];
 
-  constructor() { }
+  constructor(public userService: UserService) {
+    this.user = this.userService.getUser();
+    this.userId = this.user.userId;
+    this.userType = this.user.userType;
+  }
 
   ngOnInit() {
     this.mindMap = new jsMind(options);
   }
+  
 
   creatMap() {
     const mind1 = {
@@ -69,6 +80,10 @@ export class MindmapComponent implements OnInit {
     if(!selected_id){
     alert('请先选择一个节点！');
     return;
+    }
+    if(!selected_id.parent) {
+      window.alert('根节点无法被删除！');
+      return;
     }
     this.mindMap.remove_node(selected_id);
     this.items[this.currentMap] = this.mindMap.get_data("node_tree");

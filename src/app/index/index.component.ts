@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
 
+  title="混合式教学在线系统"
+
   constructor() { }
 
   ngOnInit() {

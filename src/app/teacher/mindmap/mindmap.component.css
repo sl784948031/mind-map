@@ -15,7 +15,7 @@
     float: left;
 }
 
-.nav-tabs{
+.nav-tabs {
     margin-left: -1.5%;
     font-size: 15px;
 }
@@ -61,11 +61,11 @@
 }
 
 .btn{
-    margin: 2% 0px 2% 5%;
+    margin: 2% 0 0 5%;
 }
 
 .btn-group{
-    margin: 2% 0px 2% 5%;
+    margin: 2% 0 0 5%;
 }
 
 .childList{
@@ -75,12 +75,3 @@
 .dropdown-menu li a {
     cursor: pointer;
 }
-/* a{ text-decoration: none; }
-.nva{ width: 50%; height: 40px; margin-top: 70px; background-color: #fff; }
-.list{ width: 80%; height: 40px; margin: 0 auto; list-style-type: none; }
-.list li{ float: left; }
-.list li a{ padding: 0 30px; color: #aaa; line-height: 40px; display: block; }
-.list li a:hover{ background:#fff; color:rgb(83, 62, 202); }
-.list li a.on{ background:#fff; color:rgb(83, 62, 202); }
-h1{ margin: 20px auto; text-align: center; } */
-
