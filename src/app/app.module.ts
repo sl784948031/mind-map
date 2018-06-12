@@ -9,8 +9,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { LessonsComponent } from './teacher/lessons/lessons.component';
 import { IndexComponent } from './index/index.component';
+<<<<<<< HEAD
 import { MindmapComponent } from './teacher/mindmap/mindmap.component';
 
+=======
+import { MindmapComponent } from './mindmap/mindmap.component';
+import {HttpHeaders, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import {HttpModule} from '@angular/http';
+>>>>>>> 86dad35e7a8d11f4a7239e380ef3948dfac30fdd
 
 @NgModule({
   declarations: [
@@ -26,10 +33,16 @@ import { MindmapComponent } from './teacher/mindmap/mindmap.component';
     FormsModule,
     // NgbModule.forRoot(),
     AppRoutingModule,
+<<<<<<< HEAD
     HttpModule,
     JsonpModule,
+=======
+    FormsModule,
+      HttpModule,
+    HttpClientModule
+>>>>>>> 86dad35e7a8d11f4a7239e380ef3948dfac30fdd
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {
