@@ -1,2 +1,43 @@
-<button class="btn btn-lg btn-outline-primary" (click)="showAlert()">添加课程</button>
+<head> 
+    <meta charset="utf-8"> 
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+</head>
+
+
+<div class="container">
+    <div>
+        <button class="btn btn-default" data-toggle="modal" data-target="#myModal">添加课程</button>
+        <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+               
+                    <!-- 模态框头部 -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">添加课程</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+               
+                    <!-- 模态框主体 -->
+                    <div class="modal-body">
+
+                        <input type="text" [(ngModel)]="addLessonId" placeholder="课程id" name="lessonid" class="form-control">
+                        <input type="text" [(ngModel)]="addLessonName" placeholder="课程名称" name="lessonname" class="form-control">
+                 
+                    </div>
+               
+                    <!-- 模态框底部 -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addLesson()">确定</button>
+                    </div>
+               
+                  </div>
+                </div>
+        </div>
+    </div>
+    <div class="card" *ngFor="let item of lessons">
+        <div class="card-header">{{item[0]}}. {{item[1]}}<a class="lesson-enter" routerLink="/mindmap">进入课程 <span class="glyphicon glyphicon-chevron-right"></span></a></div>
+        <div class="card-body">课程人数:</div>
+    </div>
+</div>
 

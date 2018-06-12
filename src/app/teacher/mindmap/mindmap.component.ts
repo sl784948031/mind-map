@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { UserService } from '../../services/user.service';
+// import { UserService } from '../../services/user.service';
 
 import * as jsMind from '../../jsmind/js/jsmind.js';
 import '../../jsmind/js/jsmind.screenshot.js'
@@ -16,7 +16,7 @@ const options = {
   selector: 'app-mindmap',
   templateUrl: './mindmap.component.html',
   styleUrls: ['./mindmap.component.css'],
-  providers: [UserService]
+  // providers: [UserService]
 })
 
 export class MindmapComponent implements OnInit {
@@ -35,10 +35,10 @@ export class MindmapComponent implements OnInit {
   show_hide_val3 : boolean =false;
   items : any[] = [];
 
-  constructor(public userService: UserService) {
-    this.user = this.userService.getUser();
-    this.userId = this.user.userId;
-    this.userType = this.user.userType;
+  constructor() {
+    // this.user = this.userService.getUser();
+    // this.userId = this.user.userId;
+    // this.userType = this.user.userType;
   }
 
   ngOnInit() {
