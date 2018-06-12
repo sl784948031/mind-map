@@ -8,7 +8,9 @@ import { LoginComponent } from './login/login.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { IndexComponent } from './index/index.component';
 import { MindmapComponent } from './mindmap/mindmap.component';
-
+import {HttpHeaders, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,11 @@ import { MindmapComponent } from './mindmap/mindmap.component';
     BrowserModule,
     NgbModule.forRoot(),
     AppRoutingModule,
+    FormsModule,
+      HttpModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {
