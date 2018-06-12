@@ -13,13 +13,14 @@ export class LessonsComponent implements OnInit {
 
   constructor() {}
   ngOnInit() {
-    this.lessons = [[1, '课程'], [2, '课程'], [3, '课程'], [4, '课程'], [5, '课程'],[6, '课程'],[7, '课程'],[8, '课程'],[9, '课程']];
+    this.lessons = [['1', '课程', '20'], ['2', '课程', '20'], ['3', '课程', '20'], ['4', '课程', '20'], ['5', '课程', '20']];
   }
 
   addLesson() {
     let tmp = [];
     tmp.push(this.addLessonId);
     tmp.push(this.addLessonName);
+    tmp.push(0);
     this.lessons.push(tmp);
     this.addLessonId="";
     this.addLessonName="";

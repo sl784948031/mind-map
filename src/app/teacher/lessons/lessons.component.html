@@ -37,7 +37,7 @@
     </div>
     <div class="card" *ngFor="let item of lessons">
         <div class="card-header">{{item[0]}}. {{item[1]}}<a class="lesson-enter" routerLink="/mindmap">进入课程 <span class="glyphicon glyphicon-chevron-right"></span></a></div>
-        <div class="card-body">课程人数:</div>
+        <div class="card-body">课程人数: {{item[2]}}</div>
     </div>
 </div>
 

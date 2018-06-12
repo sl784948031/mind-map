@@ -8,9 +8,13 @@ import { LoginComponent } from './login/login.component';
 import { LessonsComponent } from './teacher/lessons/lessons.component';
 import { IndexComponent } from './index/index.component';
 import { MindmapComponent } from './teacher/mindmap/mindmap.component';
+import { CoursesComponent } from './student/courses/courses.component';
+
 import {HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {HttpModule} from '@angular/http';
+import { StudentmapComponent } from './student/studentmap/studentmap.component';
+
 
 @NgModule({
   declarations: [
@@ -20,6 +24,8 @@ import {HttpModule} from '@angular/http';
     LessonsComponent,
     IndexComponent,
     MindmapComponent,
+    CoursesComponent,
+    StudentmapComponent,
   ],
   imports: [
     BrowserModule,
