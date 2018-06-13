@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'mindmap', component: MindmapComponent },
   { path: 'courses', component: CoursesComponent},
   { path: 'studentmap', component: StudentmapComponent},
+  { path: 'teacher/:username', component: LessonsComponent },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
 ];
 

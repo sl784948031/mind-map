@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import { UserService } from '../../user.service';
+import {User} from '../../person';
+import {Lessons} from '../../lessons';
 
 @Component({
   selector: 'app-lessons',
@@ -7,13 +11,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LessonsComponent implements OnInit {
   lessons : any[];
-
+  lesson: Lessons = new Lessons();
+  user: User = new User();
   addLessonId : string;
   addLessonName : string;
 
-  constructor() {}
+  constructor(private route: ActivatedRoute, private userService: UserService) {}
   ngOnInit() {
-    this.lessons = [['1', '课程', '20'], ['2', '课程', '20'], ['3', '课程', '20'], ['4', '课程', '20'], ['5', '课程', '20']];
+    this.getLessons();
+    this.lessons = [];
+  }
+
+  getLessons(): void {
+    const username = this.route.snapshot.paramMap.get('username');
+    console.log(username);
+    this.user.username = username;
+    this.userService.getLessons(this.user)
+        .subscribe(data => {
+          console.log(data);
+          this.lesson.list = data;
+          console.log(this.lesson.list);
+          this.updateLesson(this.lesson);
+        });
   }
 
   addLesson() {
@@ -24,5 +43,16 @@ export class LessonsComponent implements OnInit {
     this.lessons.push(tmp);
     this.addLessonId="";
     this.addLessonName="";
+  }
+
+  updateLesson(lesson : Lessons) {
+    let tmp = [];
+    for (let i = 0; i < lesson.list.length; i ++) {
+      tmp.push(lesson.list[i].id);
+      tmp.push(lesson.list[i].name);
+      tmp.push(lesson.list[i].people_num);
+      this.lessons.push(tmp);
+      tmp = [];
+    }
   }
 }

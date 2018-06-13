@@ -20,7 +20,7 @@
         <h4>{{con1}}</h4>
       </div>
       <div class="col-md-6">
-        <input type="text" [(ngModel)]="username" name="username" class="form-control">
+        <input type="text" [(ngModel)]="user.username" name="username" class="form-control">
       </div>
     </div>
     <div class="row">
@@ -28,18 +28,18 @@
         <h4>{{con2}}</h4>
       </div>
       <div class="col-md-6">
-        <input type="password" [(ngModel)]="password" name="password" class="form-control">
+        <input type="password" [(ngModel)]="user.password" name="password" class="form-control">
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-2">
-        <h4>类型</h4>
+        <h4>{{con3}}</h4>
       </div>
       <div class="col-md-6">
         <input type="password" [(ngModel)]="cpassword" name="cpassword" class="form-control">
       </div>
-      <h5 style="color: red" *ngIf="(cpassword!=null && password!=cpassword)">两次密码不一致</h5>
+      <h5 style="color: red" *ngIf="(cpassword!=null && user.password!=cpassword)">两次密码不一致</h5>
     </div>
 
 
@@ -54,7 +54,7 @@
 
 
     <div class="row">
-        <a ><button type="button" class="btn btn-default" id="bt1" (click)="register()">注册</button></a>
+        <button type="button" class="btn btn-default" id="bt1" (click)="createUser()">注册</button>
         <a routerLink="/index"><button type="button" class="btn btn-default" id="bt2">取消</button></a>
     </div>
   </div>
