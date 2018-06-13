@@ -1,31 +1,61 @@
+<head> 
+    <meta charset="utf-8"> 
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+</head>
+    
+
+<div class="index-top">
+    <h1 id="title">
+      混合式教学在线系统
+    </h1>
+    <h5 id="subtitle">
+        思维导图·个性化·主动学习·讨论式教学
+    </h5>
+</div>
+
 <div style="text-align:center">
   <div class="container">
     <div class="row">
       <div class="col-md-2">
         <h4>{{con1}}</h4>
       </div>
-      <div class="col-md-2">
-        <input type="text" class="form-control" id="ip1"/>
+      <div class="col-md-6">
+        <input type="text" [(ngModel)]="username" name="username" class="form-control">
       </div>
     </div>
     <div class="row">
       <div class="col-md-2">
         <h4>{{con2}}</h4>
       </div>
-      <div class="col-md-2">
-        <input type="text" class="form-control" id="ip2"/>
+      <div class="col-md-6">
+        <input type="password" [(ngModel)]="password" name="password" class="form-control">
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-2">
-        <h4>{{con3}}</h4>
+        <h4>类型</h4>
       </div>
-      <div class="col-md-2">
-        <input type="text" class="form-control" id="ip3"/>
+      <div class="col-md-6">
+        <input type="password" [(ngModel)]="cpassword" name="cpassword" class="form-control">
       </div>
+      <h5 style="color: red" *ngIf="(cpassword!=null && password!=cpassword)">两次密码不一致</h5>
+    </div>
+
+
+    <div class="radio">
+        <label class="identity">
+            <input type="radio" name="Radios" id="teacherRdio" value="teacher" checked (click)="getType('teacher')">教师
+        </label>
+        <label class="identity">
+            <input type="radio" name="Radios" id="studentRadio" value="student" (click)="getType('student')"> 学生 
+        </label>
+    </div>
+
+
+    <div class="row">
+        <a ><button type="button" class="btn btn-default" id="bt1" (click)="register()">注册</button></a>
+        <a routerLink="/index"><button type="button" class="btn btn-default" id="bt2">取消</button></a>
     </div>
   </div>
 </div>
-<a routerLink="/register"><button type="button" class="btn btn-success" id="bt1">注册</button></a>
-
-<a routerLink="/index"><button type="button" class="btn btn-success" id="bt2">主界面</button></a>

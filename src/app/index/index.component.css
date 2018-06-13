@@ -1,9 +1,23 @@
+.index-top{
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+#title{
+    margin-bottom: 50px;
+    text-align: center; 
+}
+
+#subtitle{
+    margin-right: 180px;
+    text-align: right;
+}
+
 #bt1{
-    margin:  2% 0px 2% 40%;
+    padding: 8px 24px;
+    margin:  2% 0px 2% 42%;
 }
 #bt2{
-    margin:  2% 0px 2% 10%;
-}
-#bt3{
-    margin:  2% 0px 2% 10%;
+    padding: 8px 24px;
+    margin:  2% 0px 2% 5%;
 }
