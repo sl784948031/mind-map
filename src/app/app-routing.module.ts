@@ -19,9 +19,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'index', component: IndexComponent },
-  { path: 'lessons', component: LessonsComponent },
   { path: 'mindmap', component: MindmapComponent },
-  { path: 'courses', component: CoursesComponent},
   { path: 'studentmap', component: StudentmapComponent},
   { path: 'thomework', component: ThomeworkComponent},
   { path: 'tresource', component: TresourceComponent},
@@ -29,6 +27,8 @@ const routes: Routes = [
   { path: 'shomework', component: ShomeworkComponent},
   { path: 'sresource', component: SresourceComponent},
   { path: 'scourseware', component: ScoursewareComponent},
+  { path: 'teacher/:username', component: LessonsComponent },
+  { path: 'student/:username', component: CoursesComponent },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
 ];
 
