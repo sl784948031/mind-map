@@ -19,7 +19,7 @@
                
                     <!-- 模态框主体 -->
                     <div class="modal-body" *ngFor="let item of lessons">
-                      <div>No.{{item.id}} <br>课程名称： {{item.name}}<br>授课老师：{{item.teacher}}<a class="lesson-enter" data-dismiss="modal" (click)="chooseLesson(item)" routerLink="/student/{{user.username}}" >选课</a></div>
+                      <div>{{item[0]}}. {{item[1]}}<a class="lesson-enter" data-dismiss="modal" (click)="chooseLesson(item)" routerLink="/courses" >选课</a></div>
                     </div>
                
                   </div>
@@ -27,8 +27,8 @@
         </div>
     </div>
     <div class="card" *ngFor="let item of chooses">
-        <div class="card-header">No.{{item.cid}} <a class="lesson-enter" routerLink="/studentmap">进入课程 <span class="glyphicon glyphicon-chevron-right"></span></a></div>
-        <div class="card-body">课程名称：{{item.name}}<br>课程人数: {{item.people_num}}</div>
+        <div class="card-header">{{item[0]}}. {{item[1]}}<a class="lesson-enter" routerLink="/studentmap">进入课程 <span class="glyphicon glyphicon-chevron-right"></span></a></div>
+        <div class="card-body">课程人数: {{item[2]}}</div>
     </div>
 </div>
 

@@ -3,6 +3,4 @@
  */
 export class Response {
     status: string;
-    type: string;
-    username: string;
 }

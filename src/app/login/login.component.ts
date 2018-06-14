@@ -15,17 +15,9 @@ export class LoginComponent implements OnInit {
   response: Response = new Response();
   constructor(private router: Router, private userService: UserService) { }
 
-  type : string = 'teacher';
-
-  getType(type : string) {
-    this.type = type;
-  }
-
   ngOnInit() {
   }
-
   login(): void {
-    this.user.type = this.type;
     this.userService.login(this.user).subscribe(data => {
       console.log(data);
       this.response = data ;
@@ -33,11 +25,7 @@ export class LoginComponent implements OnInit {
       if (this.response.status === 'yes') {
         console.log(1);
         alert('User login successfully.');
-        if (this.response.type === 'teacher') {
-          this.router.navigateByUrl('teacher/' + this.response.username);
-        } else {
-          this.router.navigateByUrl('student/' + this.response.username);
-        }
+        window.location.href = 'login';
       } else {
         alert('User login failure, please input again !');
       }
