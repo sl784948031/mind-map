@@ -53,7 +53,7 @@ export class StudentmapComponent implements OnInit {
           ]}
     }
     this.items.push(mind1);
-    this.changeMap(this.items.length - 1);
+    // this.changeMap(this.items.length - 1);
   }
 
   // creatMap() {

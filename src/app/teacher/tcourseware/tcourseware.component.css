@@ -1,0 +1,96 @@
+#jsmind_container {
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+
+
+*{ margin:0; padding: 0; }
+
+#left-nav{
+    background-color: lightgray;
+}
+
+.nav-total{
+    float: left;
+}
+
+.nav-tabs {
+    margin-left: -1.5%;
+    font-size: 15px;
+}
+
+.nav-tabs li a {
+    cursor: pointer;
+}
+
+.nav-collapse{
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    min-height: 500px;
+    height: 100%;
+    /* margin-top: -3%;
+    margin-left: 4%; */
+    list-style: none;
+}
+
+.nav-collapse li{
+    /* float: left; */
+    margin-bottom: -1px;
+    position: relative;
+    display: block;
+}
+
+.nav-collapse li a {
+    /* margin-right: 2px; */
+    line-height: 1.42857143;
+    /* border: 1px solid transparent;
+    border-radius: 4px 4px 0 0; */
+    position: relative;
+    display: block;
+    padding: 20px 15px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.nav-collapse li a:hover {
+    border-color: #eee #eee #ddd;
+}
+
+.nav-collapse li a:focus {
+    border-color: #eee #eee #ddd;
+}
+
+.btn{
+    margin: 2% 0 0 5%;
+}
+
+.btn-group{
+    margin: 2% 0 0 5%;
+}
+
+.childList{
+    padding-left: 10px;
+}
+
+.dropdown-menu li a {
+    cursor: pointer;
+}
+
+.card{
+    width: 80%;
+    float: left;
+    margin: 2% 0 0 5%;   
+}
+
+.card-header{
+    padding: 3% 2% 0% 2%;
+}
+
+.card-body{
+    padding: 1% 2% 1% 2%;
+}
+
+.delete{
+    float: right;
+    margin: 0 0 2% 0;
+}
