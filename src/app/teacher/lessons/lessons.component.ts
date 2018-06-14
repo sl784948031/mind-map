@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { UserService } from '../../user.service';
 import {User} from '../../person';
 import {Lessons} from '../../lessons';
+import {Lesson} from '../../lesson';
+import {Response} from '../../response';
 
 @Component({
   selector: 'app-lessons',
@@ -10,16 +12,21 @@ import {Lessons} from '../../lessons';
   styleUrls: ['./lessons.component.css']
 })
 export class LessonsComponent implements OnInit {
-  lessons : any[];
+  lessons: any[];
   lesson: Lessons = new Lessons();
   user: User = new User();
-  addLessonId : string;
-  addLessonName : string;
+  addLessonId: string;
+  addLessonName: string;
+  ls: Lesson = new Lesson();
+  response: Response = new Response();
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {}
+
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {}
   ngOnInit() {
     this.getLessons();
     this.lessons = [];
+    this.addLessonName = '';
+    this.addLessonId = '';
   }
 
   getLessons(): void {
@@ -36,17 +43,33 @@ export class LessonsComponent implements OnInit {
   }
 
   addLesson() {
-    let tmp = [];
-    tmp.push(this.addLessonId);
-    tmp.push(this.addLessonName);
-    tmp.push(0);
-    this.lessons.push(tmp);
-    this.addLessonId="";
-    this.addLessonName="";
+    console.log(this.addLessonName);
+    if (this.addLessonId === '') {
+      alert('课程ID不能为空');
+    } else if (this.addLessonName === '') {
+      alert('课程名字不能为空');
+    } else {
+      this.ls.id = this.addLessonId;
+      this.ls.name = this.addLessonName;
+      this.ls.teacher = this.user.username;
+      this.userService.addLessons(this.ls).subscribe(
+          data => {
+            console.log(data);
+            this.response = data;
+            console.log(this.response);
+            if (this.response.status === 'yes') {
+              this.updateAll();
+            } else {
+              alert('该id的课程已经被添加过了！');
+            }
+          }
+      );
+    }
   }
 
-  updateLesson(lesson : Lessons) {
+  updateLesson(lesson: Lessons) {
     let tmp = [];
+    this.lessons = [];
     for (let i = 0; i < lesson.list.length; i ++) {
       tmp.push(lesson.list[i].id);
       tmp.push(lesson.list[i].name);
@@ -55,4 +78,15 @@ export class LessonsComponent implements OnInit {
       tmp = [];
     }
   }
+
+  updateAll() {
+    this.userService.getLessons(this.user)
+        .subscribe(data => {
+          console.log(data);
+          this.lesson.list = data;
+          console.log(this.lesson.list);
+          this.updateLesson(this.lesson);
+        });
+  }
 }
+

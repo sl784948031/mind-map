@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'courses', component: CoursesComponent},
   { path: 'studentmap', component: StudentmapComponent},
   { path: 'teacher/:username', component: LessonsComponent },
+  { path: 'student/:username', component: CoursesComponent },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
 ];
 

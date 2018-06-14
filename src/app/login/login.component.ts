@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit {
         alert('User login successfully.');
         if (this.response.type === 'teacher') {
           this.router.navigateByUrl('teacher/' + this.response.username);
+        } else {
+          this.router.navigateByUrl('student/' + this.response.username);
         }
       } else {
         alert('User login failure, please input again !');
