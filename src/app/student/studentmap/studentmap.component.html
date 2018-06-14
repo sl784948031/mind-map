@@ -18,9 +18,9 @@
                   <li *ngFor="let item of items; let i = index"><a (click)="changeMap(i)">{{i + 1}}</a></li>
                 </ul>
                 <li><a (click)="mapShoot()">思维导图截图</a></li>
-                <!-- <li><a (click)="creatMap()">创建思维导图</a></li> -->
+
               </ul>
-              <!-- <li><a>作业正确率</a></li> -->
+
             </ul>
         </ul>
         </div>
@@ -33,33 +33,6 @@
             <li *ngIf="mindMap.get_selected_node()"><a>课件</a></li>
           </ul>
         
-        <!-- <div id="node-edit" *ngIf="mindMap.get_selected_node()"> -->
-         <!-- <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                新增节点 
-            </button>
-            <ul class="dropdown-menu" role="menu">
-               <li><a (click)="addBrotherNode()">新增兄弟节点</a></li>
-  
-               <li><a (click)="addChildNode()">新增子节点</a></li>
-            </ul>
-        </div> -->
-        
-        <!-- <button type="button" class="btn btn-default" (click)="removeNode()">删除</button> -->
-  
-        <!-- <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              修改颜色 
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a id="red" (click)="changeNodeColor($event)">红色</a></li>
-              <li><a id="orange" (click)="changeNodeColor($event)">橙色</a></li>
-              <li><a id="green" (click)="changeNodeColor($event)">绿色</a></li>
-              <li><a id="gray" (click)="changeNodeColor($event)">灰色</a></li>
-              <li><a id="black" (click)="changeNodeColor($event)">黑色</a></li>            
-            </ul>
-        </div> -->
-       <!-- </div> -->
         <div id="jsmind_container"></div> 
         </div>
       </div>

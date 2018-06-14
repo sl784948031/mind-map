@@ -14,6 +14,12 @@ import {HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import { StudentmapComponent } from './student/studentmap/studentmap.component';
+import { ThomeworkComponent } from './teacher/thomework/thomework.component';
+import { TresourceComponent } from './teacher/tresource/tresource.component';
+import { TcoursewareComponent } from './teacher/tcourseware/tcourseware.component';
+import { ShomeworkComponent } from './student/shomework/shomework.component';
+import { SresourceComponent } from './student/sresource/sresource.component';
+import { ScoursewareComponent } from './student/scourseware/scourseware.component';
 
 
 @NgModule({
@@ -26,6 +32,12 @@ import { StudentmapComponent } from './student/studentmap/studentmap.component';
     MindmapComponent,
     CoursesComponent,
     StudentmapComponent,
+    ThomeworkComponent,
+    TresourceComponent,
+    TcoursewareComponent,
+    ShomeworkComponent,
+    SresourceComponent,
+    ScoursewareComponent,
   ],
   imports: [
     BrowserModule,
