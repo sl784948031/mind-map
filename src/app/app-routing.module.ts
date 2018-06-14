@@ -7,13 +7,6 @@ import {LessonsComponent} from './teacher/lessons/lessons.component';
 import {MindmapComponent} from './teacher/mindmap/mindmap.component';
 import {CoursesComponent} from './student/courses/courses.component';
 import {StudentmapComponent} from './student/studentmap/studentmap.component';
-import {ThomeworkComponent} from './teacher/thomework/thomework.component';
-import {TresourceComponent} from './teacher/tresource/tresource.component';
-import {TcoursewareComponent} from './teacher/tcourseware/tcourseware.component';
-import {ShomeworkComponent} from './student/shomework/shomework.component';
-import {SresourceComponent} from './student/sresource/sresource.component';
-import {ScoursewareComponent} from './student/scourseware/scourseware.component';
-
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -23,12 +16,8 @@ const routes: Routes = [
   { path: 'mindmap', component: MindmapComponent },
   { path: 'courses', component: CoursesComponent},
   { path: 'studentmap', component: StudentmapComponent},
-  { path: 'thomework', component: ThomeworkComponent},
-  { path: 'tresource', component: TresourceComponent},
-  { path: 'tcourseware', component: TcoursewareComponent},
-  { path: 'shomework', component: ShomeworkComponent},
-  { path: 'sresource', component: SresourceComponent},
-  { path: 'scourseware', component: ScoursewareComponent},
+  { path: 'teacher/:username', component: LessonsComponent },
+  { path: 'student/:username', component: CoursesComponent },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
 ];
 

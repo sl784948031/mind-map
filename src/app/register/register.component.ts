@@ -4,6 +4,7 @@ import { Response } from '../response';
 import { UserService } from '../user.service';
 import {Router} from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {routerNgProbeToken} from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-register',
@@ -19,9 +20,6 @@ export class RegisterComponent implements OnInit {
   con2 = '密码';
   con3 = '密码确认';
 
-  useId : string;
-  username : string;
-  password : string;
   cpassword : string;
   type : string = 'teacher';
 
@@ -34,17 +32,24 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
   createUser(): void {
-    this.userService.createUser(this.user).subscribe(data => {
-      console.log(data);
-      this.response = data ;
-      console.log(this.response);
-      if ( this.response.status === 'yes') {
-        console.log(1);
-        alert('User created successfully.');
-        window.location.href = 'login';
-      } else {
-        alert('User created failure, please input again !');
-      }
-    });
+    this.user.type = this.type;
+    if (this.cpassword !== this.user.password) {
+      alert('密码不一致');
+    } else if (this.user.username == null ) {
+      alert('用户名不能为空');
+    } else {
+      this.userService.createUser(this.user).subscribe(data => {
+        console.log(data);
+        this.response = data ;
+        console.log(this.response);
+        if ( this.response.status === 'yes') {
+          console.log(1);
+          alert('User created successfully.');
+          this.router.navigateByUrl('login');
+        } else {
+          alert('User created failure, please input again !');
+        }
+      });
+    }
   }
 }
