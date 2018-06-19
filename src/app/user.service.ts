@@ -6,6 +6,8 @@ import {Observable} from 'rxjs';
 import {Lessons} from './lessons';
 import {Lesson} from './lesson';
 import {Course} from './course';
+import {UpFiles} from './upfiles';
+import {Upfile} from './upfile';
 
 
 
@@ -54,5 +56,12 @@ export class UserService {
 
   public addCourses(lesson: Course): Observable<Response> {
     return this.http.post<Response>(this.add2Url, lesson);
+  }
+
+  public show(lid: string): Observable<Array<any>> {
+    const url = 'http://localhost:8080/showfile';
+    let lesson = new Lesson();
+    lesson.id = lid;
+    return this.http.post<Array<any>>(url, lesson );
   }
 }
