@@ -1,0 +1,187 @@
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  
+  <body>
+  <div class="container">
+    <div class="row">
+      <div id="left-nav" class="col-xs-2 col-sm-2">
+        <ul class="nav-collapse">
+          <li><a (click)="showList1()">资源  <span class="glyphicon glyphicon-chevron-down"></span></a></li>
+          <ul class="childList" *ngIf="show_hide_val1">
+            <li style="color: gray">新增作业</li>
+            <li><a data-toggle="modal" data-target="#myModal1">链接</a></li>
+
+            <div class="modal fade" id="myModal1">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+               
+                    <!-- 模态框头部 -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">新增链接</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+               
+                    <!-- 模态框主体 -->
+                    <div class="modal-body">
+                        <li><input type="text" placeholder="链接名称" [(ngModel)]="linkname" name="linkname" class="form-control"></li>
+                        <li><input type="text" placeholder="链接描述" [(ngModel)]="linkcontent" name="linkcontent" class="form-control"></li>
+                    </div>
+               
+                    <!-- 模态框底部 -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addLink()">确定</button>
+                    </div>
+               
+                  </div>
+                </div>
+            </div>
+
+
+            <li><a data-toggle="modal" data-target="#myModal2">文件</a></li>
+
+            <div class="modal fade" id="myModal2">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+               
+                    <!-- 模态框头部 -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">新增文件</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+               
+                    <!-- 模态框主体 -->
+                    <div class="modal-body">
+                        <li><input type="file" ng2FileSelect [uploader]="uploader" multiple ></li>
+                        <li><input type="text" placeholder="文件描述" [(ngModel)]="linkcontent" name="linkcontent" class="form-control"></li>
+                    </div>
+               
+                    <!-- 模态框底部 -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addFile()">确定</button>
+                    </div>
+               
+                  </div>
+                </div>
+            </div>
+
+          </ul>
+        </ul>
+      </div>
+  
+      <div class="col-xs-6 col-sm-10">
+        <ul class="nav nav-tabs">
+          <li><a routerLink="/mindmap">思维导图</a></li>
+          <li><a>作业</a></li>
+          <li class="active"><a>资源</a></li>
+          <li><a>课件</a></li>
+        </ul>
+  
+        <div id="node-edit" >
+          <span>
+            <div>
+              <h3>上传资源</h3>
+  
+              <p>(按住ctrl可以选择多个文件上传)</p><br/>
+  
+              <input type="file" ng2FileSelect [uploader]="uploader" multiple ><br/>
+  
+              <h3>上传队列</h3>
+              <p>队列长度: {{ uploader?.queue?.length }}</p>
+  
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th width="30%">Name</th>
+                  <th width="5%">Size</th>
+                  <th width="20%">Progress</th>
+                  <th width="20%">Status</th>
+                  <th width="25%">Actions</th>
+                </tr>
+                </thead>
+  
+                <tbody>
+                  <tr *ngFor="let item of uploader.queue">
+                    <td width="30%"><strong>{{ item?.file?.name }}</strong></td>
+                    <td width="5%" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                    <td width="20%">
+                      <div [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                    </td>
+                    <td width="20%">
+                      <span *ngIf="item.isSuccess">OK</span>
+                      <span *ngIf="item.isCancel">Cancel</span>
+                      <span *ngIf="item.isError">Error</span>
+                    </td>
+                    <td width="25%">
+                      <button type="button" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                        Upload
+                      </button>
+                      <button type="button" (click)="item.cancel()" [disabled]="!item.isUploading">
+                        Cancel
+                      </button>
+                      <button type="button" (click)="item.remove()">
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+  
+              <div>
+                Queue progress:
+                <div [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+  
+                <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                  Upload all
+                </button>
+                <button type="button" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                  Cancel all
+                </button>
+                      <button type="button" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                  Remove all
+                </button>
+              </div>
+            </div>
+  
+            <h3>下载资源</h3>
+  
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th width="50%">Name</th>
+                  <th width="50%">download</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of filenames">
+                    <td width="50%"><strong>{{ item.filename }}</strong></td>
+                    <td width="50%">
+                      <button type="button" (click)="downloadfile(item.filename)">
+                        download
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+  
+  
+            <h3>显示文件</h3>
+            <button (click)="showfile()">显示文件</button>
+  
+          </span>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../../jsmind/js/jsmind.screenshot.js"></script>
+  </body>
+  
+  
+  
+  
+  
