@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'index', component: IndexComponent },
   // { path: 'lessons', component: LessonsComponent },
-  { path: 'mindmap', component: MindmapComponent },
+  { path: 'mindmap/:id', component: MindmapComponent },
   // { path: 'courses', component: CoursesComponent},
   { path: 'studentmap', component: StudentmapComponent},
   { path: 'teacher/:username', component: LessonsComponent },

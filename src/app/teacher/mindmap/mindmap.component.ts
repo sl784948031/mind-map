@@ -4,6 +4,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as jsMind from '../../jsmind/js/jsmind.js';
 import '../../jsmind/js/jsmind.screenshot.js'
+import {ActivatedRoute} from '@angular/router';
+import {MindMap} from '../../mindmap';
+import {UserService} from '../../user.service';
 
 const options = {
   container:'jsmind_container',
@@ -21,7 +24,8 @@ const options = {
 
 export class MindmapComponent implements OnInit {
   title = '课程思维导图';
-  
+  id: string;
+  mmp: MindMap = new MindMap();
   mindMap = null;
 
   currentMap : number = 0;
@@ -35,7 +39,7 @@ export class MindmapComponent implements OnInit {
   show_hide_val3 : boolean =false;
   items : any[] = [];
 
-  constructor() {
+  constructor(private route: ActivatedRoute,private userService: UserService) {
     // this.user = this.userService.getUser();
     // this.userId = this.user.userId;
     // this.userType = this.user.userType;
@@ -43,9 +47,15 @@ export class MindmapComponent implements OnInit {
 
   ngOnInit() {
     this.mindMap = new jsMind(options);
+    this.getID();
   }
   
-
+  getID() {
+    const lid = this.route.snapshot.paramMap.get('id');
+    console.log(lid);
+    this.id = lid;
+    console.log(this.id);
+  }
   creatMap() {
     const mind1 = {
       "meta":{
@@ -140,5 +150,10 @@ export class MindmapComponent implements OnInit {
   showList3() {
     this.show_hide_val3 = !this.show_hide_val3;
   }
- 
+
+  saveMindMap() {
+    this.mmp.lid = this.id;
+    this.mmp.items = this.items;
+
+  }
 }
