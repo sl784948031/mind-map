@@ -55,7 +55,7 @@ export class ResourcesComponent implements OnInit {
     console.log(fileitem);
   }
   afterSuccess(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-    
+    this.showFile();
   }
 
   showList1() {

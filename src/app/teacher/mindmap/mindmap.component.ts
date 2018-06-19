@@ -25,6 +25,7 @@ export class MindmapComponent implements OnInit {
   mindMap = null;
 
   currentMap : number = 0;
+  createId : number;
 
   user : any;
   userId : any;
@@ -34,6 +35,7 @@ export class MindmapComponent implements OnInit {
   show_hide_val2 : boolean =false;
   show_hide_val3 : boolean =false;
   items : any[] = [];
+  id : any[] = [];
 
   constructor() {
     // this.user = this.userService.getUser();
@@ -61,13 +63,20 @@ export class MindmapComponent implements OnInit {
             ]},
       ]}
     }
-    this.items.push(mind1);
+    if (this.id.includes(this.createId)) {
+      alert("该id已存在，请重新创建！");
+      this.createId = null;
+      return;
+    }
+    this.id.push(this.createId);
+    this.items.push([this.createId, mind1]);
     this.changeMap(this.items.length - 1);
+    this.createId = null;
   }
 
   changeMap(e) {
     this.currentMap = e;
-    this.mindMap.show(this.items[e]);
+    this.mindMap.show(this.items[e][1]);
   }
 
   mapShoot() {
