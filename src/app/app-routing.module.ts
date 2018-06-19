@@ -7,7 +7,6 @@ import {LessonsComponent} from './teacher/lessons/lessons.component';
 import {MindmapComponent} from './teacher/mindmap/mindmap.component';
 import {CoursesComponent} from './student/courses/courses.component';
 import {StudentmapComponent} from './student/studentmap/studentmap.component';
-
 import {ResourcesComponent} from './resources/resources.component';
 
 import {ShomeworkComponent} from './student/shomework/shomework.component';
