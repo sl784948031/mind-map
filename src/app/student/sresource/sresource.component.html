@@ -24,6 +24,35 @@
           <li class="active"><a routerLink="/tresource">资源</a></li>
           <li><a a routerLink="/tcourseware">课件</a></li>
         </ul>
+
+        <div id="node-edit" >
+            <span>
+                <h3>下载资源</h3>
+
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th width="50%">Name</th>
+                      <th width="50%">download</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let item of filenames">
+                        <td width="50%"><strong>{{ item.filename }}</strong></td>
+                        <td width="50%">
+                          <button type="button" (click)="downloadfile(item.filename)">
+                            download
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+      
+      
+                <h3>显示文件</h3>
+                <button (click)="showfile()">显示文件</button>
+            </span>
+        </div>
         
       </div>
     </div>
