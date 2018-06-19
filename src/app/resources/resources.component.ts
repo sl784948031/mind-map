@@ -47,7 +47,7 @@ export class ResourcesComponent implements OnInit {
   ngOnInit() {
     this.showFile();
     this.uploader.onAfterAddingFile = this.afterAddingFile;
-    this.uploader.onSuccessItem = this.afterSuccess;
+    this.uploader.onSuccessItem = this.afterSuccess.bind(this);
   }
 
   afterAddingFile(fileitem: FileItem): any {
@@ -55,9 +55,9 @@ export class ResourcesComponent implements OnInit {
     console.log(fileitem);
   }
   afterSuccess(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    alert("上传资源成功！");
     this.showFile();
   }
-
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;
   }

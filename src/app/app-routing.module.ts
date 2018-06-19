@@ -8,12 +8,14 @@ import {MindmapComponent} from './teacher/mindmap/mindmap.component';
 import {CoursesComponent} from './student/courses/courses.component';
 import {StudentmapComponent} from './student/studentmap/studentmap.component';
 import {ResourcesComponent} from './resources/resources.component';
+
 import {ShomeworkComponent} from './student/shomework/shomework.component';
 import {SresourceComponent} from './student/sresource/sresource.component';
 import {ScoursewareComponent} from './student/scourseware/scourseware.component';
 import {ThomeworkComponent} from './teacher/thomework/thomework.component';
 import {TresourceComponent} from './teacher/tresource/tresource.component';
 import {TcoursewareComponent} from './teacher/tcourseware/tcourseware.component';
+
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
