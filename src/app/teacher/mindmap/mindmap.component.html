@@ -15,7 +15,7 @@
             <ul class="childList" *ngIf="show_hide_val2">
               <li><a (click)="showList3()">切换思维导图  <span class="glyphicon glyphicon-chevron-down"></span></a></li>
               <ul class="childList" *ngIf="show_hide_val3">
-                <li *ngFor="let item of items; let i = index"><a (click)="changeMap(i)">{{item[0]}}</a></li>
+                <li *ngFor="let id of ids; let i = index"><a (click)="changeMap(i)">{{id}}</a></li>
               </ul>
               <li><a (click)="mapShoot()">思维导图截图</a></li>
               <li><a data-toggle="modal" data-target="#myModal1">创建思维导图</a></li>

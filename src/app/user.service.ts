@@ -8,6 +8,8 @@ import {Lesson} from './lesson';
 import {Course} from './course';
 import {UpFiles} from './upfiles';
 import {Upfile} from './upfile';
+import {MindMap} from './mindmap';
+import {Number} from './number';
 
 
 
@@ -27,6 +29,10 @@ export class UserService {
   private add2Url = 'http://localhost:8080/student_add_lessons/'
   private courseUrl = 'http://localhost:8080/student_lessons/';
   private addAllUrl = 'http://localhost:8080/addAll';
+  private saveMindMapUrl = 'http://localhost:8080/saveMindMap';
+  private getMindMapUrl = 'http://localhost:8080/getMindMap';
+  private saveNumUrl = 'http://localhost:8080/saveNum';
+  private getNumUrl = 'http://localhost:8080/getNum';
 
   constructor(private http: HttpClient) { }
 
@@ -63,5 +69,21 @@ export class UserService {
     let lesson = new Lesson();
     lesson.id = lid;
     return this.http.post<Array<any>>(url, lesson );
+  }
+
+  public saveMindMap(mmp: MindMap): Observable<any> {
+    return this.http.post<any>(this.saveMindMapUrl, mmp);
+  }
+
+  public getMindMap(lesson: Lesson): Observable<any> {
+    return this.http.post<any>(this.getMindMapUrl, lesson);
+  }
+
+  public saveNum(num: Number): Observable<any> {
+    return this.http.post<any>(this.saveNumUrl, num);
+  }
+
+  public getNum(lesson: Lesson): Observable<any> {
+    return this.http.post<any>(this.getNumUrl, lesson);
   }
 }
