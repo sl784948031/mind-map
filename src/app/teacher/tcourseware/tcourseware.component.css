@@ -60,6 +60,10 @@
     border-color: #eee #eee #ddd;
 }
 
+.modal-body li{
+  margin-bottom: 3%;
+}
+
 .btn{
     margin: 2% 0 0 5%;
 }
@@ -79,7 +83,7 @@
 .card{
     width: 80%;
     float: left;
-    margin: 2% 0 0 5%;   
+    margin: 2% 0 0 5%;
 }
 
 .card-header{
@@ -94,3 +98,18 @@
     float: right;
     margin: 0 0 2% 0;
 }
+
+.panel-default{
+  margin-top: 20px;
+  padding: 10px;
+}
+
+div.queue-operation button{
+  margin-left:2px;
+}
+
+tbody.upload-queue button{
+  margin: 2px;
+}
+
+table td{word-break: keep-all;white-space:nowrap;}

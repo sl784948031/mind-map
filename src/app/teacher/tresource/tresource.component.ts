@@ -1,9 +1,10 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ElementRef} from '@angular/core';
 import {FileUploader, FileSelectDirective, FileItem, ParsedResponseHeaders} from 'ng2-file-upload';
 import {RestService} from '../../download.service';
 import { UpFiles} from '../../upfiles';
 import {Upfile} from '../../upfile';
 import {UserService} from '../../user.service';
+import {LinkedList} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-tresource',
@@ -16,11 +17,13 @@ export class TresourceComponent implements OnInit {
   upfiles: UpFiles = new UpFiles();
   filenames: Upfile[];
 
-  constructor(private restService: RestService, private userService: UserService ) { }
+  constructor(private restService: RestService, private userService: UserService , private elementRef: ElementRef) { }
 
 
   public url: string = 'http://localhost:8080/upload/1';
   public uploader: FileUploader = new FileUploader({url: this.url});
+  selectedFiles: FileList;
+  public filedescription: LinkedList<string> = new LinkedList();
 
   showFile() {
     this.userService.show('1').subscribe(data => {
@@ -41,9 +44,35 @@ export class TresourceComponent implements OnInit {
       tmp = new Upfile();
     }
   }
-  downloadfile(filename) {
-    console.log('downloadfile start');
-    this.restService.download(filename, '1');
+
+  selectFile(event) {
+    console.log('select file');
+    this.selectedFiles = event.target.files;
+  }
+
+  addFile() {
+    const file = [];
+    file.push(this.selectedFiles.item(0));
+    const filedescribe = this.elementRef.nativeElement.querySelector('#fd').value;
+    console.log('filedescribe: ' + filedescribe);
+    this.filedescription.push(filedescribe);
+    console.log('filedescription: ');
+    console.log(this.filedescription);
+    this.uploader.addToQueue(file);
+  }
+
+  removeFile(item: FileItem) {
+    const index = this.uploader.queue.indexOf(item);
+    this.filedescription.remove(index);
+    item.remove();
+  }
+
+  removeAll() {
+    const length = this.filedescription.length;
+    for (let i = 0; i < length; i++) {
+      this.filedescription.remove(0);
+    }
+    this.uploader.clearQueue();
   }
 
   ngOnInit() {

@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'shomework', component: ShomeworkComponent},
   { path: 'sresource', component: SresourceComponent},
   { path: 'scourseware', component: ScoursewareComponent},
-  { path: 'thomework', component: ThomeworkComponent},
+  { path: 'thomework/:lid/:node_id', component: ThomeworkComponent},
   { path: 'tresource', component: TresourceComponent},
   { path: 'tcourseware', component: TcoursewareComponent},
   { path: '', redirectTo: '/index', pathMatch: 'full' },

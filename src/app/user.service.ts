@@ -10,6 +10,9 @@ import {UpFiles} from './upfiles';
 import {Upfile} from './upfile';
 import {MindMap} from './mindmap';
 import {Number} from './number';
+import {SelectQ} from './selectQ';
+import {MPNode} from './MPNode';
+import {DescripQ1} from './descripQ';
 
 
 
@@ -33,6 +36,12 @@ export class UserService {
   private getMindMapUrl = 'http://localhost:8080/getMindMap';
   private saveNumUrl = 'http://localhost:8080/saveNum';
   private getNumUrl = 'http://localhost:8080/getNum';
+  private addQ0Url = 'http://localhost:8080/addQ0';
+  private getQ0Url = 'http://localhost:8080/getQ0';
+  private addQ1Url = 'http://localhost:8080/addQ1';
+  private getQ1Url = 'http://localhost:8080/getQ1';
+  private removeQ0Url = 'http://localhost:8080/removeQ0';
+  private removeQ1Url = 'http://localhost:8080/removeQ1';
 
   constructor(private http: HttpClient) { }
 
@@ -86,4 +95,29 @@ export class UserService {
   public getNum(lesson: Lesson): Observable<any> {
     return this.http.post<any>(this.getNumUrl, lesson);
   }
+
+  public addQ0(selectQ: SelectQ): Observable<any> {
+    return this.http.post<any>(this.addQ0Url, selectQ);
+  }
+
+  public getQ0(mpNode: MPNode): Observable<Array<any>> {
+    return this.http.post<Array<any>>(this.getQ0Url, mpNode);
+  }
+
+  public addQ1(descripQ: DescripQ1): Observable<any> {
+    return this.http.post<any>(this.addQ1Url, descripQ);
+  }
+
+  public getQ1(mpNode: MPNode): Observable<Array<any>> {
+    return this.http.post<Array<any>>(this.getQ1Url, mpNode);
+  }
+
+  public removeQ0(selectQ: SelectQ): Observable<any> {
+    return this.http.post<any>(this.removeQ0Url, selectQ);
+  }
+
+  public removeQ1(selectQ: DescripQ1): Observable<any> {
+    return this.http.post<any>(this.removeQ1Url, selectQ);
+  }
 }
+

@@ -79,7 +79,7 @@
 .card{
     width: 80%;
     float: left;
-    margin: 2% 0 0 5%;   
+    margin: 2% 0 0 5%;
 }
 
 .card-header{
@@ -93,4 +93,9 @@
 .delete{
     float: right;
     margin: 0 0 2% 0;
+}
+
+.panel-default{
+  margin-top: 20px;
+  padding: 10px;
 }
