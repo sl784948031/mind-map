@@ -73,11 +73,9 @@ export class UserService {
     return this.http.post<Response>(this.add2Url, lesson);
   }
 
-  public show(lid: string): Observable<Array<any>> {
+  public show(mpnode: MPNode): Observable<Array<any>> {
     const url = 'http://localhost:8080/showfile';
-    let lesson = new Lesson();
-    lesson.id = lid;
-    return this.http.post<Array<any>>(url, lesson );
+    return this.http.post<Array<any>>(url, mpnode );
   }
 
   public saveMindMap(mmp: MindMap): Observable<any> {

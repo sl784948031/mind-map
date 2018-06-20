@@ -5,6 +5,8 @@ import { UpFiles} from '../../upfiles';
 import {Upfile} from '../../upfile';
 import {UserService} from '../../user.service';
 import {LinkedList} from "ngx-bootstrap";
+import {ActivatedRoute} from '@angular/router';
+import {MPNode} from '../../MPNode';
 
 @Component({
   selector: 'app-tresource',
@@ -16,8 +18,10 @@ export class TresourceComponent implements OnInit {
   show_hide_val1: boolean = false;
   upfiles: UpFiles = new UpFiles();
   filenames: Upfile[];
+  lid: string;
+  node_id: string;
 
-  constructor(private restService: RestService, private userService: UserService , private elementRef: ElementRef) { }
+  constructor(private route: ActivatedRoute, private restService: RestService, private userService: UserService , private elementRef: ElementRef) { }
 
 
   public url: string = 'http://localhost:8080/upload/1';
@@ -26,10 +30,17 @@ export class TresourceComponent implements OnInit {
   public filedescription: LinkedList<string> = new LinkedList();
 
   showFile() {
-    this.userService.show('1').subscribe(data => {
+    let mpnode = new MPNode();
+    mpnode.lid=this.lid;
+    mpnode.node_id=this.node_id;
+    console.log(mpnode);
+    this.userService.show(mpnode).subscribe(data => {
       console.log(data);
-      this.upfiles.list = data;
-      this.update(this.upfiles);
+      if(data ===null){
+      }else{
+        this.upfiles.list = data;
+        this.update(this.upfiles);
+      }
     });
   }
 
@@ -48,6 +59,18 @@ export class TresourceComponent implements OnInit {
   selectFile(event) {
     console.log('select file');
     this.selectedFiles = event.target.files;
+  }
+
+  getID1() {
+    const lid = this.route.snapshot.paramMap.get('lid');
+    console.log(lid);
+    this.lid = lid;
+    console.log(this.lid);
+    const node_id = this.route.snapshot.paramMap.get('node_id');
+    this.node_id = node_id;
+    this.url='http://localhost:8080/upload/'+this.lid+"/"+this.node_id;
+    console.log(this.url);
+    this.uploader=new FileUploader({url: this.url});
   }
 
   addFile() {
@@ -76,6 +99,7 @@ export class TresourceComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getID1();
     this.showFile();
     this.uploader.onAfterAddingFile = this.afterAddingFile;
     this.uploader.onSuccessItem = this.afterSuccess.bind(this);
