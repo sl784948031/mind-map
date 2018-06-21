@@ -68,3 +68,8 @@
 .dropdown-menu li a {
   cursor: pointer;
 }
+
+.panel-default{
+  margin-top: 20px;
+  padding: 10px;
+}

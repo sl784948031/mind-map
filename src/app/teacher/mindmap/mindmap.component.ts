@@ -51,11 +51,11 @@ export class MindmapComponent implements OnInit {
 
   ngOnInit() {
     this.mindMap = new jsMind(options);
-    this.getID();
+    this.getID1();
     this.getMindMap();
   }
 
-  getID() {
+  getID1() {
     const lid = this.route.snapshot.paramMap.get('id');
     console.log(lid);
     this.lid = lid;
@@ -114,6 +114,13 @@ export class MindmapComponent implements OnInit {
     this.saveMindMap();
   }
 
+  private get_selected_nodeid() {
+    const selected_node = this.mindMap.get_selected_node();
+    if (!!selected_node) {
+      return selected_node.id;
+    }
+  }
+
   addChildNode() {
     const selected_node = this.mindMap.get_selected_node();
     if(!selected_node){
@@ -148,6 +155,7 @@ export class MindmapComponent implements OnInit {
 
   changeNodeColor(e) {
     const selected_node = this.mindMap.get_selected_node();
+    console.log(selected_node);
     if(!selected_node){
       alert('请先选择一个节点！');
       return;

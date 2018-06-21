@@ -72,3 +72,18 @@
 .dropdown-menu li a {
   cursor: pointer;
 }
+
+.panel-default{
+  margin-top: 20px;
+  padding: 10px;
+}
+
+div.queue-operation button{
+  margin-left:2px;
+}
+
+tbody.upload-queue button{
+  margin: 2px;
+}
+
+table td{word-break: keep-all;white-space:nowrap;}
