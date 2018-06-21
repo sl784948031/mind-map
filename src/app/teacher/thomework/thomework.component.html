@@ -154,10 +154,12 @@
             <div class="card-body" *ngIf="item[0]==0">
                 <div class="checkbox" *ngFor="let question of item[2]">
                     <label>
-                      <input type="checkbox">{{question}}
+                      <input type="checkbox" >{{question}}
                     </label>
                 </div>
-
+                <label>
+                    答案：{{item[3]}}
+                </label>
             </div>
             <div class="card-body" *ngIf="item[0]==1">
                 <textarea class="form-control" rows="5"></textarea>
