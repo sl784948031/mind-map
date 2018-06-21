@@ -4,6 +4,8 @@ import {RestService} from '../../download.service';
 import { UpFiles} from '../../upfiles';
 import {Upfile} from '../../upfile';
 import {UserService} from '../../user.service';
+import {MPNode} from '../../MPNode';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-sresource',
@@ -16,17 +18,26 @@ export class SresourceComponent implements OnInit {
   show_hide_val1: boolean = false;
   upfiles: UpFiles = new UpFiles();
   filenames: Upfile[];
-
-  constructor(private restService: RestService, private userService: UserService ) { }
+  lid: string;
+  node_id: string;
+  public url: string = 'http://localhost:8080/upload/';
+  constructor(private route: ActivatedRoute,private restService: RestService, private userService: UserService ) { }
 
 
 
 
   showFile() {
-    this.userService.show('1').subscribe(data => {
+    let mpnode = new MPNode();
+    mpnode.lid=this.lid;
+    mpnode.node_id=this.node_id;
+    console.log(mpnode);
+    this.userService.show(mpnode).subscribe(data => {
       console.log(data);
-      this.upfiles.list = data;
-      this.update(this.upfiles);
+      if(data ===null){
+      }else{
+        this.upfiles.list = data;
+        this.update(this.upfiles);
+      }
     });
   }
 
@@ -45,8 +56,19 @@ export class SresourceComponent implements OnInit {
     console.log('downloadfile start');
     this.restService.download(filename, '1');
   }
+  getID1() {
+    const lid = this.route.snapshot.paramMap.get('lid');
+    console.log(lid);
+    this.lid = lid;
+    console.log(this.lid);
+    const node_id = this.route.snapshot.paramMap.get('node_id');
+    this.node_id = node_id;
+    this.url='http://localhost:8080/upload/'+this.lid+"/"+this.node_id;
+    console.log(this.url);
+  }
 
   ngOnInit() {
+    this.getID1();
     this.showFile();
 
   }

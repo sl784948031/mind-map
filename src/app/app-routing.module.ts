@@ -7,7 +7,7 @@ import {LessonsComponent} from './teacher/lessons/lessons.component';
 import {MindmapComponent} from './teacher/mindmap/mindmap.component';
 import {CoursesComponent} from './student/courses/courses.component';
 import {StudentmapComponent} from './student/studentmap/studentmap.component';
-import {ResourcesComponent} from './resources/resources.component';
+
 
 import {ShomeworkComponent} from './student/shomework/shomework.component';
 import {SresourceComponent} from './student/sresource/sresource.component';
@@ -34,7 +34,6 @@ const routes: Routes = [
   { path: 'tresource/:lid/:node_id', component: TresourceComponent},
   { path: 'tcourseware/:lid/:node_id', component: TcoursewareComponent},
   { path: '', redirectTo: '/index', pathMatch: 'full' },
-  {path : 'resources' , component: ResourcesComponent},
 ];
 
 @NgModule({

@@ -20,14 +20,12 @@ import { TcoursewareComponent } from './teacher/tcourseware/tcourseware.componen
 import { ShomeworkComponent } from './student/shomework/shomework.component';
 import { SresourceComponent } from './student/sresource/sresource.component';
 import { ScoursewareComponent } from './student/scourseware/scourseware.component';
-import {ResourcesComponent} from './resources/resources.component';
 import { FileUploadModule } from 'ng2-file-upload';
 
 
 
 @NgModule({
   declarations: [
-      ResourcesComponent,
     AppComponent,
     RegisterComponent,
     LoginComponent,
