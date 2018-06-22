@@ -20,6 +20,9 @@ export class LessonsComponent implements OnInit {
   ls: Lesson = new Lesson();
   response: Response = new Response();
 
+  password1: string;
+  password2: string;
+
 
   constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {}
   ngOnInit() {
@@ -87,6 +90,14 @@ export class LessonsComponent implements OnInit {
           console.log(this.lesson.list);
           this.updateLesson(this.lesson);
         });
+  }
+
+  changePassword() {
+    if (this.password1 != this.password2) {
+      alert("两次密码输入不一致，修改失败！");
+      return;
+    }
+    alert("修改成功");
   }
 }
 
