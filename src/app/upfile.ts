@@ -4,4 +4,5 @@
 export class Upfile {
     lid: string;
     filename: string;
+    filedescribtion: string;
 }

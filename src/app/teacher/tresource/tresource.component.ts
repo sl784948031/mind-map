@@ -116,5 +116,8 @@ export class TresourceComponent implements OnInit {
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;
   }
-
+  downloadfile(filename) {
+    console.log('downloadfile start');
+    this.restService.download(filename, this.lid);
+  }
 }
