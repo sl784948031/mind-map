@@ -15,12 +15,10 @@
               <ul class="childList" *ngIf="show_hide_val2">
                 <li><a (click)="showList3()">切换思维导图  <span class="glyphicon glyphicon-chevron-down"></span></a></li>
                 <ul class="childList" *ngIf="show_hide_val3">
-                  <li *ngFor="let item of items; let i = index"><a (click)="changeMap(i)">{{i + 1}}</a></li>
+                  <li *ngFor="let id of ids; let i = index"><a (click)="changeMap(i)">{{id}}</a></li>
                 </ul>
                 <li><a (click)="mapShoot()">思维导图截图</a></li>
-
               </ul>
-
             </ul>
         </ul>
         </div>
@@ -28,9 +26,9 @@
         <div class="col-xs-6 col-sm-10">
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">思维导图{{currentMap + 1}}</a></li>
-            <li *ngIf="mindMap.get_selected_node()"><a>作业</a></li>
-            <li *ngIf="mindMap.get_selected_node()"><a>资源</a></li>
-            <li *ngIf="mindMap.get_selected_node()"><a>课件</a></li>
+            <li *ngIf="mindMap.get_selected_node()"><a routerLink="/shomework/{{this.lid}}/{{mindMap.get_selected_node().id}}">作业</a></li>
+            <li *ngIf="mindMap.get_selected_node()"><a routerLink="/sresource/{{this.lid}}/{{mindMap.get_selected_node().id}}">资源</a></li>
+            <li *ngIf="mindMap.get_selected_node()"><a routerLink="/scourseware/{{this.lid}}/{{mindMap.get_selected_node().id}}">课件</a></li>
           </ul>
         
         <div id="jsmind_container"></div> 

@@ -19,10 +19,10 @@
 
       <div class="col-xs-6 col-sm-10">
         <ul class="nav nav-tabs">
-          <li><a routerLink="/studentmap">思维导图</a></li>
-          <li><a routerLink="/shomework">作业</a></li>
-          <li><a routerLink="/sresource">资源</a></li>
-          <li class="active"><a routerLink="/scourseware">课件</a></li>
+          <li><a routerLink="/studentmap/{{this.lid}}">思维导图</a></li>
+          <li><a routerLink="/shomework/{{this.lid}}/{{this.node_id}}">作业</a></li>
+          <li><a routerLink="/sresource/{{this.lid}}/{{this.node_id}}">资源</a></li>
+          <li class="active"><a routerLink="/scourseware/{{this.lid}}/{{this.node_id}}">课件</a></li>
         </ul>
 
         <div id="node-edit" >

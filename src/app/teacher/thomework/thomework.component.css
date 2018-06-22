@@ -88,6 +88,11 @@
     padding: 1% 2% 1% 2%;
 }
 
+.card-body label {
+    float: right;
+    margin: 5% 0 0 0;
+}
+
 .delete{
     float: right;
     margin: 0 0 2% 0;

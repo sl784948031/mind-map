@@ -73,8 +73,13 @@ export class UserService {
     return this.http.post<Response>(this.add2Url, lesson);
   }
 
-  public show(mpnode: MPNode): Observable<Array<any>> {
-    const url = 'http://localhost:8080/showfile';
+  public showWare(mpnode: MPNode): Observable<Array<any>> {
+    const url = 'http://localhost:8080/showWare';
+    return this.http.post<Array<any>>(url, mpnode );
+  }
+
+  public showResource(mpnode: MPNode): Observable<Array<any>> {
+    const url = 'http://localhost:8080/showResource';
     return this.http.post<Array<any>>(url, mpnode );
   }
 

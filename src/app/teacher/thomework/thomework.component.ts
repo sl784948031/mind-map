@@ -123,6 +123,12 @@ export class ThomeworkComponent implements OnInit {
   }
 
   addQuestion0() {
+    for (let i = 0; i < this.homeworks.length; i++) {
+      if (this.homeworks[i][1] == this.selectQ.title) {
+        alert("题目已存在，添加失败");
+        return;
+      }
+    }
     let tmp = [];
     let choice = [];
     choice.push(this.selectQ.a1, this.selectQ.a2, this.selectQ.a3, this.selectQ.a4);
@@ -155,11 +161,17 @@ export class ThomeworkComponent implements OnInit {
     this.userService.addQ0(this.selectQ)
         .subscribe(data => {
           alert("选择题添加成功");
+          this.selectQ=new SelectQ();
         });
-
   }
 
   addQuestion1() {
+    for (let i = 0; i < this.homeworks.length; i++) {
+      if (this.homeworks[i][1] == this.descripQ.title) {
+        alert("题目已存在，添加失败");
+        return;
+      }
+    }
     let tmp = [];
     tmp.push('1');
     tmp.push(this.descripQ.title);
@@ -171,6 +183,7 @@ export class ThomeworkComponent implements OnInit {
     this.userService.addQ1(this.descripQ)
         .subscribe(data => {
           alert("简单题添加成功");
+          this.descripQ=new DescripQ1();
         });
   }
 
