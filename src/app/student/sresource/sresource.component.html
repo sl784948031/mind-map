@@ -14,10 +14,15 @@
               <li><a (click)="mapShoot()">链接</a></li>
               <li><a (click)="creatMap()">文件</a></li>
             </ul> -->
+            <ul id="left-bottom">
+              <li><a>课程首页</a></li>
+              <li><a routerLink="/index">退出登录</a></li>
+            </ul>
       </ul>
+      
       </div>
 
-      <div class="col-xs-6 col-sm-10">
+      <div id="right-part" class="col-xs-6 col-sm-10">
         <ul class="nav nav-tabs">
           <li><a routerLink="/studentmap/{{this.lid}}">思维导图</a></li>
           <li><a routerLink="/shomework/{{this.lid}}/{{this.node_id}}">作业</a></li>

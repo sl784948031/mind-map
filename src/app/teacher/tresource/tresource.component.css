@@ -55,6 +55,11 @@ a:hover ,a:focus{text-decoration:none}
   color: #ffffff;
 }
 
+#left-bottom {
+  position: absolute;
+  bottom: 0px;
+}
+
 .modal-body li{
   margin-bottom: 3%;
 }
