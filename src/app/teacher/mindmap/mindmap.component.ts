@@ -43,6 +43,9 @@ export class MindmapComponent implements OnInit {
   items : any[] = [];
   ids : string[] = [];
 
+  nodeColor : string="#000000";
+  fontColor : string="#ffffff";
+
   constructor(private route: ActivatedRoute, private userService: UserService) {
     // this.user = this.userService.getUser();
     // this.userId = this.user.userId;
@@ -154,14 +157,28 @@ export class MindmapComponent implements OnInit {
     this.saveMindMap();
   }
 
-  changeNodeColor(e) {
+  changeNodeColor() {
     const selected_node = this.mindMap.get_selected_node();
     console.log(selected_node);
+    console.log(this.nodeColor)
     if(!selected_node){
       alert('请先选择一个节点！');
       return;
     }
-    this.mindMap.set_node_color(selected_node.id, e.toElement.id, "#fff");
+    this.mindMap.set_node_color(selected_node.id, this.nodeColor, null);
+    this.items[this.currentMap] = this.mindMap.get_data("node_tree");
+    this.saveMindMap();
+  }
+
+  changeFontColor() {
+    const selected_node = this.mindMap.get_selected_node();
+    console.log(selected_node);
+    console.log(this.fontColor)
+    if(!selected_node){
+      alert('请先选择一个节点！');
+      return;
+    }
+    this.mindMap.set_node_color(selected_node.id, null, this.fontColor);
     this.items[this.currentMap] = this.mindMap.get_data("node_tree");
     this.saveMindMap();
   }
