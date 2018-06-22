@@ -7,6 +7,7 @@ import {UserService} from '../../user.service';
 import {LinkedList} from "ngx-bootstrap";
 import {ActivatedRoute} from '@angular/router';
 import {MPNode} from '../../MPNode';
+import {Link} from '../../Link';
 
 @Component({
   selector: 'app-tresource',
@@ -20,6 +21,9 @@ export class TresourceComponent implements OnInit {
   filenames: Upfile[];
   lid: string;
   node_id: string;
+  linkname: string;
+  linkcontent: string;
+  links: Link[];
 
   constructor(private route: ActivatedRoute, private restService: RestService, private userService: UserService , private elementRef: ElementRef) { }
 
@@ -51,6 +55,7 @@ export class TresourceComponent implements OnInit {
     for (let i = 0; i < upfiles.list.length; i ++) {
       tmp.lid = upfiles.list[i].lid;
       tmp.filename = upfiles.list[i].filename;
+      tmp.fd= upfiles.list[i].fd;
       this.filenames.push(tmp);
       tmp = new Upfile();
     }
@@ -98,9 +103,32 @@ export class TresourceComponent implements OnInit {
     this.uploader.clearQueue();
   }
 
+
+  uploadFile(item: FileItem) { // 没有传入文件id，如果增加lid参数 则uploadAllFIle的内部实现也要相应改变
+    item.upload();
+    // 发送请求传递文件描述
+  }
+
+  uploadLink() {
+    this.restService.uploadLink(this.linkname, this.linkcontent,this.lid,this.node_id).subscribe(result => {
+      // result返回上传结果 成功或失败
+      console.log("upload link success");
+      this.showLink();
+    });
+
+  }
+  showLink() {
+    this.restService.showLink(this.lid,this.node_id).subscribe(data => {
+      // 数据处理
+      console.log("get link success");
+      this.links = data;
+    });
+  }
+
   ngOnInit() {
     this.getID1();
     this.showFile();
+    this.showLink();
     this.uploader.onAfterAddingFile = this.afterAddingFile;
     this.uploader.onSuccessItem = this.afterSuccess.bind(this);
   }
@@ -110,8 +138,15 @@ export class TresourceComponent implements OnInit {
     console.log(fileitem);
   }
   afterSuccess(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    const index = this.uploader.queue.indexOf(item);
+    const fd = this.filedescription.get(index);
     alert("上传资源成功！");
-    this.showFile();
+    console.log("开始upload fd");
+    this.restService.uploadFileDescription(item.file.name, fd, this.lid, this.node_id)
+        .subscribe(data => {
+          console.log(data);
+          this.showFile();
+        });
   }
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;

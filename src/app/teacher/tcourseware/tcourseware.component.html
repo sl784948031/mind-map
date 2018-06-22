@@ -131,7 +131,7 @@
                   <tbody>
                     <tr *ngFor="let item of filenames">
                       <td width="25%"><strong>{{ item.filename }}</strong></td>
-                      <td width="50%">{{ item.filedescribtion }}</td>
+                      <td width="50%">{{ item.fd }}</td>
                       <td width="25%">
                         <button type="button" class="btn btn-default" (click)="downloadfile(item.filename)">
                           download
