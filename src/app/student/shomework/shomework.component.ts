@@ -13,6 +13,7 @@ import {DescripQ1} from '../../descripQ';
 export class ShomeworkComponent implements OnInit {
 
   homeworks : any[];
+  answers : any[];
   lid: string;
   node_id: string;
   Q0sum: SelectQ[];
@@ -21,7 +22,8 @@ export class ShomeworkComponent implements OnInit {
 
   ngOnInit() {
     this.getID1();
-    this.homeworks = [];
+    this.homeworks = [["0","选择",["aaa","bbb","ccc","ddd"],["A"]],["1","简答",[],[]]];
+    this.answers = [["0","选择",["aaa","bbb","ccc","ddd"],["A"]],["1","简答",[],[]]]
   }
 
   getID1() {

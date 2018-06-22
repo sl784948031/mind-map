@@ -23,7 +23,7 @@
         </ul>
         </div>
   
-        <div class="col-xs-6 col-sm-10">
+        <div id="right-part" class="col-xs-6 col-sm-10">
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">思维导图{{currentMap + 1}}</a></li>
             <li *ngIf="mindMap.get_selected_node()"><a routerLink="/shomework/{{this.lid}}/{{mindMap.get_selected_node().id}}">作业</a></li>

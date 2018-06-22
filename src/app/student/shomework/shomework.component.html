@@ -17,7 +17,7 @@
       </ul>
       </div>
 
-      <div class="col-xs-6 col-sm-10">
+      <div id="right-part" class="col-xs-6 col-sm-10">
         <ul class="nav nav-tabs">
           <li><a routerLink="/studentmap/{{this.lid}}">思维导图</a></li>
             <li class="active"><a routerLink="/shomework/{{this.lid}}/{{this.node_id}}">作业</a></li>
@@ -25,12 +25,12 @@
           <li><a routerLink="/scourseware/{{this.lid}}/{{this.node_id}}">课件</a></li>
         </ul>
    
-        <div class="card" *ngFor="let item of homeworks">
+        <div class="card" *ngFor="let item of homeworks; let i = index">
             <div class="card-header">{{item[1]}}</div>
             <div class="card-body" *ngIf="item[0]==0">
-                <div class="checkbox" *ngFor="let question of item[2]">
+                <div class="checkbox" *ngFor="let question of item[2]; let j = index">
                     <label>
-                      <input type="checkbox">{{question}}
+                      <input type="checkbox" [(ngModel)="answers[i][j]"]>{{question}}
                     </label>
                 </div>
 
