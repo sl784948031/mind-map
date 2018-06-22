@@ -1,6 +1,6 @@
-<head> 
-  <meta charset="utf-8"> 
-  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -8,78 +8,123 @@
     <div class="row">
       <div id="left-nav" class="col-xs-6 col-sm-2">
         <ul class="nav-collapse">
-          <li><a (click)="showList1()">思维导图  <span class="glyphicon glyphicon-chevron-down"></span></a></li>
+          <li>
+            <a (click)="showList1()">思维导图
+              <span class="glyphicon glyphicon-chevron-down"></span>
+            </a>
+          </li>
           <ul class="childList" *ngIf="show_hide_val1">
-            <li><a (click)="showList2()">思维导图操作  <span class="glyphicon glyphicon-chevron-down"></span></a>
+            <li>
+              <a (click)="showList2()">思维导图操作
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              </a>
             </li>
             <ul class="childList" *ngIf="show_hide_val2">
-              <li><a (click)="showList3()">切换思维导图  <span class="glyphicon glyphicon-chevron-down"></span></a></li>
+              <li>
+                <a (click)="showList3()">切换思维导图
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </a>
+              </li>
               <ul class="childList" *ngIf="show_hide_val3">
-                <li *ngFor="let id of ids; let i = index"><a (click)="changeMap(i)">{{id}}</a></li>
+                <li *ngFor="let id of ids; let i = index">
+                  <a (click)="changeMap(i)">{{id}}</a>
+                </li>
               </ul>
-              <li><a (click)="mapShoot()">思维导图截图</a></li>
-              <li><a data-toggle="modal" data-target="#myModal1">创建思维导图</a></li>
+              <li>
+                <a (click)="mapShoot()">思维导图截图</a>
+              </li>
+              <li>
+                <a data-toggle="modal" data-target="#myModal1">创建思维导图</a>
+              </li>
               <div class="modal fade" id="myModal1">
                 <div class="modal-dialog">
                   <div class="modal-content">
-                      <div class="modal-header">
-                          <h4 class="modal-title">创建思维导图</h4>
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      </div>
-                      <div class="modal-body">
-                          <input type="text" placeholder="新导图id" [(ngModel)]="createId" name="mapid" class="form-control">
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="creatMap()">确定</button>
-                      </div>
+                    <div class="modal-header">
+                      <h4 class="modal-title">创建思维导图</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                      <input type="text" placeholder="新导图id" [(ngModel)]="createId" name="mapid" class="form-control">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="creatMap()">确定</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </ul>
-            <li><a>作业正确率</a></li>
+            <li>
+              <a>作业正确率</a>
+            </li>
           </ul>
-      </ul>
+        </ul>
       </div>
 
       <div id="right-part" class="col-xs-6 col-sm-10">
         <ul class="nav nav-tabs">
-          <li class="active"><a routerLink="/mindmap">思维导图</a></li>
-          <li *ngIf="mindMap.get_selected_node()"><a routerLink="/thomework/{{this.lid}}/{{mindMap.get_selected_node().id}}">作业</a></li>
-          <li *ngIf="mindMap.get_selected_node()"><a routerLink="/tresource/{{this.lid}}/{{mindMap.get_selected_node().id}}">资源</a></li>
-          <li *ngIf="mindMap.get_selected_node()"><a routerLink="/tcourseware/{{this.lid}}/{{mindMap.get_selected_node().id}}">课件</a></li>
+          <li class="active">
+            <a routerLink="/mindmap">思维导图</a>
+          </li>
+          <li *ngIf="mindMap.get_selected_node()">
+            <a routerLink="/thomework/{{this.lid}}/{{mindMap.get_selected_node().id}}">作业</a>
+          </li>
+          <li *ngIf="mindMap.get_selected_node()">
+            <a routerLink="/tresource/{{this.lid}}/{{mindMap.get_selected_node().id}}">资源</a>
+          </li>
+          <li *ngIf="mindMap.get_selected_node()">
+            <a routerLink="/tcourseware/{{this.lid}}/{{mindMap.get_selected_node().id}}">课件</a>
+          </li>
         </ul>
-      
-      <div id="node-edit" *ngIf="mindMap.get_selected_node()">
-       <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              新增节点 
-          </button>
-          <ul class="dropdown-menu" role="menu">
-             <li><a (click)="addBrotherNode()">新增兄弟节点</a></li>
 
-             <li><a (click)="addChildNode()">新增子节点</a></li>
-          </ul>
+        <div id="node-edit" *ngIf="mindMap.get_selected_node()">
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              新增节点
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a (click)="addBrotherNode()">新增兄弟节点</a>
+              </li>
+
+              <li>
+                <a (click)="addChildNode()">新增子节点</a>
+              </li>
+            </ul>
+          </div>
+
+          <button type="button" class="btn btn-default" (click)="removeNode()">删除</button>
+
+          <div class="btn-group">
+            节点颜色 <input type="color" value="value" [(ngModel)]="nodeColor" (ngModelChange)="changeNodeColor()">
+            字体颜色 <input type="color" value="value" [(ngModel)]="fontColor" (ngModelChange)="changeFontColor()">
+            <!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              修改颜色
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a id="red" (click)="changeNodeColor($event)">红色</a>
+              </li>
+              <li>
+                <a id="orange" (click)="changeNodeColor($event)">橙色</a>
+              </li>
+              <li>
+                <a id="green" (click)="changeNodeColor($event)">绿色</a>
+              </li>
+              <li>
+                <a id="gray" (click)="changeNodeColor($event)">灰色</a>
+              </li>
+              <li>
+                <a id="black" (click)="changeNodeColor($event)">黑色</a>
+              </li>
+            </ul> -->
+          </div>
+          
         </div>
-      
-      <button type="button" class="btn btn-default" (click)="removeNode()">删除</button>
-
-      <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            修改颜色 
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a id="red" (click)="changeNodeColor($event)">红色</a></li>
-            <li><a id="orange" (click)="changeNodeColor($event)">橙色</a></li>
-            <li><a id="green" (click)="changeNodeColor($event)">绿色</a></li>
-            <li><a id="gray" (click)="changeNodeColor($event)">灰色</a></li>
-            <li><a id="black" (click)="changeNodeColor($event)">黑色</a></li>            
-          </ul>
-      </div>
-     </div>
-      <div id="jsmind_container"></div> 
+        <div id="jsmind_container"></div> 
       </div>
     </div>
   </div>
+
   <script type="text/javascript" src="../../jsmind/js/jsmind.screenshot.js"></script>
 </body>
