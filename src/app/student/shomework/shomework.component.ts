@@ -14,6 +14,7 @@ export class ShomeworkComponent implements OnInit {
 
   homeworks : any[];
   answers : any[];
+  submits : any[];
   lid: string;
   node_id: string;
   Q0sum: SelectQ[];
@@ -22,8 +23,10 @@ export class ShomeworkComponent implements OnInit {
 
   ngOnInit() {
     this.getID1();
-    this.homeworks = [["0","选择",["aaa","bbb","ccc","ddd"],["A"]],["1","简答",[],[]]];
-    this.answers = [["0","选择",["aaa","bbb","ccc","ddd"],["A"]],["1","简答",[],[]]]
+    this.homeworks = [["0","选择",["aaa","bbb","ccc","ddd"],['A']],["0","选择",["aaa","bbb","ccc","ddd"],['B', 'C']], ["0","选择",["aaa","bbb","ccc","ddd"],['C', 'D']]];
+    this.answers = [];
+    this.submits = [];
+    this.initAnswer();
   }
 
   getID1() {
@@ -73,6 +76,48 @@ export class ShomeworkComponent implements OnInit {
             }
           }
         });
+  }
+
+  initAnswer() {
+    for (let i = 0; i < this.homeworks.length; i++) {
+      if (this.homeworks[i][0] == "0") {
+        this.answers.push(["0",[false, false, false, false]]);
+      }
+      else if (this.homeworks[i][0] == "1") {
+        this.answers.push(["1", []])
+      }
+    }
+  }
+
+  checkAnswer() {
+    for (let i = 0; i < this.answers.length; i++) {
+      if (this.answers[i][0] == "0") {
+        let tmp = [];
+        if (this.answers[i][1][0]) {
+          tmp.push('A');
+        }
+        if (this.answers[i][1][1]) {
+          tmp.push('B');
+        }
+        if (this.answers[i][1][2]) {
+          tmp.push('C');
+        }
+        if (this.answers[i][1][3]) {
+          tmp.push('D');
+        }
+        if (tmp.toString() == this.homeworks[i][3].toString()) {
+          //title，课程id，节点id，学生id，对错结果
+          this.submits.push(this.homeworks[i][1], "courseid", this.node_id, "studentId", "true");
+        } else {
+          this.submits.push(this.homeworks[i][1], "courseid", this.node_id, "studentId", "false");
+        }
+      }
+    }
+  }
+
+  submit() {
+    this.checkAnswer();
+    console.log(this.submits);
   }
 
 }
