@@ -4,6 +4,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as jsMind from '../../jsmind/js/jsmind.js';
 import '../../jsmind/js/jsmind.screenshot.js'
+import {ActivatedRoute} from '@angular/router';
+import {Lesson} from '../../lesson';
+import {MindMap} from '../../mindmap';
+import {UserService} from '../../user.service';
+import {Number} from '../../number';
 
 const options = {
   container:'jsmind_container',
@@ -20,7 +25,7 @@ const options = {
 
 export class StudentmapComponent implements OnInit {
   title = '课程思维导图';
-  
+  lid: string;
   mindMap = null;
 
   currentMap : number = 0;
@@ -33,26 +38,60 @@ export class StudentmapComponent implements OnInit {
   show_hide_val2 : boolean =false;
   show_hide_val3 : boolean =false;
   items : any[] = [];
+  ids : string[] = [];
 
-  constructor() { }
+  constructor(private route: ActivatedRoute,private userService: UserService) { }
 
+  getID1() {
+    const lid = this.route.snapshot.paramMap.get('id');
+    console.log(lid);
+    this.lid = lid;
+    console.log(this.lid);
+  }
+
+  getMindMap(){
+    let lesson = new Lesson();
+    lesson.id = this.lid;
+    this.userService.getMindMap(lesson)
+        .subscribe(data => {
+          console.log(data);
+          if(data == null){
+          }else {
+            let mindmap = new MindMap();
+            mindmap = data;
+            this.items = mindmap.items;
+          }
+        });
+    this.userService.getNum(lesson)
+        .subscribe(data => {
+          console.log(data);
+          if(data == null){
+          }else {
+            let number = new Number();
+            number = data;
+            this.ids = number.ids;
+          }
+        });
+  }
   ngOnInit() {
+    this.getID1();
     this.mindMap = new jsMind(options);
-    const mind1 = {
-          "meta":{
-            "name":"jsMind mindMap",
-            "author":"zhang junjie",
-            "version":"0.2"
-          },
-          "format":"node_tree",
-          "data":{"id":"root","topic":"课程名称","children":[
-                {"id":"part","topic":"组成","direction":"right","children":[
-                ]},
-                {"id":"part2","topic":"组成","direction":"right","children":[
-                ]},
-          ]}
-    }
-    this.items.push(mind1);
+    this.getMindMap();
+    // const mind1 = {
+    //       "meta":{
+    //         "name":"jsMind mindMap",
+    //         "author":"zhang junjie",
+    //         "version":"0.2"
+    //       },
+    //       "format":"node_tree",
+    //       "data":{"id":"root","topic":"课程名称","children":[
+    //             {"id":"part","topic":"组成","direction":"right","children":[
+    //             ]},
+    //             {"id":"part2","topic":"组成","direction":"right","children":[
+    //             ]},
+    //       ]}
+    // }
+    // this.items.push(mind1);
     // this.changeMap(this.items.length - 1);
   }
 

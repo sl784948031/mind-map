@@ -70,7 +70,6 @@ export class SresourceComponent implements OnInit {
   ngOnInit() {
     this.getID1();
     this.showFile();
-
   }
 
   afterAddingFile(fileitem: FileItem): any {

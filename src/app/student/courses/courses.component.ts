@@ -33,6 +33,7 @@ export class CoursesComponent implements OnInit {
         this.ls.name = choose.name;
         this.ls.people_num = choose.people_num;
         this.ls.student = this.user.username;
+        this.ls.lid = choose.id;
         console.log(this.ls);
         this.userService.addCourses(this.ls)
             .subscribe(data => {
@@ -88,6 +89,7 @@ export class CoursesComponent implements OnInit {
             tmp.name = lesson.list[i].name;
             tmp.people_num = lesson.list[i].people_num;
             tmp.student = lesson.list[i].student;
+            tmp.lid = lesson.list[i].lid;
             this.chooses.push(tmp);
             tmp = new Course();
         }

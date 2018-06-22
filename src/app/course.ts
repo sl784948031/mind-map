@@ -6,4 +6,5 @@ export class Course {
     name: string;
     people_num: string;
     student: string;
+    lid: string;
 }
