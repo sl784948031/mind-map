@@ -62,6 +62,7 @@ export class TcoursewareComponent implements OnInit {
     for (let i = 0; i < upfiles.list.length; i ++) {
       tmp.lid = upfiles.list[i].lid;
       tmp.filename = upfiles.list[i].filename;
+      tmp.fd = upfiles.list[i].fd;
       this.filenames.push(tmp);
       tmp = new Upfile();
     }
@@ -109,8 +110,15 @@ export class TcoursewareComponent implements OnInit {
     console.log(fileitem);
   }
   afterSuccess(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    const index = this.uploader.queue.indexOf(item);
+    const fd = this.filedescription.get(index);
     alert("上传资源成功！");
-    this.showFile();
+    console.log("开始upload fd");
+    this.restService.uploadFileDescription1(item.file.name, fd, this.lid, this.node_id)
+        .subscribe(data => {
+          console.log(data);
+          this.showFile();
+        });
   }
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;

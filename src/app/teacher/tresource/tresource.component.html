@@ -38,7 +38,7 @@
                     <!-- 模态框底部 -->
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addLink()">确定</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="uploadLink()">确定</button>
                     </div>
 
                   </div>
@@ -121,7 +121,7 @@
                           <span *ngIf="item.isError">Error</span>
                         </td>
                         <td width="25%">
-                          <button type="button" class="btn btn-default" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                          <button type="button" class="btn btn-default" (click)="this.uploadFile(item)" [disabled]="item.isReady || item.isUploading || item.isSuccess">
                             上传
                           </button>
                           <button type="button" class="btn btn-default" (click)="item.cancel()" [disabled]="!item.isUploading">
@@ -172,7 +172,7 @@
                     <tbody>
                       <tr *ngFor="let item of filenames">
                         <td width="25%"><strong>{{ item.filename }}</strong></td>
-                        <td width="50%">{{item.filedescribtion}}</td>
+                        <td width="50%">{{item.fd}}</td>
                         <td width="25%">
                           <button type="button" class="btn btn-default" (click)="downloadfile(item.filename)">
                             download
