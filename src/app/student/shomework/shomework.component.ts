@@ -23,13 +23,13 @@ export class ShomeworkComponent implements OnInit {
 
   ngOnInit() {
     this.getID1();
-    this.homeworks = [["0","选择",["aaa","bbb","ccc","ddd"],['A']],["0","选择",["aaa","bbb","ccc","ddd"],['B', 'C']], ["0","选择",["aaa","bbb","ccc","ddd"],['C', 'D']]];
     this.answers = [];
     this.submits = [];
     this.initAnswer();
   }
 
   getID1() {
+    this.homeworks=[];
     const lid = this.route.snapshot.paramMap.get('lid');
     console.log(lid);
     this.lid = lid;

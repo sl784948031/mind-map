@@ -114,9 +114,10 @@ export class MindmapComponent implements OnInit {
     this.saveMindMap();
   }
 
-  private get_selected_nodeid() {
+  get_selected_nodeid() {
     const selected_node = this.mindMap.get_selected_node();
     if (!!selected_node) {
+      console.log(selected_node.id);
       return selected_node.id;
     }
   }
