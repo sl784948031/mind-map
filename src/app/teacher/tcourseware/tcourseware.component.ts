@@ -34,7 +34,7 @@ export class TcoursewareComponent implements OnInit {
     mpnode.lid=this.lid;
     mpnode.node_id=this.node_id;
     console.log(mpnode);
-    this.userService.show(mpnode).subscribe(data => {
+    this.userService.showWare(mpnode).subscribe(data => {
       console.log(data);
       if(data ===null){
       }else{
@@ -50,7 +50,7 @@ export class TcoursewareComponent implements OnInit {
     console.log(this.lid);
     const node_id = this.route.snapshot.paramMap.get('node_id');
     this.node_id = node_id;
-    this.url='http://localhost:8080/upload/'+this.lid+"/"+this.node_id;
+    this.url='http://localhost:8080/upload_ware/'+this.lid+"/"+this.node_id;
     console.log(this.url);
     this.uploader=new FileUploader({url: this.url});
   }
