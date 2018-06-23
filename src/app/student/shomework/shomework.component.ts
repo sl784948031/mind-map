@@ -5,6 +5,7 @@ import {MPNode} from '../../MPNode';
 import {SelectQ} from '../../selectQ';
 import {DescripQ1} from '../../descripQ';
 import {Submit} from '../../Submit';
+import {Response} from '../../response';
 
 @Component({
   selector: 'app-shomework',

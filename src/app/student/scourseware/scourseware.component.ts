@@ -6,6 +6,7 @@ import {Upfile} from '../../upfile';
 import {UserService} from '../../user.service';
 import {MPNode} from '../../MPNode';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Response} from '../../response';
 
 @Component({
   selector: 'app-scourseware',

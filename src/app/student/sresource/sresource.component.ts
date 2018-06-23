@@ -7,6 +7,7 @@ import {UserService} from '../../user.service';
 import {MPNode} from '../../MPNode';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Link} from '../../Link';
+import {Response} from '../../response';
 
 @Component({
   selector: 'app-sresource',

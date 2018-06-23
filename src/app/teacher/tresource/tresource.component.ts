@@ -8,6 +8,7 @@ import {LinkedList} from "ngx-bootstrap";
 import {ActivatedRoute, Router} from '@angular/router';
 import {MPNode} from '../../MPNode';
 import {Link} from '../../Link';
+import {Response} from '../../response';
 
 @Component({
   selector: 'app-tresource',
@@ -79,7 +80,7 @@ export class TresourceComponent implements OnInit {
           let re = new Response();
           re = data;
           console.log(re.status);
-          if (re.status == "online") {
+          if (re.status === "online") {
           }else {
             alert("登录失效，请重新登录！");
             this.router.navigateByUrl('login');

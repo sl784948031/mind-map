@@ -8,7 +8,7 @@ import {LinkedList} from 'ngx-bootstrap';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MPNode} from '../../MPNode';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
-
+import {Response} from '../../response';
 @Component({
   selector: 'app-tcourseware',
   templateUrl: './tcourseware.component.html',

@@ -9,6 +9,7 @@ import {Lesson} from '../../lesson';
 import {MindMap} from '../../mindmap';
 import {UserService} from '../../user.service';
 import {Number} from '../../number';
+import {Response} from '../../response';
 
 const options = {
   container:'jsmind_container',

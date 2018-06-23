@@ -5,6 +5,7 @@ import {UserService} from '../../user.service';
 import {MPNode} from '../../MPNode';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
 import {DescripQ1} from '../../descripQ';
+import {Response} from '../../response';
 
 @Component({
   selector: 'app-thomework',
