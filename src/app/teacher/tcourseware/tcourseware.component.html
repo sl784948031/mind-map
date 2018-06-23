@@ -42,8 +42,8 @@
 
         </ul>
         <ul id="left-bottom">
-          <li><a>课程首页</a></li>
-          <li><a routerLink="/index">退出登录</a></li>
+          <li><a routerLink="/teacher/{{this.username}}">课程首页</a></li>
+          <li><a (click)="this.exitLogin3()">退出登录</a></li>
         </ul>
       </ul>
       
@@ -51,9 +51,9 @@
 
     <div id="right-part" class="col-xs-6 col-sm-10">
       <ul class="nav nav-tabs">
-        <li><a routerLink="/mindmap/{{this.lid}}">思维导图</a></li>
-        <li><a routerLink="/thomework/{{this.lid}}/{{this.node_id}}">作业</a></li>
-        <li><a routerLink="/tresource/{{this.lid}}/{{this.node_id}}">资源</a></li>
+        <li><a routerLink="/mindmap/{{this.username}}/{{this.lid}}">思维导图</a></li>
+        <li><a routerLink="/thomework/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">作业</a></li>
+        <li><a routerLink="/tresource/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">资源</a></li>
         <li class="active"><a>课件</a></li>
       </ul>
 
@@ -138,7 +138,7 @@
                       <td width="25%"><strong>{{ item.filename }}</strong></td>
                       <td width="50%">{{ item.fd }}</td>
                       <td width="25%">
-                        <button type="button" class="btn btn-default" (click)="downloadfile(item.filename)">
+                        <button type="button" class="btn btn-default" (click)="this.downloadfile(item.filename)">
                           download
                         </button>
                       </td>

@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.user.type = this.type;
+    this.user.status ="online";
     this.userService.login(this.user).subscribe(data => {
       console.log(data);
       this.response = data ;

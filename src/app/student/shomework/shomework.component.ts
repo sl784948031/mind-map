@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../user.service';
 import {MPNode} from '../../MPNode';
 import {SelectQ} from '../../selectQ';
 import {DescripQ1} from '../../descripQ';
+import {Submit} from '../../Submit';
 
 @Component({
   selector: 'app-shomework',
@@ -14,21 +15,36 @@ export class ShomeworkComponent implements OnInit {
 
   homeworks : any[];
   answers : any[];
-  submits : any[];
+  submits : Submit[];
   lid: string;
   node_id: string;
   Q0sum: SelectQ[];
   Q1sum: DescripQ1[];
-  constructor(private route: ActivatedRoute,private userService: UserService) { }
+  tm: any[];
+  mapid:string;
+  username: string;
+  constructor(private router: Router,private route: ActivatedRoute,private userService: UserService) { }
 
   ngOnInit() {
     this.getID1();
-    this.answers = [];
-    this.submits = [];
-    this.initAnswer();
   }
 
   getID1() {
+    const mapid = this.route.snapshot.paramMap.get('mapid');
+    this.mapid=mapid;
+    const username = this.route.snapshot.paramMap.get('username');
+    this.username = username;
+    this.userService.examineLogin(this.username)
+        .subscribe(data => {
+          let re = new Response();
+          re = data;
+          console.log(re.status);
+          if (re.status == "online") {
+          }else {
+            alert("登录失效，请重新登录！");
+            this.router.navigateByUrl('login');
+          }
+        });
     this.homeworks=[];
     const lid = this.route.snapshot.paramMap.get('lid');
     console.log(lid);
@@ -40,8 +56,10 @@ export class ShomeworkComponent implements OnInit {
     let mpNode = new MPNode();
     mpNode.lid = this.lid;
     mpNode.node_id= this.node_id;
+    mpNode.mapid=this.mapid;
     this.userService.getQ0(mpNode)
         .subscribe(data => {
+          console.log("enter q0");
           console.log(data);
           if(data == null){
           } else {
@@ -58,27 +76,33 @@ export class ShomeworkComponent implements OnInit {
               this.homeworks.push(tmp);
             }
           }
-        });
-    this.userService.getQ1(mpNode)
-        .subscribe(data => {
-          console.log(data);
-          if(data == null){
-          } else {
-            this.Q1sum = data;
-            console.log(this.Q1sum);
-            for(let i = 0;i<this.Q1sum.length;i++){
-              let tmp = [];
-              tmp.push('1');
-              tmp.push(this.Q1sum[i].title);
-              tmp.push([]);
-              tmp.push([]);
-              this.homeworks.push(tmp);
-            }
-          }
+          console.log("enter q1");
+          this.userService.getQ1(mpNode)
+              .subscribe(data => {
+                console.log(1);
+                console.log(data);
+                if(data == null){
+                } else {
+                  this.Q1sum = data;
+                  console.log(this.Q1sum);
+                  for(let i = 0;i<this.Q1sum.length;i++){
+                    let tmp = [];
+                    tmp.push('1');
+                    tmp.push(this.Q1sum[i].title);
+                    tmp.push([]);
+                    tmp.push([]);
+                    this.homeworks.push(tmp);
+                  }
+                }
+                this.answers = [];
+                this.submits = [];
+                this.initAnswer();
+              });
         });
   }
 
   initAnswer() {
+    console.log(this.homeworks.length);
     for (let i = 0; i < this.homeworks.length; i++) {
       if (this.homeworks[i][0] == "0") {
         this.answers.push(["0",[false, false, false, false]]);
@@ -90,7 +114,13 @@ export class ShomeworkComponent implements OnInit {
   }
 
   checkAnswer() {
+      this.tm=[];
     for (let i = 0; i < this.answers.length; i++) {
+      let sub=new Submit();
+      sub.username=this.username;
+      sub.mapid=this.mapid;
+      sub.lid=this.lid;
+      sub.node_id=this.node_id;
       if (this.answers[i][0] == "0") {
         let tmp = [];
         if (this.answers[i][1][0]) {
@@ -105,19 +135,44 @@ export class ShomeworkComponent implements OnInit {
         if (this.answers[i][1][3]) {
           tmp.push('D');
         }
-        if (tmp.toString() == this.homeworks[i][3].toString()) {
-          //title，课程id，节点id，学生id，对错结果
-          this.submits.push(this.homeworks[i][1], "courseid", this.node_id, "studentId", "true");
-        } else {
-          this.submits.push(this.homeworks[i][1], "courseid", this.node_id, "studentId", "false");
+        if(tmp.toString()==""){
+        }else {
+            if (tmp.toString() == this.homeworks[i][3].toString()) {
+                //title，课程id，节点id，学生id，对错结果
+                sub.title=this.homeworks[i][1];
+                sub.answer="yes";
+                this.tm.push(sub);
+            } else {
+                sub.title=this.homeworks[i][1];
+                sub.answer="false";
+                this.tm.push(sub);
+            }
         }
       }
     }
+
   }
 
   submit() {
     this.checkAnswer();
-    console.log(this.submits);
+    console.log(this.tm);
+    this.userService.submit(this.tm)
+        .subscribe(data =>{
+           console.log(data);
+           let re=new Response();
+           re=data;
+           if(re.status=="答题成功"){
+               alert("答题成功！");
+           }else {
+               alert(re.status);
+           }
+        });
   }
-
+  exitLogin7() {
+    this.userService.exitLogin(this.username)
+        .subscribe(data => {
+          alert("已登出！");
+          this.router.navigateByUrl('login');
+        });
+  }
 }

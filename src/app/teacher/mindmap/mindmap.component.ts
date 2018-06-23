@@ -4,7 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as jsMind from '../../jsmind/js/jsmind.js';
 import '../../jsmind/js/jsmind.screenshot.js'
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MindMap} from '../../mindmap';
 import {UserService} from '../../user.service';
 import {Lesson} from '../../lesson';
@@ -43,11 +43,11 @@ export class MindmapComponent implements OnInit {
   show_hide_val3 : boolean =false;
   items : any[] = [];
   ids : string[] = [];
-
+  mapid: string;
   nodeColor : string="#000000";
   fontColor : string="#ffffff";
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {
     // this.user = this.userService.getUser();
     // this.userId = this.user.userId;
     // this.userType = this.user.userType;
@@ -66,6 +66,17 @@ export class MindmapComponent implements OnInit {
     console.log(this.lid);
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
+    this.userService.examineLogin(this.username)
+        .subscribe(data => {
+          let re = new Response();
+          re = data;
+          console.log(re.status);
+          if (re.status == "online") {
+          }else {
+            alert("登录失效，请重新登录！");
+            this.router.navigateByUrl('login');
+          }
+        });
   }
   creatMap() {
     const mind1 = {
@@ -96,6 +107,8 @@ export class MindmapComponent implements OnInit {
   }
 
   changeMap(e) {
+    this.mapid=this.ids[e];
+    console.log(this.mapid);
     this.currentMap = e;
     this.mindMap.show(this.items[e]);
   }
@@ -237,6 +250,13 @@ export class MindmapComponent implements OnInit {
             number = data;
             this.ids = number.ids;
           }
+        });
+  }
+  exitLogin4() {
+    this.userService.exitLogin(this.username)
+        .subscribe(data => {
+          alert("已登出！");
+          this.router.navigateByUrl('login');
         });
   }
 }

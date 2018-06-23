@@ -64,11 +64,22 @@ export class CoursesComponent implements OnInit {
         const username = this.route.snapshot.paramMap.get('username');
         console.log(username);
         this.user.username = username;
-        this.userService.getCourses(this.user)
-            .subscribe(data => {
-                console.log(data);
-                this.course.list = data;
-                this.updateChoose(this.course);
+        this.userService.examineLogin(this.user.username)
+            .subscribe(data =>{
+                let re=new Response();
+                re=data;
+                console.log(re.status);
+                if(re.status == "online"){
+                    this.userService.getCourses(this.user)
+                        .subscribe(data => {
+                            console.log(data);
+                            this.course.list = data;
+                            this.updateChoose(this.course);
+                        });
+                }else {
+                    alert("登录失效，请重新登录！");
+                    this.router.navigateByUrl('login');
+                }
             });
     }
 

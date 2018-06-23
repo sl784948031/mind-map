@@ -4,7 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as jsMind from '../../jsmind/js/jsmind.js';
 import '../../jsmind/js/jsmind.screenshot.js'
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Lesson} from '../../lesson';
 import {MindMap} from '../../mindmap';
 import {UserService} from '../../user.service';
@@ -33,20 +33,33 @@ export class StudentmapComponent implements OnInit {
   user : any;
   userId : any;
   userType : any;
-
+    mapid:string;
   show_hide_val1 : boolean =false;
   show_hide_val2 : boolean =false;
   show_hide_val3 : boolean =false;
   items : any[] = [];
   ids : string[] = [];
-
-  constructor(private route: ActivatedRoute,private userService: UserService) { }
+  username: string;
+  constructor(private router: Router,private route: ActivatedRoute,private userService: UserService) { }
 
   getID1() {
     const lid = this.route.snapshot.paramMap.get('id');
     console.log(lid);
     this.lid = lid;
     console.log(this.lid);
+    const username = this.route.snapshot.paramMap.get('username');
+    this.username = username;
+    this.userService.examineLogin(this.username)
+        .subscribe(data => {
+          let re = new Response();
+          re = data;
+          console.log(re.status);
+          if (re.status == "online") {
+          }else {
+            alert("登录失效，请重新登录！");
+            this.router.navigateByUrl('login');
+          }
+        });
   }
 
   getMindMap(){
@@ -115,6 +128,7 @@ export class StudentmapComponent implements OnInit {
   // }
 
   changeMap(e) {
+      this.mapid=this.ids[e];
     this.currentMap = e;
     this.mindMap.show(this.items[e]);
   }
@@ -188,6 +202,13 @@ export class StudentmapComponent implements OnInit {
 
   showList3() {
     this.show_hide_val3 = !this.show_hide_val3;
+  }
+  exitLogin5() {
+    this.userService.exitLogin(this.username)
+        .subscribe(data => {
+          alert("已登出！");
+          this.router.navigateByUrl('login');
+        });
   }
 
 }

@@ -139,8 +139,8 @@
 
             </ul>
             <ul id="left-bottom">
-                <li><a>课程首页</a></li>
-                <li><a routerLink="/index">退出登录</a></li>
+                <li><a routerLink="/teacher/{{this.username}}">课程首页</a></li>
+                <li><a (click)="this.exitLogin2()">退出登录</a></li>
               </ul>
       </ul>
       
@@ -148,10 +148,10 @@
 
       <div id="right-part" class="col-xs-6 col-sm-10">
         <ul class="nav nav-tabs">
-          <li><a routerLink="/mindmap/{{this.lid}}">思维导图</a></li>
-          <li class="active"><a routerLink="/thomework">作业</a></li>
-          <li><a routerLink="/tresource/{{this.lid}}/{{this.node_id}}">资源</a></li>
-          <li><a routerLink="/tcourseware/{{this.lid}}/{{this.node_id}}">课件</a></li>
+          <li><a routerLink="/mindmap/{{this.username}}/{{this.lid}}">思维导图</a></li>
+          <li class="active"><a routerLink="/thomework/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">作业</a></li>
+          <li><a routerLink="/tresource/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">资源</a></li>
+          <li><a routerLink="/tcourseware/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">课件</a></li>
         </ul>
    
         <div class="card" *ngFor="let item of homeworks">
@@ -163,7 +163,7 @@
                     </label>
                 </div>
                 <label>
-                    答案：{{item[3]}}
+                    答案：{{item[3]}} 正确率：{{item[4]}}
                 </label>
             </div>
             <div class="card-body" *ngIf="item[0]==1">

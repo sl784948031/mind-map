@@ -70,11 +70,23 @@ export class RestService {
 
   constructor( private downloadService: DownloadService, private uploadService: UploadService,private http: HttpClient) {}
   // 导出
-  download(fileName: string, lid: string) {
+  download(fileName: string, lid: string,mapid: string) {
     console.log('restservice export start');
     let url = 'http://localhost:8080/download';
     let body = {'filename': fileName,
-      'lid': lid};
+      'lid': lid,
+      'mapid': mapid
+    };
+    this.downloadService.requestBlob(url, body).subscribe(result => {
+      this.downloadService.downFile(result, fileName);
+    });
+  }
+  download1(fileName: string, lid: string,mapid: string) {
+    console.log('restservice export start');
+    let url = 'http://localhost:8080/download1';
+    let body = {'filename': fileName,
+      'lid': lid,
+      'mapid': mapid};
     this.downloadService.requestBlob(url, body).subscribe(result => {
       this.downloadService.downFile(result, fileName);
     });
@@ -86,45 +98,49 @@ export class RestService {
     return this.downloadService.showfile(url);
   }
 
-  showLink(lid: string, node_id: string): Observable<any> {
+  showLink(lid: string, node_id: string, mapid:string): Observable<any> {
     const url = 'http://localhost:8080/get_link';
     let body = {
       'lid': lid,
       'node_id': node_id,
+      'mapid':mapid,
     };
     return this.downloadService.showlink(url,body);
   }
 
-  uploadLink(linkname: string, linkcontent: string, lid: string, node_id: string) {
+  uploadLink(linkname: string, linkcontent: string, lid: string, node_id: string,mapid:string) {
     let url = 'http://localhost:8080/upload_link';
     let body = {
       'linkname': linkname,
       'linkcontent': linkcontent,
       'lid': lid,
       'node_id': node_id,
+      'mapid':mapid,
     };
 
     return this.uploadService.uploadLink( url, body);
   }
 
-  uploadFileDescription(filename: string, fd: string, lid: string, node_id: string): Observable<any> {
+  uploadFileDescription(filename: string, fd: string, lid: string, node_id: string,mapid:string): Observable<any> {
     console.log("enter");
     let upFile=new Upfile();
     upFile.node_id=node_id;
     upFile.lid=lid;
     upFile.filename=filename;
     upFile.fd=fd;
+    upFile.mapid=mapid;
     console.log(upFile);
     let url = 'http://localhost:8080/upload_fd';
     return this.http.post<any>( url, upFile);
   }
-  uploadFileDescription1(filename: string, fd: string, lid: string, node_id: string): Observable<any> {
+  uploadFileDescription1(filename: string, fd: string, lid: string, node_id: string,mapid:string): Observable<any> {
     console.log("enter");
     let upFile=new Upfile();
     upFile.node_id=node_id;
     upFile.lid=lid;
     upFile.filename=filename;
     upFile.fd=fd;
+    upFile.mapid=mapid;
     console.log(upFile);
     let url = 'http://localhost:8080/upload_fd1';
     return this.http.post<any>( url, upFile);

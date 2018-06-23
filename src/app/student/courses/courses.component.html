@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class="card" *ngFor="let item of chooses">
-        <div class="card-header">No.{{item.cid}} <a class="lesson-enter" routerLink="/studentmap/{{item.lid}}">进入课程 <span class="glyphicon glyphicon-chevron-right"></span></a></div>
+        <div class="card-header">No.{{item.cid}} <a class="lesson-enter" routerLink="/studentmap/{{this.user.username}}/{{item.lid}}">进入课程 <span class="glyphicon glyphicon-chevron-right"></span></a></div>
         <div class="card-body">课程名称：{{item.name}}<br>课程人数: {{item.people_num}}</div>
     </div>
 </div>

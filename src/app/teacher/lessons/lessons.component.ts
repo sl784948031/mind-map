@@ -5,6 +5,7 @@ import {User} from '../../person';
 import {Lessons} from '../../lessons';
 import { Lesson } from '../../lesson';
 import {Response} from '../../response';
+import {Account} from '../../account';
 
 @Component({
   selector: 'app-lessons',
@@ -36,12 +37,23 @@ export class LessonsComponent implements OnInit {
     const username = this.route.snapshot.paramMap.get('username');
     console.log(username);
     this.user.username = username;
-    this.userService.getLessons(this.user)
-        .subscribe(data => {
-          console.log(data);
-          this.lesson.list = data;
-          console.log(this.lesson.list);
-          this.updateLesson(this.lesson);
+    this.userService.examineLogin(this.user.username)
+        .subscribe(data =>{
+            let re=new Response();
+            re=data;
+            console.log(re.status);
+            if(re.status == "online"){
+                this.userService.getLessons(this.user)
+                    .subscribe(data => {
+                        console.log(data);
+                        this.lesson.list = data;
+                        console.log(this.lesson.list);
+                        this.updateLesson(this.lesson);
+                    });
+            }else {
+                alert("登录失效，请重新登录！");
+                this.router.navigateByUrl('login');
+            }
         });
   }
 
@@ -97,7 +109,20 @@ export class LessonsComponent implements OnInit {
       alert("两次密码输入不一致，修改失败！");
       return;
     }
-    alert("修改成功");
+    let account=new Account();
+    account.username=this.user.username;
+    account.password=this.password1;
+    this.userService.changePass(account).subscribe(data => {
+        let re=new Response();
+        re=data;
+        if(re.status == "same"){
+            alert("新旧密码一致");
+        }else if(re.status =="yes"){
+            alert("修改成功");
+        }else {
+            alert("修改失败");
+        }
+    });
   }
 }
 

@@ -6,4 +6,5 @@ export class Upfile {
     lid: string;
     filename: string;
     fd: string;
+    mapid:string;
 }

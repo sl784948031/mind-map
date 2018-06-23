@@ -4,5 +4,6 @@
 export class DescripQ1 {
     lid: string;
     node_id: string;
+    mapid: string;
     title: string;
 }

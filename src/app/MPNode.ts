@@ -4,4 +4,5 @@
 export class MPNode {
     lid: string;
     node_id: string;
+    mapid: string;
 }

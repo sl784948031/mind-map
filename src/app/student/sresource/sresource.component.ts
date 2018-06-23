@@ -5,7 +5,8 @@ import { UpFiles} from '../../upfiles';
 import {Upfile} from '../../upfile';
 import {UserService} from '../../user.service';
 import {MPNode} from '../../MPNode';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Link} from '../../Link';
 
 @Component({
   selector: 'app-sresource',
@@ -21,7 +22,18 @@ export class SresourceComponent implements OnInit {
   lid: string;
   node_id: string;
   public url: string = 'http://localhost:8080/upload/';
-  constructor(private route: ActivatedRoute,private restService: RestService, private userService: UserService ) { }
+  username: string;
+  mapid:string;
+  links: Link[];
+  constructor(private router: Router,private route: ActivatedRoute,private restService: RestService, private userService: UserService ) { }
+
+  showLink() {
+    this.restService.showLink(this.lid,this.node_id,this.mapid).subscribe(data => {
+      // 数据处理
+      console.log("get link success");
+      this.links = data;
+    });
+  }
 
 
 
@@ -30,6 +42,7 @@ export class SresourceComponent implements OnInit {
     let mpnode = new MPNode();
     mpnode.lid=this.lid;
     mpnode.node_id=this.node_id;
+    mpnode.mapid=this.mapid;
     console.log(mpnode);
     this.userService.showResource(mpnode).subscribe(data => {
       console.log(data);
@@ -48,15 +61,18 @@ export class SresourceComponent implements OnInit {
     for (let i = 0; i < upfiles.list.length; i ++) {
       tmp.lid = upfiles.list[i].lid;
       tmp.filename = upfiles.list[i].filename;
+      tmp.fd=upfiles.list[i].fd;
       this.filenames.push(tmp);
       tmp = new Upfile();
     }
   }
   downloadfile(filename) {
     console.log('downloadfile start');
-    this.restService.download(filename, '1');
+    this.restService.download(filename, '1',this.mapid);
   }
   getID1() {
+    const mapid = this.route.snapshot.paramMap.get('mapid');
+    this.mapid=mapid;
     const lid = this.route.snapshot.paramMap.get('lid');
     console.log(lid);
     this.lid = lid;
@@ -65,11 +81,25 @@ export class SresourceComponent implements OnInit {
     this.node_id = node_id;
     this.url='http://localhost:8080/upload_resource/'+this.lid+"/"+this.node_id;
     console.log(this.url);
+    const username = this.route.snapshot.paramMap.get('username');
+    this.username = username;
+    this.userService.examineLogin(this.username)
+        .subscribe(data => {
+          let re = new Response();
+          re = data;
+          console.log(re.status);
+          if (re.status == "online") {
+          }else {
+            alert("登录失效，请重新登录！");
+            this.router.navigateByUrl('login');
+          }
+        });
   }
 
   ngOnInit() {
     this.getID1();
     this.showFile();
+    this.showLink();
   }
 
   afterAddingFile(fileitem: FileItem): any {
@@ -81,6 +111,16 @@ export class SresourceComponent implements OnInit {
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;
   }
-
+  exitLogin6() {
+    this.userService.exitLogin(this.username)
+        .subscribe(data => {
+          alert("已登出！");
+          this.router.navigateByUrl('login');
+        });
+  }
+  jump(data: any){
+    console.log(data);
+    window.open(data);
+  }
 
 }

@@ -14,7 +14,7 @@ import {SelectQ} from './selectQ';
 import {MPNode} from './MPNode';
 import {DescripQ1} from './descripQ';
 
-
+import {Account} from './account';
 
 
 const httpOptions = {
@@ -42,6 +42,7 @@ export class UserService {
   private getQ1Url = 'http://localhost:8080/getQ1';
   private removeQ0Url = 'http://localhost:8080/removeQ0';
   private removeQ1Url = 'http://localhost:8080/removeQ1';
+  private submitUrl = 'http://localhost:8080/submit';
 
   constructor(private http: HttpClient) { }
 
@@ -51,6 +52,20 @@ export class UserService {
 
   public login(user: User ): Observable<Response> {
     return this.http.post<Response>(this.loginUrl, user);
+  }
+  public changePass(password: Account): Observable<Response> {
+    let examineloginUrl = 'http://localhost:8080/changePass';
+    return this.http.post<Response>(examineloginUrl, password);
+  }
+
+  public examineLogin(username: string): Observable<Response> {
+    let examineloginUrl = 'http://localhost:8080/examinelogin/' + username;
+    return this.http.post<Response>(examineloginUrl, []);
+  }
+
+  public exitLogin(username: string):Observable<Response> {
+    let examineloginUrl = 'http://localhost:8080/exitlogin/' + username;
+    return this.http.post<Response>(examineloginUrl, []);
   }
 
   public getLessons(user: User): Observable<Array<any>> {
@@ -121,6 +136,10 @@ export class UserService {
 
   public removeQ1(selectQ: DescripQ1): Observable<any> {
     return this.http.post<any>(this.removeQ1Url, selectQ);
+  }
+
+  public submit(data: any): Observable <Response> {
+    return this.http.post<Response>(this.submitUrl, data);
   }
 }
 
