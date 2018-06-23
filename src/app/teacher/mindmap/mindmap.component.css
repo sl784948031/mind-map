@@ -11,7 +11,11 @@
     position:fixed;
     top:0;
     left:0;
+<<<<<<< HEAD
     width:7cm;
+=======
+    width: 7cm;
+>>>>>>> 9c90428838f8e500947324ed3d6312becf94e8be
     height:100%;
     background-color:#373737;z-index:9999;
 }
