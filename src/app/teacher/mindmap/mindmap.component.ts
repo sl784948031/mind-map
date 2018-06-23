@@ -36,6 +36,7 @@ export class MindmapComponent implements OnInit {
   user : any;
   userId : any;
   userType : any;
+  username: string;
 
   show_hide_val1 : boolean =false;
   show_hide_val2 : boolean =false;
@@ -63,6 +64,8 @@ export class MindmapComponent implements OnInit {
     console.log(lid);
     this.lid = lid;
     console.log(this.lid);
+    const username = this.route.snapshot.paramMap.get('username');
+    this.username = username;
   }
   creatMap() {
     const mind1 = {
