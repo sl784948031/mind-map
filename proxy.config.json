@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://localhost:8080/register",
+    "target": "http://13.67.110.158:8004/register",
     "secure": false
   }
 }

@@ -22,7 +22,7 @@ export class SresourceComponent implements OnInit {
   filenames: Upfile[];
   lid: string;
   node_id: string;
-  public url: string = 'http://localhost:8080/upload/';
+  public url: string = 'http://13.67.110.158:8004/upload/';
   username: string;
   mapid:string;
   links: Link[];
@@ -80,7 +80,7 @@ export class SresourceComponent implements OnInit {
     console.log(this.lid);
     const node_id = this.route.snapshot.paramMap.get('node_id');
     this.node_id = node_id;
-    this.url='http://localhost:8080/upload_resource/'+this.lid+"/"+this.node_id;
+    this.url='http://13.67.110.158:8004/upload_resource/'+this.lid+"/"+this.node_id;
     console.log(this.url);
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;

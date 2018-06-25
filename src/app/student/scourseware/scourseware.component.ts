@@ -22,7 +22,7 @@ export class ScoursewareComponent implements OnInit {
   mapid:string;
   username: string;
   constructor(private router: Router,private route: ActivatedRoute, private restService: RestService, private userService: UserService ) { }
-  public url: string = 'http://localhost:8080/upload/';
+  public url: string = 'http://13.67.110.158:8004/upload/';
 
   showFile() {
     let mpnode = new MPNode();
@@ -49,7 +49,7 @@ export class ScoursewareComponent implements OnInit {
     console.log(this.lid);
     const node_id = this.route.snapshot.paramMap.get('node_id');
     this.node_id = node_id;
-    this.url='http://localhost:8080/upload_ware/'+this.lid+"/"+this.node_id;
+    this.url='http://13.67.110.158:8004/upload_ware/'+this.lid+"/"+this.node_id;
     console.log(this.url);
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
