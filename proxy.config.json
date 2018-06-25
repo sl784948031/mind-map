@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://13.67.110.158:8004/register",
+    "target": "http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/register",
     "secure": false
   }
 }

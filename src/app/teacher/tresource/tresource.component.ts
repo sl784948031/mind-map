@@ -30,7 +30,7 @@ export class TresourceComponent implements OnInit {
   constructor(private router: Router,private route: ActivatedRoute, private restService: RestService, private userService: UserService , private elementRef: ElementRef) { }
 
 
-  public url: string = 'http://13.67.110.158:8004/upload/1';
+  public url: string = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/upload/1';
   public uploader: FileUploader = new FileUploader({url: this.url});
   selectedFiles: FileList;
   public filedescription: LinkedList<string> = new LinkedList();
@@ -91,7 +91,7 @@ export class TresourceComponent implements OnInit {
     console.log(this.lid);
     const node_id = this.route.snapshot.paramMap.get('node_id');
     this.node_id = node_id;
-    this.url='http://13.67.110.158:8004/upload_resource/'+this.lid+"/"+this.node_id+"/"+this.mapid;
+    this.url='http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/upload_resource/'+this.lid+"/"+this.node_id+"/"+this.mapid;
     console.log(this.url);
     this.uploader=new FileUploader({url: this.url});
   }
