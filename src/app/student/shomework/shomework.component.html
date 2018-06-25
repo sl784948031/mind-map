@@ -14,34 +14,39 @@
               <li><a (click)="mapShoot()">选择题</a></li>
               <li><a (click)="creatMap()">简答题</a></li>
             </ul> -->
+            <ul id="left-bottom">
+              <li><a>课程首页</a></li>
+              <li><a (click)="this.exitLogin7()">退出登录</a></li>
+            </ul>
       </ul>
+      
       </div>
 
-      <div class="col-xs-6 col-sm-10">
+      <div id="right-part" class="col-xs-6 col-sm-10">
         <ul class="nav nav-tabs">
-          <li><a routerLink="/studentmap/{{this.lid}}">思维导图</a></li>
-            <li class="active"><a routerLink="/shomework/{{this.lid}}/{{this.node_id}}">作业</a></li>
-          <li><a routerLink="/sresource/{{this.lid}}/{{this.node_id}}">资源</a></li>
-          <li><a routerLink="/scourseware/{{this.lid}}/{{this.node_id}}">课件</a></li>
+          <li><a routerLink="/studentmap/{{this.username}}/{{this.lid}}">思维导图</a></li>
+            <li class="active"><a routerLink="/shomework/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">作业</a></li>
+          <li><a routerLink="/sresource/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">资源</a></li>
+          <li><a routerLink="/scourseware/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">课件</a></li>
         </ul>
    
-        <div class="card" *ngFor="let item of homeworks">
+        <div class="card" *ngFor="let item of homeworks; let i = index">
             <div class="card-header">{{item[1]}}</div>
             <div class="card-body" *ngIf="item[0]==0">
-                <div class="checkbox" *ngFor="let question of item[2]">
+                <div class="checkbox" *ngFor="let question of item[2]; let j = index">
                     <label>
-                      <input type="checkbox">{{question}}
+                      <input type="checkbox" [(ngModel)]="answers[i][1][j]">{{question}}
                     </label>
                 </div>
 
             </div>
             <div class="card-body" *ngIf="item[0]==1">
-                <textarea class="form-control" rows="5"></textarea>
+                <textarea class="form-control" rows="5" [(ngModel)]="answers[i][1]"></textarea>
             </div>
         </div>
 
         
-        <button type="button" class="btn btn-primary">提交</button>
+        <button type="button" class="btn btn-primary" (click)="submit()" >提交</button>
       </div>
     </div>
   </div>

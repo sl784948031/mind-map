@@ -14,7 +14,7 @@ import {SelectQ} from './selectQ';
 import {MPNode} from './MPNode';
 import {DescripQ1} from './descripQ';
 
-
+import {Account} from './account';
 
 
 const httpOptions = {
@@ -25,23 +25,24 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class UserService {
-  private registerUrl = 'http://localhost:8080/register';
-  private loginUrl = 'http://localhost:8080/login';
-  private lessonUrl = 'http://localhost:8080/teacher_lessons/';
-  private addUrl = 'http://localhost:8080/teacher_add_lessons/';
-  private add2Url = 'http://localhost:8080/student_add_lessons/'
-  private courseUrl = 'http://localhost:8080/student_lessons/';
-  private addAllUrl = 'http://localhost:8080/addAll';
-  private saveMindMapUrl = 'http://localhost:8080/saveMindMap';
-  private getMindMapUrl = 'http://localhost:8080/getMindMap';
-  private saveNumUrl = 'http://localhost:8080/saveNum';
-  private getNumUrl = 'http://localhost:8080/getNum';
-  private addQ0Url = 'http://localhost:8080/addQ0';
-  private getQ0Url = 'http://localhost:8080/getQ0';
-  private addQ1Url = 'http://localhost:8080/addQ1';
-  private getQ1Url = 'http://localhost:8080/getQ1';
-  private removeQ0Url = 'http://localhost:8080/removeQ0';
-  private removeQ1Url = 'http://localhost:8080/removeQ1';
+  private registerUrl = 'http://13.67.110.158:8080/mindmap/register';
+  private loginUrl = 'http://13.67.110.158:8080/mindmap/login';
+  private lessonUrl = 'http://13.67.110.158:8080/mindmap/teacher_lessons/';
+  private addUrl = 'http://13.67.110.158:8080/mindmap/teacher_add_lessons/';
+  private add2Url = 'http://13.67.110.158:8080/mindmap/student_add_lessons/'
+  private courseUrl = 'http://13.67.110.158:8080/mindmap/student_lessons/';
+  private addAllUrl = 'http://13.67.110.158:8080/mindmap/addAll';
+  private saveMindMapUrl = 'http://13.67.110.158:8080/mindmap/saveMindMap';
+  private getMindMapUrl = 'http://13.67.110.158:8080/mindmap/getMindMap';
+  private saveNumUrl = 'http://13.67.110.158:8080/mindmap/saveNum';
+  private getNumUrl = 'http://13.67.110.158:8080/mindmap/getNum';
+  private addQ0Url = 'http://13.67.110.158:8080/mindmap/addQ0';
+  private getQ0Url = 'http://13.67.110.158:8080/mindmap/getQ0';
+  private addQ1Url = 'http://13.67.110.158:8080/mindmap/addQ1';
+  private getQ1Url = 'http://13.67.110.158:8080/mindmap/getQ1';
+  private removeQ0Url = 'http://13.67.110.158:8080/mindmap/removeQ0';
+  private removeQ1Url = 'http://13.67.110.158:8080/mindmap/removeQ1';
+  private submitUrl = 'http://13.67.110.158:8080/mindmap/submit';
 
   constructor(private http: HttpClient) { }
 
@@ -51,6 +52,20 @@ export class UserService {
 
   public login(user: User ): Observable<Response> {
     return this.http.post<Response>(this.loginUrl, user);
+  }
+  public changePass(password: Account): Observable<Response> {
+    let examineloginUrl = 'http://13.67.110.158:8080/mindmap/changePass';
+    return this.http.post<Response>(examineloginUrl, password);
+  }
+
+  public examineLogin(username: string): Observable<Response> {
+    let examineloginUrl = 'http://13.67.110.158:8080/mindmap/examinelogin/' + username;
+    return this.http.post<Response>(examineloginUrl, []);
+  }
+
+  public exitLogin(username: string):Observable<Response> {
+    let examineloginUrl = 'http://13.67.110.158:8080/mindmap/exitlogin/' + username;
+    return this.http.post<Response>(examineloginUrl, []);
   }
 
   public getLessons(user: User): Observable<Array<any>> {
@@ -74,12 +89,12 @@ export class UserService {
   }
 
   public showWare(mpnode: MPNode): Observable<Array<any>> {
-    const url = 'http://localhost:8080/showWare';
+    const url = 'http://13.67.110.158:8080/mindmap/showWare';
     return this.http.post<Array<any>>(url, mpnode );
   }
 
   public showResource(mpnode: MPNode): Observable<Array<any>> {
-    const url = 'http://localhost:8080/showResource';
+    const url = 'http://13.67.110.158:8080/mindmap/showResource';
     return this.http.post<Array<any>>(url, mpnode );
   }
 
@@ -121,6 +136,10 @@ export class UserService {
 
   public removeQ1(selectQ: DescripQ1): Observable<any> {
     return this.http.post<any>(this.removeQ1Url, selectQ);
+  }
+
+  public submit(data: any): Observable <Response> {
+    return this.http.post<Response>(this.submitUrl, data);
   }
 }
 

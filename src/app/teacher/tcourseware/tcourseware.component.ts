@@ -5,10 +5,10 @@ import { UpFiles} from '../../upfiles';
 import {Upfile} from '../../upfile';
 import {UserService} from '../../user.service';
 import {LinkedList} from 'ngx-bootstrap';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MPNode} from '../../MPNode';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
-
+import {Response} from '../../response';
 @Component({
   selector: 'app-tcourseware',
   templateUrl: './tcourseware.component.html',
@@ -20,11 +20,12 @@ export class TcoursewareComponent implements OnInit {
   filenames: Upfile[];
   lid: string;
   node_id: string;
+  mapid: string;
+  username: string;
+  constructor(private router: Router,private route: ActivatedRoute, private restService: RestService, private userService: UserService , private elementRef: ElementRef) { }
 
-  constructor(private route: ActivatedRoute, private restService: RestService, private userService: UserService , private elementRef: ElementRef) { }
 
-
-  public url: string = 'http://localhost:8080/upload/';
+  public url: string = 'http://13.67.110.158:8080/mindmap/upload/';
   public uploader: FileUploader = new FileUploader({url: this.url});
   selectedFiles: FileList;
   public filedescription: LinkedList<string> = new LinkedList();
@@ -34,6 +35,7 @@ export class TcoursewareComponent implements OnInit {
     mpnode.lid=this.lid;
     mpnode.node_id=this.node_id;
     console.log(mpnode);
+    mpnode.mapid=this.mapid;
     this.userService.showWare(mpnode).subscribe(data => {
       console.log(data);
       if(data ===null){
@@ -45,14 +47,29 @@ export class TcoursewareComponent implements OnInit {
   }
   getID1() {
     const lid = this.route.snapshot.paramMap.get('lid');
+    const mapid = this.route.snapshot.paramMap.get('mapid');
+    this.mapid=mapid;
     console.log(lid);
     this.lid = lid;
     console.log(this.lid);
     const node_id = this.route.snapshot.paramMap.get('node_id');
     this.node_id = node_id;
-    this.url='http://localhost:8080/upload_ware/'+this.lid+"/"+this.node_id;
+    this.url='http://13.67.110.158:8080/mindmap/upload_ware/'+this.lid+"/"+this.node_id+"/"+this.mapid;
     console.log(this.url);
     this.uploader=new FileUploader({url: this.url});
+    const username = this.route.snapshot.paramMap.get('username');
+    this.username = username;
+    this.userService.examineLogin(this.username)
+        .subscribe(data => {
+          let re = new Response();
+          re = data;
+          console.log(re.status);
+          if (re.status == "online") {
+          }else {
+            alert("登录失效，请重新登录！");
+            this.router.navigateByUrl('login');
+          }
+        });
   }
 
   update(upfiles: UpFiles) {
@@ -62,6 +79,7 @@ export class TcoursewareComponent implements OnInit {
     for (let i = 0; i < upfiles.list.length; i ++) {
       tmp.lid = upfiles.list[i].lid;
       tmp.filename = upfiles.list[i].filename;
+      tmp.fd = upfiles.list[i].fd;
       this.filenames.push(tmp);
       tmp = new Upfile();
     }
@@ -109,11 +127,28 @@ export class TcoursewareComponent implements OnInit {
     console.log(fileitem);
   }
   afterSuccess(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    const index = this.uploader.queue.indexOf(item);
+    const fd = this.filedescription.get(index);
     alert("上传资源成功！");
-    this.showFile();
+    console.log("开始upload fd");
+    this.restService.uploadFileDescription1(item.file.name, fd, this.lid, this.node_id,this.mapid)
+        .subscribe(data => {
+          console.log(data);
+          this.showFile();
+        });
   }
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;
   }
-
+  downloadfile(filename) {
+    console.log('downloadfile start');
+    this.restService.download1(filename, this.lid,this.mapid);
+  }
+  exitLogin3() {
+    this.userService.exitLogin(this.username)
+        .subscribe(data => {
+          alert("已登出！");
+          this.router.navigateByUrl('login');
+        });
+  }
 }

@@ -22,6 +22,9 @@ export class CoursesComponent implements OnInit {
     ls: Course = new Course();
     response: Response = new Response();
 
+    password1: string;
+    password2: string;
+
     constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {}
     ngOnInit() {
         this.getCourses();
@@ -61,11 +64,22 @@ export class CoursesComponent implements OnInit {
         const username = this.route.snapshot.paramMap.get('username');
         console.log(username);
         this.user.username = username;
-        this.userService.getCourses(this.user)
-            .subscribe(data => {
-                console.log(data);
-                this.course.list = data;
-                this.updateChoose(this.course);
+        this.userService.examineLogin(this.user.username)
+            .subscribe(data =>{
+                let re=new Response();
+                re=data;
+                console.log(re.status);
+                if(re.status == "online"){
+                    this.userService.getCourses(this.user)
+                        .subscribe(data => {
+                            console.log(data);
+                            this.course.list = data;
+                            this.updateChoose(this.course);
+                        });
+                }else {
+                    alert("登录失效，请重新登录！");
+                    this.router.navigateByUrl('login');
+                }
             });
     }
 
@@ -103,6 +117,14 @@ export class CoursesComponent implements OnInit {
                 console.log(this.lesson.list);
                 this.updateChoose(this.course);
             });
+    }
+
+    changePassword() {
+        if (this.password1 != this.password2) {
+          alert("两次密码输入不一致，修改失败！");
+          return;
+        }
+        alert("修改成功");
     }
 
 }

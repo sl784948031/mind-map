@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SelectQ} from '../../selectQ';
 import {UserService} from '../../user.service';
 import {MPNode} from '../../MPNode';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
 import {DescripQ1} from '../../descripQ';
+import {Response} from '../../response';
 
 @Component({
   selector: 'app-thomework',
@@ -34,8 +35,9 @@ export class ThomeworkComponent implements OnInit {
   Q0sum: SelectQ[];
   descripQ: DescripQ1 = new DescripQ1();
   Q1sum: DescripQ1[];
-
-  constructor(private route: ActivatedRoute, private userService: UserService) { }
+  username: string;
+  mapid: string;
+  constructor(private router: Router,private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
      this.homeworks = [];
@@ -43,6 +45,8 @@ export class ThomeworkComponent implements OnInit {
   }
 
   getID1() {
+    const mapid = this.route.snapshot.paramMap.get('mapid');
+    this.mapid=mapid;
     const lid = this.route.snapshot.paramMap.get('lid');
     console.log(lid);
     this.lid = lid;
@@ -53,41 +57,57 @@ export class ThomeworkComponent implements OnInit {
     let mpNode = new MPNode();
     mpNode.lid = this.lid;
     mpNode.node_id= this.node_id;
-    this.userService.getQ0(mpNode)
+    mpNode.mapid=this.mapid
+    const username = this.route.snapshot.paramMap.get('username');
+    this.username = username;
+    this.userService.examineLogin(this.username)
         .subscribe(data => {
-          console.log(data);
-          if(data == null){
-          } else {
-            this.Q0sum = data;
-            console.log(this.Q0sum);
-            for(let i = 0;i<this.Q0sum.length;i++){
-              let tmp = [];
-              let choice = [];
-              choice.push(this.Q0sum[i].a1, this.Q0sum[i].a2, this.Q0sum[i].a3, this.Q0sum[i].a4);
-              tmp.push('0');
-              tmp.push(this.Q0sum[i].title);
-              tmp.push(choice);
-              tmp.push(this.Q0sum[i].trueA);
-              this.homeworks.push(tmp);
-            }
+          let re = new Response();
+          re = data;
+          console.log(re.status);
+          if (re.status == "online") {
+          }else {
+            alert("登录失效，请重新登录！");
+            this.router.navigateByUrl('login');
           }
-        });
-    this.userService.getQ1(mpNode)
-        .subscribe(data => {
-          console.log(data);
-          if(data == null){
-          } else {
-            this.Q1sum = data;
-            console.log(this.Q1sum);
-            for(let i = 0;i<this.Q1sum.length;i++){
-              let tmp = [];
-              tmp.push('1');
-              tmp.push(this.Q1sum[i].title);
-              tmp.push([]);
-              tmp.push([]);
-              this.homeworks.push(tmp);
-            }
-          }
+          this.userService.getQ0(mpNode)
+              .subscribe(data => {
+                console.log(data);
+                if(data == null){
+                } else {
+                  this.Q0sum = data;
+                  console.log(this.Q0sum);
+                  for(let i = 0;i<this.Q0sum.length;i++){
+                    let tmp = [];
+                    let choice = [];
+                    choice.push(this.Q0sum[i].a1, this.Q0sum[i].a2, this.Q0sum[i].a3, this.Q0sum[i].a4);
+                    tmp.push('0');
+                    tmp.push(this.Q0sum[i].title);
+                    tmp.push(choice);
+                    tmp.push(this.Q0sum[i].trueA);
+                    console.log(this.Q0sum[i].rate);
+                    tmp.push(this.Q0sum[i].rate);
+                    this.homeworks.push(tmp);
+                  }
+                }
+                this.userService.getQ1(mpNode)
+                    .subscribe(data => {
+                      console.log(data);
+                      if(data == null){
+                      } else {
+                        this.Q1sum = data;
+                        console.log(this.Q1sum);
+                        for(let i = 0;i<this.Q1sum.length;i++){
+                          let tmp = [];
+                          tmp.push('1');
+                          tmp.push(this.Q1sum[i].title);
+                          tmp.push([]);
+                          tmp.push([]);
+                          this.homeworks.push(tmp);
+                        }
+                      }
+                    });
+              });
         });
   }
 
@@ -102,6 +122,7 @@ export class ThomeworkComponent implements OnInit {
       let sq=new SelectQ();
       sq.lid=this.lid;
       sq.node_id=this.node_id;
+      sq.mapid=this.mapid;
       sq.title=homework[1];
       console.log(sq);
       this.userService.removeQ0(sq)
@@ -112,6 +133,7 @@ export class ThomeworkComponent implements OnInit {
       let sq=new DescripQ1();
       sq.lid=this.lid;
       sq.node_id=this.node_id;
+      sq.mapid=this.mapid;
       sq.title=homework[1];
       console.log(sq);
       this.userService.removeQ1(sq)
@@ -157,6 +179,7 @@ export class ThomeworkComponent implements OnInit {
     this.answer4 = false;
     this.selectQ.lid=this.lid;
     this.selectQ.node_id=this.node_id;
+    this.selectQ.mapid=this.mapid;
     console.log(this.selectQ);
     this.userService.addQ0(this.selectQ)
         .subscribe(data => {
@@ -180,10 +203,18 @@ export class ThomeworkComponent implements OnInit {
     this.homeworks.push(tmp);
     this.descripQ.lid =this.lid;
     this.descripQ.node_id=this.node_id;
+    this.descripQ.mapid=this.mapid;
     this.userService.addQ1(this.descripQ)
         .subscribe(data => {
           alert("简单题添加成功");
           this.descripQ=new DescripQ1();
+        });
+  }
+  exitLogin2() {
+    this.userService.exitLogin(this.username)
+        .subscribe(data => {
+          alert("已登出！");
+          this.router.navigateByUrl('login');
         });
   }
 

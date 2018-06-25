@@ -4,11 +4,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as jsMind from '../../jsmind/js/jsmind.js';
 import '../../jsmind/js/jsmind.screenshot.js'
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MindMap} from '../../mindmap';
 import {UserService} from '../../user.service';
 import {Lesson} from '../../lesson';
 import {Number} from '../../number';
+import {Response} from '../../response';
 
 const options = {
   container:'jsmind_container',
@@ -36,14 +37,18 @@ export class MindmapComponent implements OnInit {
   user : any;
   userId : any;
   userType : any;
+  username: string;
 
   show_hide_val1 : boolean =false;
   show_hide_val2 : boolean =false;
   show_hide_val3 : boolean =false;
   items : any[] = [];
   ids : string[] = [];
+  mapid: string;
+  nodeColor : string="#000000";
+  fontColor : string="#ffffff";
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {
     // this.user = this.userService.getUser();
     // this.userId = this.user.userId;
     // this.userType = this.user.userType;
@@ -60,6 +65,19 @@ export class MindmapComponent implements OnInit {
     console.log(lid);
     this.lid = lid;
     console.log(this.lid);
+    const username = this.route.snapshot.paramMap.get('username');
+    this.username = username;
+    this.userService.examineLogin(this.username)
+        .subscribe(data => {
+          let re = new Response();
+          re = data;
+          console.log(re.status);
+          if (re.status == "online") {
+          }else {
+            alert("登录失效，请重新登录！");
+            this.router.navigateByUrl('login');
+          }
+        });
   }
   creatMap() {
     const mind1 = {
@@ -90,6 +108,8 @@ export class MindmapComponent implements OnInit {
   }
 
   changeMap(e) {
+    this.mapid=this.ids[e];
+    console.log(this.mapid);
     this.currentMap = e;
     this.mindMap.show(this.items[e]);
   }
@@ -114,9 +134,10 @@ export class MindmapComponent implements OnInit {
     this.saveMindMap();
   }
 
-  private get_selected_nodeid() {
+  get_selected_nodeid() {
     const selected_node = this.mindMap.get_selected_node();
     if (!!selected_node) {
+      console.log(selected_node.id);
       return selected_node.id;
     }
   }
@@ -153,14 +174,28 @@ export class MindmapComponent implements OnInit {
     this.saveMindMap();
   }
 
-  changeNodeColor(e) {
+  changeNodeColor() {
     const selected_node = this.mindMap.get_selected_node();
     console.log(selected_node);
+    console.log(this.nodeColor)
     if(!selected_node){
       alert('请先选择一个节点！');
       return;
     }
-    this.mindMap.set_node_color(selected_node.id, e.toElement.id, "#fff");
+    this.mindMap.set_node_color(selected_node.id, this.nodeColor, null);
+    this.items[this.currentMap] = this.mindMap.get_data("node_tree");
+    this.saveMindMap();
+  }
+
+  changeFontColor() {
+    const selected_node = this.mindMap.get_selected_node();
+    console.log(selected_node);
+    console.log(this.fontColor)
+    if(!selected_node){
+      alert('请先选择一个节点！');
+      return;
+    }
+    this.mindMap.set_node_color(selected_node.id, null, this.fontColor);
     this.items[this.currentMap] = this.mindMap.get_data("node_tree");
     this.saveMindMap();
   }
@@ -216,6 +251,13 @@ export class MindmapComponent implements OnInit {
             number = data;
             this.ids = number.ids;
           }
+        });
+  }
+  exitLogin4() {
+    this.userService.exitLogin(this.username)
+        .subscribe(data => {
+          alert("已登出！");
+          this.router.navigateByUrl('login');
         });
   }
 }

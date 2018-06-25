@@ -14,15 +14,20 @@
               <li><a (click)="mapShoot()">链接</a></li>
               <li><a (click)="creatMap()">文件</a></li>
           </ul> -->
+          <ul id="left-bottom">
+            <li><a>课程首页</a></li>
+            <li><a (click)="this.exitLogin8()">退出登录</a></li>
+          </ul>
       </ul>
+      
       </div>
 
-      <div class="col-xs-6 col-sm-10">
+      <div id="right-part" class="col-xs-6 col-sm-10">
         <ul class="nav nav-tabs">
-          <li><a routerLink="/studentmap/{{this.lid}}">思维导图</a></li>
-          <li><a routerLink="/shomework/{{this.lid}}/{{this.node_id}}">作业</a></li>
-          <li><a routerLink="/sresource/{{this.lid}}/{{this.node_id}}">资源</a></li>
-          <li class="active"><a routerLink="/scourseware/{{this.lid}}/{{this.node_id}}">课件</a></li>
+          <li><a routerLink="/studentmap/{{this.username}}/{{this.lid}}">思维导图</a></li>
+          <li><a routerLink="/shomework/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">作业</a></li>
+          <li><a routerLink="/sresource/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">资源</a></li>
+          <li class="active"><a routerLink="/scourseware/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">课件</a></li>
         </ul>
 
         <div id="node-edit" >
@@ -31,14 +36,16 @@
             <table class="table table-bordered table-striped">
               <thead>
               <tr>
-                <th width="50%">名称</th>
-                <th width="50%">下载</th>
+                <th width="25%">名称</th>
+                <th width="50%">描述</th>
+                <th width="25%">下载</th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let item of filenames">
-                <td width="50%"><strong>{{ item.filename }}</strong></td>
-                <td width="50%">
+                <td width="25%"><strong>{{ item.filename }}</strong></td>
+                <td width="50%">{{item.fd}}</td>
+                <td width="25%">
                   <button type="button" class="btn btn-default" (click)="downloadfile(item.filename)">
                     download
                   </button>

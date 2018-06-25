@@ -33,6 +33,7 @@ export class RegisterComponent implements OnInit {
   }
   createUser(): void {
     this.user.type = this.type;
+    this.user.status = "offline";
     if (this.cpassword !== this.user.password) {
       alert('密码不一致');
     } else if (this.user.username == null ) {
