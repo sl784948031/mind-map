@@ -25,24 +25,24 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class UserService {
-  private registerUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/register';
-  private loginUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/login';
-  private lessonUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/teacher_lessons/';
-  private addUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/teacher_add_lessons/';
-  private add2Url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/student_add_lessons/'
-  private courseUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/student_lessons/';
-  private addAllUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/addAll';
-  private saveMindMapUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/saveMindMap';
-  private getMindMapUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/getMindMap';
-  private saveNumUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/saveNum';
-  private getNumUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/getNum';
-  private addQ0Url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/addQ0';
-  private getQ0Url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/getQ0';
-  private addQ1Url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/addQ1';
-  private getQ1Url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/getQ1';
-  private removeQ0Url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/removeQ0';
-  private removeQ1Url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/removeQ1';
-  private submitUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/submit';
+  private registerUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/register';
+  private loginUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/login';
+  private lessonUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/teacher_lessons/';
+  private addUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/teacher_add_lessons/';
+  private add2Url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/student_add_lessons/'
+  private courseUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/student_lessons/';
+  private addAllUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/addAll';
+  private saveMindMapUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/saveMindMap';
+  private getMindMapUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/getMindMap';
+  private saveNumUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/saveNum';
+  private getNumUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/getNum';
+  private addQ0Url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/addQ0';
+  private getQ0Url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/getQ0';
+  private addQ1Url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/addQ1';
+  private getQ1Url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/getQ1';
+  private removeQ0Url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/removeQ0';
+  private removeQ1Url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/removeQ1';
+  private submitUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/submit';
 
   constructor(private http: HttpClient) { }
 
@@ -54,17 +54,17 @@ export class UserService {
     return this.http.post<Response>(this.loginUrl, user);
   }
   public changePass(password: Account): Observable<Response> {
-    let examineloginUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/changePass';
+    let examineloginUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/changePass';
     return this.http.post<Response>(examineloginUrl, password);
   }
 
   public examineLogin(username: string): Observable<Response> {
-    let examineloginUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/examinelogin/' + username;
+    let examineloginUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/examinelogin/' + username;
     return this.http.post<Response>(examineloginUrl, []);
   }
 
   public exitLogin(username: string):Observable<Response> {
-    let examineloginUrl = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/exitlogin/' + username;
+    let examineloginUrl = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/exitlogin/' + username;
     return this.http.post<Response>(examineloginUrl, []);
   }
 
@@ -89,12 +89,12 @@ export class UserService {
   }
 
   public showWare(mpnode: MPNode): Observable<Array<any>> {
-    const url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/showWare';
+    const url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/showWare';
     return this.http.post<Array<any>>(url, mpnode );
   }
 
   public showResource(mpnode: MPNode): Observable<Array<any>> {
-    const url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/showResource';
+    const url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/showResource';
     return this.http.post<Array<any>>(url, mpnode );
   }
 

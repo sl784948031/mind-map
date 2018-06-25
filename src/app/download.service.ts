@@ -72,7 +72,7 @@ export class RestService {
   // 导出
   download(fileName: string, lid: string,mapid: string) {
     console.log('restservice export start');
-    let url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/download';
+    let url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/download';
     let body = {'filename': fileName,
       'lid': lid,
       'mapid': mapid
@@ -83,7 +83,7 @@ export class RestService {
   }
   download1(fileName: string, lid: string,mapid: string) {
     console.log('restservice export start');
-    let url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/download1';
+    let url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/download1';
     let body = {'filename': fileName,
       'lid': lid,
       'mapid': mapid};
@@ -93,13 +93,13 @@ export class RestService {
   }
 
   show(): Observable<UpFiles> {
-    const url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/showfile/1';
+    const url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/showfile/1';
     // 得到文件名称数组
     return this.downloadService.showfile(url);
   }
 
   showLink(lid: string, node_id: string, mapid:string): Observable<any> {
-    const url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/get_link';
+    const url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/get_link';
     let body = {
       'lid': lid,
       'node_id': node_id,
@@ -109,7 +109,7 @@ export class RestService {
   }
 
   uploadLink(linkname: string, linkcontent: string, lid: string, node_id: string,mapid:string) {
-    let url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/upload_link';
+    let url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/upload_link';
     let body = {
       'linkname': linkname,
       'linkcontent': linkcontent,
@@ -130,7 +130,7 @@ export class RestService {
     upFile.fd=fd;
     upFile.mapid=mapid;
     console.log(upFile);
-    let url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/upload_fd';
+    let url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/upload_fd';
     return this.http.post<any>( url, upFile);
   }
   uploadFileDescription1(filename: string, fd: string, lid: string, node_id: string,mapid:string): Observable<any> {
@@ -142,7 +142,7 @@ export class RestService {
     upFile.fd=fd;
     upFile.mapid=mapid;
     console.log(upFile);
-    let url = 'http://13.67.110.158:8004/pj-0.0.1-SNAPSHOT/upload_fd1';
+    let url = 'http://13.67.110.158:8080/pj-0.0.1-SNAPSHOT/upload_fd1';
     return this.http.post<any>( url, upFile);
   }
 
