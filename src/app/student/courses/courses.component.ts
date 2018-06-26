@@ -7,6 +7,7 @@ import {Courses} from '../../courses';
 import {Lesson} from '../../lesson';
 import {Course} from '../../course';
 import {Response} from '../../response';
+import {Account} from '../../account';
 
 @Component({
     selector: 'app-courses',
@@ -121,10 +122,31 @@ export class CoursesComponent implements OnInit {
 
     changePassword() {
         if (this.password1 != this.password2) {
-          alert("两次密码输入不一致，修改失败！");
-          return;
+            alert("两次密码输入不一致，修改失败！");
+            return;
         }
-        alert("修改成功");
+        let account=new Account();
+        account.username=this.user.username;
+        account.password=this.password1;
+        this.userService.changePass(account).subscribe(data => {
+            let re=new Response();
+            re=data;
+            if(re.status == "same"){
+                alert("新旧密码一致");
+            }else if(re.status =="yes"){
+                alert("修改成功");
+            }else {
+                alert("修改失败");
+            }
+        });
+    }
+    exitLogin10
+    () {
+        this.userService.exitLogin(this.user.username)
+            .subscribe(data => {
+                alert("已登出！");
+                this.router.navigateByUrl('login');
+            });
     }
 
 }

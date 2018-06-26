@@ -25,24 +25,24 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class UserService {
-  private registerUrl = 'http://13.67.110.158:8080/mindmap/register';
-  private loginUrl = 'http://13.67.110.158:8080/mindmap/login';
-  private lessonUrl = 'http://13.67.110.158:8080/mindmap/teacher_lessons/';
-  private addUrl = 'http://13.67.110.158:8080/mindmap/teacher_add_lessons/';
-  private add2Url = 'http://13.67.110.158:8080/mindmap/student_add_lessons/'
-  private courseUrl = 'http://13.67.110.158:8080/mindmap/student_lessons/';
-  private addAllUrl = 'http://13.67.110.158:8080/mindmap/addAll';
-  private saveMindMapUrl = 'http://13.67.110.158:8080/mindmap/saveMindMap';
-  private getMindMapUrl = 'http://13.67.110.158:8080/mindmap/getMindMap';
-  private saveNumUrl = 'http://13.67.110.158:8080/mindmap/saveNum';
-  private getNumUrl = 'http://13.67.110.158:8080/mindmap/getNum';
-  private addQ0Url = 'http://13.67.110.158:8080/mindmap/addQ0';
-  private getQ0Url = 'http://13.67.110.158:8080/mindmap/getQ0';
-  private addQ1Url = 'http://13.67.110.158:8080/mindmap/addQ1';
-  private getQ1Url = 'http://13.67.110.158:8080/mindmap/getQ1';
-  private removeQ0Url = 'http://13.67.110.158:8080/mindmap/removeQ0';
-  private removeQ1Url = 'http://13.67.110.158:8080/mindmap/removeQ1';
-  private submitUrl = 'http://13.67.110.158:8080/mindmap/submit';
+  private registerUrl = '/mindmap/register';
+  private loginUrl = '/mindmap/login';
+  private lessonUrl = '/mindmap/teacher_lessons/';
+  private addUrl = '/mindmap/teacher_add_lessons/';
+  private add2Url = '/mindmap/student_add_lessons/'
+  private courseUrl = '/mindmap/student_lessons/';
+  private addAllUrl = '/mindmap/addAll';
+  private saveMindMapUrl = '/mindmap/saveMindMap';
+  private getMindMapUrl = '/mindmap/getMindMap';
+  private saveNumUrl = '/mindmap/saveNum';
+  private getNumUrl = '/mindmap/getNum';
+  private addQ0Url = '/mindmap/addQ0';
+  private getQ0Url = '/mindmap/getQ0';
+  private addQ1Url = '/mindmap/addQ1';
+  private getQ1Url = '/mindmap/getQ1';
+  private removeQ0Url = '/mindmap/removeQ0';
+  private removeQ1Url = '/mindmap/removeQ1';
+  private submitUrl = '/mindmap/submit';
 
   constructor(private http: HttpClient) { }
 
@@ -54,17 +54,17 @@ export class UserService {
     return this.http.post<Response>(this.loginUrl, user);
   }
   public changePass(password: Account): Observable<Response> {
-    let examineloginUrl = 'http://13.67.110.158:8080/mindmap/changePass';
+    let examineloginUrl = '/mindmap/changePass';
     return this.http.post<Response>(examineloginUrl, password);
   }
 
   public examineLogin(username: string): Observable<Response> {
-    let examineloginUrl = 'http://13.67.110.158:8080/mindmap/examinelogin/' + username;
+    let examineloginUrl = '/mindmap/examinelogin/' + username;
     return this.http.post<Response>(examineloginUrl, []);
   }
 
   public exitLogin(username: string):Observable<Response> {
-    let examineloginUrl = 'http://13.67.110.158:8080/mindmap/exitlogin/' + username;
+    let examineloginUrl = '/mindmap/exitlogin/' + username;
     return this.http.post<Response>(examineloginUrl, []);
   }
 
@@ -89,12 +89,12 @@ export class UserService {
   }
 
   public showWare(mpnode: MPNode): Observable<Array<any>> {
-    const url = 'http://13.67.110.158:8080/mindmap/showWare';
+    const url = '/mindmap/showWare';
     return this.http.post<Array<any>>(url, mpnode );
   }
 
   public showResource(mpnode: MPNode): Observable<Array<any>> {
-    const url = 'http://13.67.110.158:8080/mindmap/showResource';
+    const url = '/mindmap/showResource';
     return this.http.post<Array<any>>(url, mpnode );
   }
 

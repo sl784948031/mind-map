@@ -124,5 +124,13 @@ export class LessonsComponent implements OnInit {
         }
     });
   }
+    exitLogin11
+    () {
+        this.userService.exitLogin(this.user.username)
+            .subscribe(data => {
+                alert("已登出！");
+                this.router.navigateByUrl('login');
+            });
+    }
 }
 
