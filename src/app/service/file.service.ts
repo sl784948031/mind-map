@@ -15,12 +15,12 @@ const httpOptions = {
 export class FileService {
 
   constructor(private http: HttpClient) {}
-
+  // 获取课件信息
   public showWare(mpnode: MPNode): Observable<Array<any>> {
     const url = '/mindmap/showWare';
     return this.http.post<Array<any>>(url, mpnode );
   }
-
+  // 获取资源信息
   public showResource(mpnode: MPNode): Observable<Array<any>> {
     const url = '/mindmap/showResource';
     return this.http.post<Array<any>>(url, mpnode );

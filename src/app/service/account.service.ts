@@ -19,20 +19,21 @@ export class AccountService {
 
   constructor(private http: HttpClient) {}
 
-
+  // 注册
   public login(user: User ): Observable<Response> {
     return this.http.post<Response>(this.loginUrl, user);
   }
+  // 修改密码
   public changePass(password: Account): Observable<Response> {
     let examineloginUrl = '/mindmap/changePass';
     return this.http.post<Response>(examineloginUrl, password);
   }
-
+  // 验证登录状态
   public examineLogin(username: string): Observable<Response> {
     let examineloginUrl = '/mindmap/examinelogin/' + username;
     return this.http.post<Response>(examineloginUrl, []);
   }
-
+  // 退出登录
   public exitLogin(username: string):Observable<Response> {
     let examineloginUrl = '/mindmap/exitlogin/' + username;
     return this.http.post<Response>(examineloginUrl, []);

@@ -21,15 +21,15 @@ export class MindmapService {
 
 
   constructor(private http: HttpClient) {}
-
+  // 保存思维导图
   public saveMindMap(mmp: MindMap): Observable<any> {
     return this.http.post<any>(this.saveMindMapUrl, mmp);
   }
-
+  // 获取思维导图
   public getMindMap(lesson: Lesson): Observable<any> {
     return this.http.post<any>(this.getMindMapUrl, lesson);
   }
-
+  // 保存思维导图的数量
   public saveNum(num: Number): Observable<any> {
     return this.http.post<any>(this.saveNumUrl, num);
   }
