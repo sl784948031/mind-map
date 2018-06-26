@@ -1,0 +1,64 @@
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+
+<div class="container">
+    <div>
+        <button class="btn btn-default" (click)="this.exitLogin10()">退出登录</button>
+        <button class="btn btn-default" data-toggle="modal" data-target="#myModal1">选课</button>
+        <div class="modal fade" id="myModal1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- 模态框头部 -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">选择课程</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- 模态框主体 -->
+                    <div class="modal-body" *ngFor="let item of lessons">
+                        <div>No.{{item.id}} <br>课程名称： {{item.name}}<br>授课老师：{{item.teacher}}<a class="lesson-enter" data-dismiss="modal" (click)="chooseLesson(item)" routerLink="/student/{{user.username}}" >选课</a></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-default" data-toggle="modal" data-target="#myModal2">修改密码</button>
+            
+        <div class="modal fade" id="myModal2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- 模态框头部 -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">修改密码</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- 模态框主体 -->
+                    <div class="modal-body">
+
+                        <input type="password" [(ngModel)]="password1" placeholder="新密码" name="password1" class="form-control">
+                        <input type="password" [(ngModel)]="password2" placeholder="确认密码" name="password2" class="form-control">
+
+                    </div>
+
+                    <!-- 模态框底部 -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="changePassword()">确定</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" *ngFor="let item of chooses">
+        <div class="card-header">No.{{item.cid}} <a class="lesson-enter" routerLink="/studentmap/{{this.user.username}}/{{item.lid}}">进入课程 <span class="glyphicon glyphicon-chevron-right"></span></a></div>
+        <div class="card-body">课程名称：{{item.name}}<br>课程人数: {{item.people_num}}</div>
+    </div>
+</div>
+

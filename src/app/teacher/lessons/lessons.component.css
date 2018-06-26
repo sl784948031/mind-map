@@ -1,0 +1,22 @@
+.btn{
+    margin: 5% 0 0 3%;
+}
+
+.card{
+    width: 24%;
+    float: left;
+    margin: 5% 0 0 3%;
+}
+
+.lesson-enter{
+    float: right;
+}
+
+/* #myModal{
+    width: 300px;
+} */
+
+.form-control{
+    width: 100%;
+    margin-top: 5%;
+}
