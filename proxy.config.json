@@ -1,6 +1,0 @@
-{
-  "/api/*": {
-    "target": "http://13.67.110.158:8080/mindmap/register",
-    "secure": false
-  }
-}
