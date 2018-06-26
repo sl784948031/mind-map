@@ -3,7 +3,9 @@ import {FileUploader, FileSelectDirective, FileItem, ParsedResponseHeaders} from
 import {RestService} from '../../download.service';
 import { UpFiles} from '../../upfiles';
 import {Upfile} from '../../upfile';
-import {UserService} from '../../user.service';
+// import {UserService} from '../../user.service';
+import {AccountService} from '../../service/account.service';
+import {FileService} from '../../service/file.service';
 import {LinkedList} from 'ngx-bootstrap';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MPNode} from '../../MPNode';
@@ -22,7 +24,8 @@ export class TcoursewareComponent implements OnInit {
   node_id: string;
   mapid: string;
   username: string;
-  constructor(private router: Router,private route: ActivatedRoute, private restService: RestService, private userService: UserService , private elementRef: ElementRef) { }
+  constructor(private router: Router,private route: ActivatedRoute, private restService: RestService, private accountService: AccountService, 
+              private fileService: FileService, private elementRef: ElementRef) { }
 
 
   public url: string = '/mindmap/upload/';
@@ -36,7 +39,7 @@ export class TcoursewareComponent implements OnInit {
     mpnode.node_id=this.node_id;
     console.log(mpnode);
     mpnode.mapid=this.mapid;
-    this.userService.showWare(mpnode).subscribe(data => {
+    this.fileService.showWare(mpnode).subscribe(data => {
       console.log(data);
       if(data ===null){
       }else{
@@ -59,7 +62,7 @@ export class TcoursewareComponent implements OnInit {
     this.uploader=new FileUploader({url: this.url});
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
-    this.userService.examineLogin(this.username)
+    this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -145,7 +148,7 @@ export class TcoursewareComponent implements OnInit {
     this.restService.download1(filename, this.lid,this.mapid);
   }
   exitLogin3() {
-    this.userService.exitLogin(this.username)
+    this.accountService.exitLogin(this.username)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');

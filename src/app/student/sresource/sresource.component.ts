@@ -3,7 +3,10 @@ import {FileUploader, FileSelectDirective, FileItem, ParsedResponseHeaders} from
 import {RestService} from '../../download.service';
 import { UpFiles} from '../../upfiles';
 import {Upfile} from '../../upfile';
-import {UserService} from '../../user.service';
+// import {UserService} from '../../user.service';
+import {AccountService} from '../../service/account.service';
+import {FileService} from '../../service/file.service';
+
 import {MPNode} from '../../MPNode';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Link} from '../../Link';
@@ -26,7 +29,8 @@ export class SresourceComponent implements OnInit {
   username: string;
   mapid:string;
   links: Link[];
-  constructor(private router: Router,private route: ActivatedRoute,private restService: RestService, private userService: UserService ) { }
+  constructor(private router: Router,private route: ActivatedRoute,private restService: RestService, private accountService: AccountService,
+              private fileService: FileService) { }
 
   showLink() {
     this.restService.showLink(this.lid,this.node_id,this.mapid).subscribe(data => {
@@ -45,7 +49,7 @@ export class SresourceComponent implements OnInit {
     mpnode.node_id=this.node_id;
     mpnode.mapid=this.mapid;
     console.log(mpnode);
-    this.userService.showResource(mpnode).subscribe(data => {
+    this.fileService.showResource(mpnode).subscribe(data => {
       console.log(data);
       if(data ===null){
       }else{
@@ -84,7 +88,7 @@ export class SresourceComponent implements OnInit {
     console.log(this.url);
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
-    this.userService.examineLogin(this.username)
+    this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -113,7 +117,7 @@ export class SresourceComponent implements OnInit {
     this.show_hide_val1 = !this.show_hide_val1;
   }
   exitLogin6() {
-    this.userService.exitLogin(this.username)
+    this.accountService.exitLogin(this.username)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');

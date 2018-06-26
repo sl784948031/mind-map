@@ -7,7 +7,9 @@ import '../../jsmind/js/jsmind.screenshot.js'
 import {ActivatedRoute, Router} from '@angular/router';
 import {Lesson} from '../../lesson';
 import {MindMap} from '../../mindmap';
-import {UserService} from '../../user.service';
+// import {UserService} from '../../user.service';
+import {AccountService} from '../../service/account.service';
+import {MindmapService} from '../../service/mindmap.service';
 import {Number} from '../../number';
 import {Response} from '../../response';
 
@@ -41,7 +43,8 @@ export class StudentmapComponent implements OnInit {
   items : any[] = [];
   ids : string[] = [];
   username: string;
-  constructor(private router: Router,private route: ActivatedRoute,private userService: UserService) { }
+  constructor(private router: Router,private route: ActivatedRoute,private accountService: AccountService,
+              private mindmapService: MindmapService) { }
 
   getID1() {
     const lid = this.route.snapshot.paramMap.get('id');
@@ -50,7 +53,7 @@ export class StudentmapComponent implements OnInit {
     console.log(this.lid);
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
-    this.userService.examineLogin(this.username)
+    this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -66,7 +69,7 @@ export class StudentmapComponent implements OnInit {
   getMindMap(){
     let lesson = new Lesson();
     lesson.id = this.lid;
-    this.userService.getMindMap(lesson)
+    this.mindmapService.getMindMap(lesson)
         .subscribe(data => {
           console.log(data);
           if(data == null){
@@ -76,7 +79,7 @@ export class StudentmapComponent implements OnInit {
             this.items = mindmap.items;
           }
         });
-    this.userService.getNum(lesson)
+    this.mindmapService.getNum(lesson)
         .subscribe(data => {
           console.log(data);
           if(data == null){
@@ -205,7 +208,7 @@ export class StudentmapComponent implements OnInit {
     this.show_hide_val3 = !this.show_hide_val3;
   }
   exitLogin5() {
-    this.userService.exitLogin(this.username)
+    this.accountService.exitLogin(this.username)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');
