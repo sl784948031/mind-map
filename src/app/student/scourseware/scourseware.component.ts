@@ -1,12 +1,14 @@
 import { Component, OnInit} from '@angular/core';
 import {FileUploader, FileSelectDirective, FileItem, ParsedResponseHeaders} from 'ng2-file-upload';
-import {RestService} from '../../download.service';
-import { UpFiles} from '../../upfiles';
-import {Upfile} from '../../upfile';
-import {UserService} from '../../user.service';
-import {MPNode} from '../../MPNode';
+import {RestService} from '../../service/download.service';
+import { UpFiles} from '../../entity/upfiles';
+import {Upfile} from '../../entity/upfile';
+import {AccountService} from '../../service/account.service';
+import {FileService} from '../../service/file.service';
+
+import {MPNode} from '../../entity/MPNode';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Response} from '../../response';
+import {Response} from '../../entity/response';
 
 @Component({
   selector: 'app-scourseware',
@@ -28,7 +30,10 @@ export class ScoursewareComponent implements OnInit {
   mapid:string;
   // 用户名
   username: string;
-  constructor(private router: Router,private route: ActivatedRoute, private restService: RestService, private userService: UserService ) { }
+
+
+  constructor(private router: Router,private route: ActivatedRoute, private restService: RestService, private accountService: AccountService,
+              private fileService: FileService) { }
   // 后台处理上传的服务的url
   public url: string = '/mindmap/upload/';
   // 获取已上传文件的数组
@@ -38,7 +43,7 @@ export class ScoursewareComponent implements OnInit {
     mpnode.node_id=this.node_id;
     mpnode.mapid=this.mapid;
     console.log(mpnode);
-    this.userService.showWare(mpnode).subscribe(data => {
+    this.fileService.showWare(mpnode).subscribe(data => {
       console.log(data);
       if(data ===null){
       }else{
@@ -61,7 +66,7 @@ export class ScoursewareComponent implements OnInit {
     console.log(this.url);
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
-    this.userService.examineLogin(this.username)
+    this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -100,10 +105,6 @@ export class ScoursewareComponent implements OnInit {
     this.showFile();
   }
 
-  afterAddingFile(fileitem: FileItem): any {
-    fileitem.withCredentials = false;
-    console.log(fileitem);
-  }
 
   // 显示或隐藏下拉菜单
   showList1() {
@@ -112,7 +113,7 @@ export class ScoursewareComponent implements OnInit {
   // 登出
   exitLogin8
   () {
-    this.userService.exitLogin(this.username)
+    this.accountService.exitLogin(this.username)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');

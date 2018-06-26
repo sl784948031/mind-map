@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { UserService } from '../../user.service';
-import {User} from '../../person';
-import {Lessons} from '../../lessons';
-import { Lesson } from '../../lesson';
-import {Response} from '../../response';
-import {Account} from '../../account';
+import {AccountService} from '../../service/account.service';
+import {LessonService} from '../../service/lesson.service';
+import {User} from '../../entity/person';
+import {Response} from '../../entity/response';
+import {Lessons} from "../../entity/lessons";
+import {Lesson} from "../../entity/lesson";
+import {Account} from "../../entity/account";
+
 
 @Component({
   selector: 'app-lessons',
@@ -33,7 +35,7 @@ export class LessonsComponent implements OnInit {
   password2: string;
 
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private accountService: AccountService, private lessonService: LessonService, private router: Router) {}
   ngOnInit() {
     this.getLessons();
     this.lessons = [];
@@ -45,13 +47,13 @@ export class LessonsComponent implements OnInit {
     const username = this.route.snapshot.paramMap.get('username');
     console.log(username);
     this.user.username = username;
-    this.userService.examineLogin(this.user.username)
+    this.accountService.examineLogin(this.user.username)
         .subscribe(data =>{
             let re=new Response();
             re=data;
             console.log(re.status);
             if(re.status == "online"){
-                this.userService.getLessons(this.user)
+                this.lessonService.getLessons(this.user)
                     .subscribe(data => {
                         console.log(data);
                         this.lesson.list = data;
@@ -75,7 +77,7 @@ export class LessonsComponent implements OnInit {
       this.ls.id = this.addLessonId;
       this.ls.name = this.addLessonName;
       this.ls.teacher = this.user.username;
-      this.userService.addLessons(this.ls).subscribe(
+      this.lessonService.addLessons(this.ls).subscribe(
           data => {
             console.log(data);
             this.response = data;
@@ -103,7 +105,7 @@ export class LessonsComponent implements OnInit {
   }
   // 更新老师开设的课程的数组和从后端接收到的老师开设的课程的信息
   updateAll() {
-    this.userService.getLessons(this.user)
+    this.lessonService.getLessons(this.user)
         .subscribe(data => {
           console.log(data);
           this.lesson.list = data;
@@ -120,7 +122,7 @@ export class LessonsComponent implements OnInit {
     let account=new Account();
     account.username=this.user.username;
     account.password=this.password1;
-    this.userService.changePass(account).subscribe(data => {
+    this.accountService.changePass(account).subscribe(data => {
         let re=new Response();
         re=data;
         if(re.status == "same"){
@@ -135,7 +137,7 @@ export class LessonsComponent implements OnInit {
     // 登出
     exitLogin11
     () {
-        this.userService.exitLogin(this.user.username)
+        this.accountService.exitLogin(this.user.username)
             .subscribe(data => {
                 alert("已登出！");
                 this.router.navigateByUrl('login');

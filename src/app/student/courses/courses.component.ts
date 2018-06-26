@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../../user.service';
-import {User} from '../../person';
-import {Lessons} from '../../lessons';
-import {Courses} from '../../courses';
-import {Lesson} from '../../lesson';
-import {Course} from '../../course';
-import {Response} from '../../response';
-import {Account} from '../../account';
+// import {UserService} from '../../service/user.service';
+import {CourseService} from '../../service/course.service'; 
+import {AccountService} from '../../service/account.service';
+import {User} from '../../entity/person';
+
+import {Response} from '../../entity/response';
+import {Course} from "../../entity/course";
+import {Lesson} from "../../entity/lesson";
+import {Lessons} from "../../entity/lessons";
+import {Courses} from "../../entity/courses";
+import {Account} from "../../entity/account";
+
 
 @Component({
     selector: 'app-courses',
@@ -34,7 +38,7 @@ export class CoursesComponent implements OnInit {
     // 确认密码
     password2: string;
 
-    constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {}
+    constructor(private route: ActivatedRoute, private accoutService: AccountService, private courseService: CourseService, private router: Router) {}
     ngOnInit() {
         this.getCourses();
         this.getAll();
@@ -47,7 +51,7 @@ export class CoursesComponent implements OnInit {
         this.ls.student = this.user.username;
         this.ls.lid = choose.id;
         console.log(this.ls);
-        this.userService.addCourses(this.ls)
+        this.courseService.addCourses(this.ls)
             .subscribe(data => {
                 console.log(data);
                 this.response = data;
@@ -63,7 +67,7 @@ export class CoursesComponent implements OnInit {
     }
     // 获取老师开设的课程的数组和从后端接收到的老师开设的课程的信息
     getAll(): void {
-        this.userService.addAll(this.user)
+        this.courseService.addAll(this.user)
             .subscribe(data => {
                 this.lesson.list = data;
                 this.updateLesson(this.lesson);
@@ -74,13 +78,13 @@ export class CoursesComponent implements OnInit {
         const username = this.route.snapshot.paramMap.get('username');
         console.log(username);
         this.user.username = username;
-        this.userService.examineLogin(this.user.username)
+        this.accoutService.examineLogin(this.user.username)
             .subscribe(data =>{
                 let re=new Response();
                 re=data;
                 console.log(re.status);
                 if(re.status == "online"){
-                    this.userService.getCourses(this.user)
+                    this.courseService.getCourses(this.user)
                         .subscribe(data => {
                             console.log(data);
                             this.course.list = data;
@@ -121,7 +125,7 @@ export class CoursesComponent implements OnInit {
     }
     // 学生选课后更新学生已选的课程的数组和从后端接收到的学生已选的课程的信息
     updateAll() {
-        this.userService.getCourses(this.user)
+        this.courseService.getCourses(this.user)
             .subscribe(data => {
                 console.log(data);
                 this.course.list = data;
@@ -138,7 +142,7 @@ export class CoursesComponent implements OnInit {
         let account=new Account();
         account.username=this.user.username;
         account.password=this.password1;
-        this.userService.changePass(account).subscribe(data => {
+        this.accoutService.changePass(account).subscribe(data => {
             let re=new Response();
             re=data;
             if(re.status == "same"){
@@ -153,7 +157,7 @@ export class CoursesComponent implements OnInit {
     // 登出
     exitLogin10
     () {
-        this.userService.exitLogin(this.user.username)
+        this.accoutService.exitLogin(this.user.username)
             .subscribe(data => {
                 alert("已登出！");
                 this.router.navigateByUrl('login');

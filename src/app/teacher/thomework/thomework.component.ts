@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SelectQ} from '../../selectQ';
-import {UserService} from '../../user.service';
-import {MPNode} from '../../MPNode';
+import {AccountService} from '../../service/account.service';
+import {HomeworkService} from '../../service/homework.service';
+import {MPNode} from '../../entity/MPNode';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
-import {DescripQ1} from '../../descripQ';
-import {Response} from '../../response';
+import {Response} from '../../entity/response';
+import {SelectQ} from "../../entity/selectQ";
+import {DescripQ1} from "../../entity/descripQ";
 
 @Component({
   selector: 'app-thomework',
@@ -45,7 +46,7 @@ export class ThomeworkComponent implements OnInit {
   username: string;
   // 思维导图id
   mapid: string;
-  constructor(private router: Router,private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private router: Router,private route: ActivatedRoute, private accountService: AccountService, private homeworkService: HomeworkService) { }
 
   ngOnInit() {
      this.homeworks = [];
@@ -68,7 +69,7 @@ export class ThomeworkComponent implements OnInit {
     mpNode.mapid=this.mapid
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
-    this.userService.examineLogin(this.username)
+    this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -78,7 +79,7 @@ export class ThomeworkComponent implements OnInit {
             alert("登录失效，请重新登录！");
             this.router.navigateByUrl('login');
           }
-          this.userService.getQ0(mpNode)
+          this.homeworkService.getQ0(mpNode)
               .subscribe(data => {
                 console.log(data);
                 if(data == null){
@@ -98,7 +99,7 @@ export class ThomeworkComponent implements OnInit {
                     this.homeworks.push(tmp);
                   }
                 }
-                this.userService.getQ1(mpNode)
+                this.homeworkService.getQ1(mpNode)
                     .subscribe(data => {
                       console.log(data);
                       if(data == null){
@@ -133,7 +134,7 @@ export class ThomeworkComponent implements OnInit {
       sq.mapid=this.mapid;
       sq.title=homework[1];
       console.log(sq);
-      this.userService.removeQ0(sq)
+      this.homeworkService.removeQ0(sq)
           .subscribe(data => {
             alert("选择题删除成功");
           });
@@ -144,7 +145,7 @@ export class ThomeworkComponent implements OnInit {
       sq.mapid=this.mapid;
       sq.title=homework[1];
       console.log(sq);
-      this.userService.removeQ1(sq)
+      this.homeworkService.removeQ1(sq)
           .subscribe(data => {
             alert("简答题删除成功");
           });
@@ -189,7 +190,7 @@ export class ThomeworkComponent implements OnInit {
     this.selectQ.node_id=this.node_id;
     this.selectQ.mapid=this.mapid;
     console.log(this.selectQ);
-    this.userService.addQ0(this.selectQ)
+    this.homeworkService.addQ0(this.selectQ)
         .subscribe(data => {
           alert("选择题添加成功");
           this.selectQ=new SelectQ();
@@ -212,7 +213,7 @@ export class ThomeworkComponent implements OnInit {
     this.descripQ.lid =this.lid;
     this.descripQ.node_id=this.node_id;
     this.descripQ.mapid=this.mapid;
-    this.userService.addQ1(this.descripQ)
+    this.homeworkService.addQ1(this.descripQ)
         .subscribe(data => {
           alert("简单题添加成功");
           this.descripQ=new DescripQ1();
@@ -220,7 +221,7 @@ export class ThomeworkComponent implements OnInit {
   }
   // 登出
   exitLogin2() {
-    this.userService.exitLogin(this.username)
+    this.accountService.exitLogin(this.username)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');

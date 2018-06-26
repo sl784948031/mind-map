@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../../user.service';
-import {MPNode} from '../../MPNode';
-import {SelectQ} from '../../selectQ';
-import {DescripQ1} from '../../descripQ';
-import {Submit} from '../../Submit';
-import {Response} from '../../response';
+import {AccountService} from '../../service/account.service';
+import {HomeworkService} from '../../service/homework.service';
+
+import {MPNode} from '../../entity/MPNode';
+import {Response} from '../../entity/response';
+import {Submit} from "../../entity/Submit";
+import {SelectQ} from "../../entity/selectQ";
+import {DescripQ1} from "../../entity/descripQ";
 
 @Component({
   selector: 'app-shomework',
@@ -33,7 +35,8 @@ export class ShomeworkComponent implements OnInit {
   mapid:string;
   // 用户名
   username: string;
-  constructor(private router: Router,private route: ActivatedRoute,private userService: UserService) { }
+  constructor(private router: Router,private route: ActivatedRoute,private accountService: AccountService,
+              private homeworkService: HomeworkService) { }
 
   ngOnInit() {
     this.getID1();
@@ -44,7 +47,7 @@ export class ShomeworkComponent implements OnInit {
     this.mapid=mapid;
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
-    this.userService.examineLogin(this.username)
+    this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -67,7 +70,7 @@ export class ShomeworkComponent implements OnInit {
     mpNode.lid = this.lid;
     mpNode.node_id= this.node_id;
     mpNode.mapid=this.mapid;
-    this.userService.getQ0(mpNode)
+    this.homeworkService.getQ0(mpNode)
         .subscribe(data => {
           console.log("enter q0");
           console.log(data);
@@ -87,7 +90,7 @@ export class ShomeworkComponent implements OnInit {
             }
           }
           console.log("enter q1");
-          this.userService.getQ1(mpNode)
+          this.homeworkService.getQ1(mpNode)
               .subscribe(data => {
                 console.log(1);
                 console.log(data);
@@ -148,7 +151,7 @@ export class ShomeworkComponent implements OnInit {
         if(tmp.toString()==""){
         }else {
             if (tmp.toString() == this.homeworks[i][3].toString()) {
-                //title，课程id，节点id，学生id，对错结果
+                // title，课程id，节点id，学生id，对错结果
                 sub.title=this.homeworks[i][1];
                 sub.answer="yes";
                 this.tm.push(sub);
@@ -166,7 +169,7 @@ export class ShomeworkComponent implements OnInit {
   submit() {
     this.checkAnswer();
     console.log(this.tm);
-    this.userService.submit(this.tm)
+    this.homeworkService.submit(this.tm)
         .subscribe(data =>{
            console.log(data);
            let re=new Response();
@@ -180,7 +183,7 @@ export class ShomeworkComponent implements OnInit {
   }
   // 登出
   exitLogin7() {
-    this.userService.exitLogin(this.username)
+    this.accountService.exitLogin(this.username)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');

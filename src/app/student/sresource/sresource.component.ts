@@ -1,13 +1,15 @@
 import { Component, OnInit} from '@angular/core';
 import {FileUploader, FileSelectDirective, FileItem, ParsedResponseHeaders} from 'ng2-file-upload';
-import {RestService} from '../../download.service';
-import { UpFiles} from '../../upfiles';
-import {Upfile} from '../../upfile';
-import {UserService} from '../../user.service';
-import {MPNode} from '../../MPNode';
+import {RestService} from '../../service/download.service';
+import { UpFiles} from '../../entity/upfiles';
+import {Upfile} from '../../entity/upfile';
+import {AccountService} from '../../service/account.service';
+import {FileService} from '../../service/file.service';
+
+import {MPNode} from '../../entity/MPNode';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Link} from '../../Link';
-import {Response} from '../../response';
+import {Response} from '../../entity/response';
+import {Link} from "../../entity/Link";
 
 @Component({
   selector: 'app-sresource',
@@ -34,8 +36,11 @@ export class SresourceComponent implements OnInit {
   mapid:string;
   // 链接数组
   links: Link[];
-  constructor(private router: Router,private route: ActivatedRoute,private restService: RestService, private userService: UserService ) { }
-  // 获取链接
+
+  
+  constructor(private router: Router,private route: ActivatedRoute,private restService: RestService, private accountService: AccountService,
+              private fileService: FileService) { }
+ // 获取链接
   showLink() {
     this.restService.showLink(this.lid,this.node_id,this.mapid).subscribe(data => {
       // 数据处理
@@ -53,7 +58,7 @@ export class SresourceComponent implements OnInit {
     mpnode.node_id=this.node_id;
     mpnode.mapid=this.mapid;
     console.log(mpnode);
-    this.userService.showResource(mpnode).subscribe(data => {
+    this.fileService.showResource(mpnode).subscribe(data => {
       console.log(data);
       if(data ===null){
       }else{
@@ -94,7 +99,7 @@ export class SresourceComponent implements OnInit {
     console.log(this.url);
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
-    this.userService.examineLogin(this.username)
+    this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -124,15 +129,11 @@ export class SresourceComponent implements OnInit {
   }
   // 登出
   exitLogin6() {
-    this.userService.exitLogin(this.username)
+    this.accountService.exitLogin(this.username)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');
         });
-  }
-  jump(data: any){
-    console.log(data);
-    window.open(data);
   }
 
 }

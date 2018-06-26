@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { UserService } from '../../services/user.service';
 
 import * as jsMind from '../../jsmind/js/jsmind.js';
-import '../../jsmind/js/jsmind.screenshot.js'
+import '../../jsmind/js/jsmind.screenshot.js';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MindMap} from '../../mindmap';
-import {UserService} from '../../user.service';
-import {Lesson} from '../../lesson';
-import {Number} from '../../number';
-import {Response} from '../../response';
+import {AccountService} from '../../service/account.service';
+import {MindmapService} from '../../service/mindmap.service';
+import {Response} from '../../entity/response';
+import {MindMap} from "../../entity/mindmap";
+import {Lesson} from "../../entity/lesson";
+import {Number} from "../../entity/number";
 
 const options = {
   container:'jsmind_container',
@@ -59,7 +58,7 @@ export class MindmapComponent implements OnInit {
   nodeColor : string="#000000";
   fontColor : string="#ffffff";
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) {
+  constructor(private route: ActivatedRoute, private accountService: AccountService, private mindmapService: MindmapService, private router: Router) {
     // this.user = this.userService.getUser();
     // this.userId = this.user.userId;
     // this.userType = this.user.userType;
@@ -78,7 +77,7 @@ export class MindmapComponent implements OnInit {
     console.log(this.lid);
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
-    this.userService.examineLogin(this.username)
+    this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -227,14 +226,14 @@ export class MindmapComponent implements OnInit {
   saveMindMap() {
     this.mmp.lid = this.lid;
     this.mmp.items = this.items;
-    this.userService.saveMindMap(this.mmp)
+    this.mindmapService.saveMindMap(this.mmp)
         .subscribe(data => {
           console.log(data);
         });
     let num = new Number();
     num.lid = this.lid;
     num.ids = this.ids;
-    this.userService.saveNum(num)
+    this.mindmapService.saveNum(num)
         .subscribe(data => {
           console.log(data);
         });
@@ -244,7 +243,7 @@ export class MindmapComponent implements OnInit {
   getMindMap(){
     let lesson = new Lesson();
     lesson.id = this.lid;
-    this.userService.getMindMap(lesson)
+    this.mindmapService.getMindMap(lesson)
         .subscribe(data => {
           console.log(data);
           if(data == null){
@@ -254,7 +253,7 @@ export class MindmapComponent implements OnInit {
             this.items = mindmap.items;
           }
         });
-    this.userService.getNum(lesson)
+    this.mindmapService.getNum(lesson)
         .subscribe(data => {
           console.log(data);
           if(data == null){
@@ -267,7 +266,7 @@ export class MindmapComponent implements OnInit {
   }
   // 登出
   exitLogin4() {
-    this.userService.exitLogin(this.username)
+    this.accountService.exitLogin(this.username)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');

@@ -1,14 +1,16 @@
 import { Component, OnInit, ElementRef} from '@angular/core';
 import {FileUploader, FileSelectDirective, FileItem, ParsedResponseHeaders} from 'ng2-file-upload';
-import {RestService} from '../../download.service';
-import { UpFiles} from '../../upfiles';
-import {Upfile} from '../../upfile';
-import {UserService} from '../../user.service';
+import {RestService} from '../../service/download.service';
+import { UpFiles} from '../../entity/upfiles';
+import {Upfile} from '../../entity/upfile';
+
+import {AccountService} from '../../service/account.service';
+import {FileService} from '../../service/file.service';
 import {LinkedList} from 'ngx-bootstrap';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MPNode} from '../../MPNode';
+import {MPNode} from '../../entity/MPNode';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
-import {Response} from '../../response';
+import {Response} from '../../entity/response';
 @Component({
   selector: 'app-tcourseware',
   templateUrl: './tcourseware.component.html',
@@ -29,7 +31,8 @@ export class TcoursewareComponent implements OnInit {
   mapid: string;
   // 用户名
   username: string;
-  constructor(private router: Router,private route: ActivatedRoute, private restService: RestService, private userService: UserService , private elementRef: ElementRef) { }
+  constructor(private router: Router,private route: ActivatedRoute, private restService: RestService, private accountService: AccountService, 
+              private fileService: FileService, private elementRef: ElementRef) { }
 
   // 后台处理上传的服务的url
   public url: string = '/mindmap/upload/';
@@ -46,7 +49,7 @@ export class TcoursewareComponent implements OnInit {
     mpnode.node_id=this.node_id;
     console.log(mpnode);
     mpnode.mapid=this.mapid;
-    this.userService.showWare(mpnode).subscribe(data => {
+    this.fileService.showWare(mpnode).subscribe(data => {
       console.log(data);
       if(data ===null){
       }else{
@@ -70,7 +73,7 @@ export class TcoursewareComponent implements OnInit {
     this.uploader=new FileUploader({url: this.url});
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
-    this.userService.examineLogin(this.username)
+    this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -160,7 +163,7 @@ export class TcoursewareComponent implements OnInit {
   }
   // 登出
   exitLogin3() {
-    this.userService.exitLogin(this.username)
+    this.accountService.exitLogin(this.username)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');
