@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { UserService } from '../../services/user.service';
 
 import * as jsMind from '../../jsmind/js/jsmind.js';
-import '../../jsmind/js/jsmind.screenshot.js'
+import '../../jsmind/js/jsmind.screenshot.js';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Lesson} from '../../lesson';
-import {MindMap} from '../../mindmap';
-// import {UserService} from '../../user.service';
+
 import {AccountService} from '../../service/account.service';
 import {MindmapService} from '../../service/mindmap.service';
-import {Number} from '../../number';
-import {Response} from '../../response';
+import {Response} from '../../entity/response';
+import {Lesson} from "../../entity/lesson";
+import {MindMap} from "../../entity/mindmap";
+import {Number} from "../../entity/number";
 
 const options = {
   container:'jsmind_container',
@@ -28,24 +26,35 @@ const options = {
 
 export class StudentmapComponent implements OnInit {
   title = '课程思维导图';
+  // 课程id
   lid: string;
+  // 思维导图
   mindMap = null;
-
+  // 当前思维导图在数组中的位置
   currentMap : number = 0;
-
+  // 用户
   user : any;
+  // 用户id
   userId : any;
+  // 用户类型
   userType : any;
-    mapid:string;
+  // 思维导图id
+  mapid:string;
+  // 下拉菜单的显示判断
   show_hide_val1 : boolean =false;
   show_hide_val2 : boolean =false;
   show_hide_val3 : boolean =false;
+  // 课程的所有思维导图
   items : any[] = [];
+  // 课程的所有思维导图的id
   ids : string[] = [];
+  // 用户名
   username: string;
+
   constructor(private router: Router,private route: ActivatedRoute,private accountService: AccountService,
               private mindmapService: MindmapService) { }
 
+  // 初始化全局变量
   getID1() {
     const lid = this.route.snapshot.paramMap.get('id');
     console.log(lid);
@@ -65,7 +74,7 @@ export class StudentmapComponent implements OnInit {
           }
         });
   }
-
+  // 获取思维导图
   getMindMap(){
     let lesson = new Lesson();
     lesson.id = this.lid;
@@ -94,108 +103,24 @@ export class StudentmapComponent implements OnInit {
     this.getID1();
     this.mindMap = new jsMind(options);
     this.getMindMap();
-    // const mind1 = {
-    //       "meta":{
-    //         "name":"jsMind mindMap",
-    //         "author":"zhang junjie",
-    //         "version":"0.2"
-    //       },
-    //       "format":"node_tree",
-    //       "data":{"id":"root","topic":"课程名称","children":[
-    //             {"id":"part","topic":"组成","direction":"right","children":[
-    //             ]},
-    //             {"id":"part2","topic":"组成","direction":"right","children":[
-    //             ]},
-    //       ]}
-    // }
-    // this.items.push(mind1);
-    // this.changeMap(this.items.length - 1);
   }
 
-  // creatMap() {
-  //   const mind1 = {
-  //     "meta":{
-  //       "name":"jsMind mindMap",
-  //       "author":"zhang junjie",
-  //       "version":"0.2"
-  //     },
-  //     "format":"node_tree",
-  //     "data":{"id":"root","topic":"课程名称","children":[
-  //           {"id":"part","topic":"组成","direction":"right","children":[
-  //           ]},
-  //           {"id":"part2","topic":"组成","direction":"right","children":[
-  //           ]},
-  //     ]}
-  //   }
-  //   this.items.push(mind1);
-  //   this.changeMap(this.items.length - 1);
-  // }
 
+  // 切换思维导图
   changeMap(e) {
       this.mapid=this.ids[e];
     this.currentMap = e;
     this.mindMap.show(this.items[e]);
   }
-
+  // 思维导图截图
   mapShoot() {
     // this.mindMap.show(this.currentMap);
     this.mindMap.screenshot.shootDownload();
   }
 
-  // removeNode() {
-  //   const selected_id = this.mindMap.get_selected_node();
-  //   if(!selected_id){
-  //   alert('请先选择一个节点！');
-  //   return;
-  //   }
-  //   if(!selected_id.parent) {
-  //     window.alert('根节点无法被删除！');
-  //     return;
-  //   }
-  //   this.mindMap.remove_node(selected_id);
-  //   this.items[this.currentMap] = this.mindMap.get_data("node_tree");
-  // }
-    
-  // addChildNode() {
-  //   const selected_node = this.mindMap.get_selected_node(); 
-  //   if(!selected_node){
-  //   alert('请先选择一个节点！');
-  //   return;
-  //   }
-  //   const nodeid = jsMind.util.uuid.newid();
-  //   const topic = '新节点';
-  //   const node = this.mindMap.add_node(selected_node, nodeid, topic);
-  //   this.items[this.currentMap] = this.mindMap.get_data("node_tree");
-  // }
 
-  // addBrotherNode(e) {
-  //   console.log(e)
-  //   const selected_node = this.mindMap.get_selected_node(); 
-  //   if(!selected_node){
-  //   alert('请先选择一个节点！');
-  //   return;
-  //   }
-   
-  //   if(!selected_node.parent){
-  //     alert('根节点无法被添加兄弟节点！');
-  //     return;
-  //   }
-  //   const nodeid = jsMind.util.uuid.newid();
-  //   const topic = '新节点';
-  //   const node = this.mindMap.add_node(selected_node.parent, nodeid, topic);
-  //   this.items[this.currentMap] = this.mindMap.get_data("node_tree");
-  // }
 
-  // changeNodeColor(e) {
-  //   const selected_node = this.mindMap.get_selected_node();
-  //   if(!selected_node){
-  //   alert('请先选择一个节点！');
-  //   return;
-  //   }
-  //   this.mindMap.set_node_color(selected_node.id, e.toElement.id, "#fff");
-  //   this.items[this.currentMap] = this.mindMap.get_data("node_tree");
-  // }
-  
+  // 显示或隐藏下拉菜单
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;
   }

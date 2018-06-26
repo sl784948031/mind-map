@@ -1,6 +1,7 @@
 /**
  * Created by sunlu on 2018/6/20.
  */
+// 选择题类
 export class SelectQ {
     lid: string;
     node_id: string;
