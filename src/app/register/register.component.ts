@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../person';
-import { Response } from '../response';
-import { UserService } from '../user.service';
+import { User } from '../entity/person';
+import { Response } from '../entity/response';
+import { UserService } from '../service/user.service';
 import {Router} from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {routerNgProbeToken} from '@angular/router/src/router_module';

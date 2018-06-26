@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../person';
-import {UserService} from '../user.service';
+import {User} from '../entity/person';
+import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
-import { Response } from '../response';
+import { Response } from '../entity/response';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

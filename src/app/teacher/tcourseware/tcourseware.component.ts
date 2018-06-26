@@ -1,16 +1,16 @@
 import { Component, OnInit, ElementRef} from '@angular/core';
 import {FileUploader, FileSelectDirective, FileItem, ParsedResponseHeaders} from 'ng2-file-upload';
-import {RestService} from '../../download.service';
-import { UpFiles} from '../../upfiles';
-import {Upfile} from '../../upfile';
-// import {UserService} from '../../user.service';
+import {RestService} from '../../service/download.service';
+import { UpFiles} from '../../entity/upfiles';
+import {Upfile} from '../../entity/upfile';
+
 import {AccountService} from '../../service/account.service';
 import {FileService} from '../../service/file.service';
 import {LinkedList} from 'ngx-bootstrap';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MPNode} from '../../MPNode';
+import {MPNode} from '../../entity/MPNode';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
-import {Response} from '../../response';
+import {Response} from '../../entity/response';
 @Component({
   selector: 'app-tcourseware',
   templateUrl: './tcourseware.component.html',

@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { UserService } from '../../services/user.service';
 
 import * as jsMind from '../../jsmind/js/jsmind.js';
-import '../../jsmind/js/jsmind.screenshot.js'
+import '../../jsmind/js/jsmind.screenshot.js';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Lesson} from '../../lesson';
-import {MindMap} from '../../mindmap';
-// import {UserService} from '../../user.service';
 import {AccountService} from '../../service/account.service';
 import {MindmapService} from '../../service/mindmap.service';
-import {Number} from '../../number';
-import {Response} from '../../response';
+import {Response} from '../../entity/response';
+import {Lesson} from "../../entity/lesson";
+import {MindMap} from "../../entity/mindmap";
+import {Number} from "../../entity/number";
 
 const options = {
   container:'jsmind_container',
@@ -94,42 +91,7 @@ export class StudentmapComponent implements OnInit {
     this.getID1();
     this.mindMap = new jsMind(options);
     this.getMindMap();
-    // const mind1 = {
-    //       "meta":{
-    //         "name":"jsMind mindMap",
-    //         "author":"zhang junjie",
-    //         "version":"0.2"
-    //       },
-    //       "format":"node_tree",
-    //       "data":{"id":"root","topic":"课程名称","children":[
-    //             {"id":"part","topic":"组成","direction":"right","children":[
-    //             ]},
-    //             {"id":"part2","topic":"组成","direction":"right","children":[
-    //             ]},
-    //       ]}
-    // }
-    // this.items.push(mind1);
-    // this.changeMap(this.items.length - 1);
   }
-
-  // creatMap() {
-  //   const mind1 = {
-  //     "meta":{
-  //       "name":"jsMind mindMap",
-  //       "author":"zhang junjie",
-  //       "version":"0.2"
-  //     },
-  //     "format":"node_tree",
-  //     "data":{"id":"root","topic":"课程名称","children":[
-  //           {"id":"part","topic":"组成","direction":"right","children":[
-  //           ]},
-  //           {"id":"part2","topic":"组成","direction":"right","children":[
-  //           ]},
-  //     ]}
-  //   }
-  //   this.items.push(mind1);
-  //   this.changeMap(this.items.length - 1);
-  // }
 
   changeMap(e) {
       this.mapid=this.ids[e];
@@ -142,60 +104,6 @@ export class StudentmapComponent implements OnInit {
     this.mindMap.screenshot.shootDownload();
   }
 
-  // removeNode() {
-  //   const selected_id = this.mindMap.get_selected_node();
-  //   if(!selected_id){
-  //   alert('请先选择一个节点！');
-  //   return;
-  //   }
-  //   if(!selected_id.parent) {
-  //     window.alert('根节点无法被删除！');
-  //     return;
-  //   }
-  //   this.mindMap.remove_node(selected_id);
-  //   this.items[this.currentMap] = this.mindMap.get_data("node_tree");
-  // }
-    
-  // addChildNode() {
-  //   const selected_node = this.mindMap.get_selected_node(); 
-  //   if(!selected_node){
-  //   alert('请先选择一个节点！');
-  //   return;
-  //   }
-  //   const nodeid = jsMind.util.uuid.newid();
-  //   const topic = '新节点';
-  //   const node = this.mindMap.add_node(selected_node, nodeid, topic);
-  //   this.items[this.currentMap] = this.mindMap.get_data("node_tree");
-  // }
-
-  // addBrotherNode(e) {
-  //   console.log(e)
-  //   const selected_node = this.mindMap.get_selected_node(); 
-  //   if(!selected_node){
-  //   alert('请先选择一个节点！');
-  //   return;
-  //   }
-   
-  //   if(!selected_node.parent){
-  //     alert('根节点无法被添加兄弟节点！');
-  //     return;
-  //   }
-  //   const nodeid = jsMind.util.uuid.newid();
-  //   const topic = '新节点';
-  //   const node = this.mindMap.add_node(selected_node.parent, nodeid, topic);
-  //   this.items[this.currentMap] = this.mindMap.get_data("node_tree");
-  // }
-
-  // changeNodeColor(e) {
-  //   const selected_node = this.mindMap.get_selected_node();
-  //   if(!selected_node){
-  //   alert('请先选择一个节点！');
-  //   return;
-  //   }
-  //   this.mindMap.set_node_color(selected_node.id, e.toElement.id, "#fff");
-  //   this.items[this.currentMap] = this.mindMap.get_data("node_tree");
-  // }
-  
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;
   }

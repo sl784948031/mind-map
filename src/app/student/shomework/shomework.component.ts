@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-// import {UserService} from '../../user.service';
 import {AccountService} from '../../service/account.service';
 import {HomeworkService} from '../../service/homework.service';
 
-import {MPNode} from '../../MPNode';
-import {SelectQ} from '../../selectQ';
-import {DescripQ1} from '../../descripQ';
-import {Submit} from '../../Submit';
-import {Response} from '../../response';
+import {MPNode} from '../../entity/MPNode';
+import {Response} from '../../entity/response';
+import {Submit} from "../../entity/Submit";
+import {SelectQ} from "../../entity/selectQ";
+import {DescripQ1} from "../../entity/descripQ";
 
 @Component({
   selector: 'app-shomework',
@@ -143,7 +142,7 @@ export class ShomeworkComponent implements OnInit {
         if(tmp.toString()==""){
         }else {
             if (tmp.toString() == this.homeworks[i][3].toString()) {
-                //title，课程id，节点id，学生id，对错结果
+                // title，课程id，节点id，学生id，对错结果
                 sub.title=this.homeworks[i][1];
                 sub.answer="yes";
                 this.tm.push(sub);

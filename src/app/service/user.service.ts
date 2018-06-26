@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
-
+import { User } from '../entity/person';
+import { Response } from '../entity/response';
 import { HttpHeaders, HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {User} from "../entity/person";
-import {Response} from '../entity/response';
 import {Account} from '../entity/account';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable({
   providedIn: 'root',
 })
-export class AccountService {
+export class UserService {
   private registerUrl = '/mindmap/register';
   private loginUrl = '/mindmap/login';
+  private submitUrl = '/mindmap/submit';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
+  public createUser(user: User ): Observable<Response> {
+    return this.http.post<Response>(this.registerUrl, user);
+  }
 
   public login(user: User ): Observable<Response> {
     return this.http.post<Response>(this.loginUrl, user);
@@ -33,9 +33,13 @@ export class AccountService {
     return this.http.post<Response>(examineloginUrl, []);
   }
 
-  public exitLogin(username: string):Observable<Response> {
+  public exitLogin(username: string): Observable <Response> {
     let examineloginUrl = '/mindmap/exitlogin/' + username;
     return this.http.post<Response>(examineloginUrl, []);
   }
 
+  public submit(data: any): Observable <Response> {
+    return this.http.post<Response>(this.submitUrl, data);
+  }
 }
+

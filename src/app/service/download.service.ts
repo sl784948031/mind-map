@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { HttpHeaders, HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {UpFiles} from './upfiles';
-import {Upfile} from './upfile';
+import {UpFiles} from "../entity/upfiles";
+import {Upfile} from "../entity/upfile";
+
 
 
 const httpOptions = {

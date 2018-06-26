@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { UserService } from '../../services/user.service';
 
 import * as jsMind from '../../jsmind/js/jsmind.js';
-import '../../jsmind/js/jsmind.screenshot.js'
+import '../../jsmind/js/jsmind.screenshot.js';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MindMap} from '../../mindmap';
-// import {UserService} from '../../user.service';
 import {AccountService} from '../../service/account.service';
 import {MindmapService} from '../../service/mindmap.service';
-import {Lesson} from '../../lesson';
-import {Number} from '../../number';
-import {Response} from '../../response';
+import {Response} from '../../entity/response';
+import {MindMap} from "../../entity/mindmap";
+import {Lesson} from "../../entity/lesson";
+import {Number} from "../../entity/number";
 
 const options = {
   container:'jsmind_container',

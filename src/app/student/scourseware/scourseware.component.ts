@@ -1,15 +1,14 @@
 import { Component, OnInit} from '@angular/core';
 import {FileUploader, FileSelectDirective, FileItem, ParsedResponseHeaders} from 'ng2-file-upload';
-import {RestService} from '../../download.service';
-import { UpFiles} from '../../upfiles';
-import {Upfile} from '../../upfile';
-// import {UserService} from '../../user.service';
+import {RestService} from '../../service/download.service';
+import { UpFiles} from '../../entity/upfiles';
+import {Upfile} from '../../entity/upfile';
 import {AccountService} from '../../service/account.service';
 import {FileService} from '../../service/file.service';
 
-import {MPNode} from '../../MPNode';
+import {MPNode} from '../../entity/MPNode';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Response} from '../../response';
+import {Response} from '../../entity/response';
 
 @Component({
   selector: 'app-scourseware',
@@ -93,11 +92,6 @@ export class ScoursewareComponent implements OnInit {
   ngOnInit() {
     this.getID1();
     this.showFile();
-  }
-
-  afterAddingFile(fileitem: FileItem): any {
-    fileitem.withCredentials = false;
-    console.log(fileitem);
   }
 
 

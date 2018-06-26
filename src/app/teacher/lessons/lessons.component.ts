@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-// import { UserService } from '../../user.service';
 import {AccountService} from '../../service/account.service';
 import {LessonService} from '../../service/lesson.service';
-import {User} from '../../person';
-import {Lessons} from '../../lessons';
-import { Lesson } from '../../lesson';
-import {Response} from '../../response';
-import {Account} from '../../account';
+import {User} from '../../entity/person';
+import {Response} from '../../entity/response';
+import {Lessons} from "../../entity/lessons";
+import {Lesson} from "../../entity/lesson";
+import {Account} from "../../entity/account";
+
 
 @Component({
   selector: 'app-lessons',

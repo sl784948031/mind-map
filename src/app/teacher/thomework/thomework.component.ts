@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SelectQ} from '../../selectQ';
-// import {UserService} from '../../user.service';
 import {AccountService} from '../../service/account.service';
 import {HomeworkService} from '../../service/homework.service';
-import {MPNode} from '../../MPNode';
+import {MPNode} from '../../entity/MPNode';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
-import {DescripQ1} from '../../descripQ';
-import {Response} from '../../response';
+import {Response} from '../../entity/response';
+import {SelectQ} from "../../entity/selectQ";
+import {DescripQ1} from "../../entity/descripQ";
 
 @Component({
   selector: 'app-thomework',
