@@ -13,11 +13,12 @@ import {Response} from '../../response';
   styleUrls: ['./thomework.component.css']
 })
 export class ThomeworkComponent implements OnInit {
-
+  // 作业数组
   homeworks : any[];
+  // 下拉菜单的显示判断
   show_hide_val1 : boolean = false;
-
-  question0 : string; //选择题部分
+  // 选择题部分
+  question0 : string;
   choice1 : string;
   choice2 : string;
   choice3 : string;
@@ -26,16 +27,23 @@ export class ThomeworkComponent implements OnInit {
   answer2 : boolean = false;
   answer3 : boolean = false;
   answer4 : boolean = false;
-
-  question1 : string; //简答题部分
-
+  // 简答题部分
+  question1 : string;
+  // 课程id
   lid: string;
+  // 思维导图节点id
   node_id: string;
+  // 选择题对象
   selectQ: SelectQ = new SelectQ();
+  // 选择题数组
   Q0sum: SelectQ[];
+  // 简答题对象
   descripQ: DescripQ1 = new DescripQ1();
+  // 简答题数组
   Q1sum: DescripQ1[];
+  // 用户名
   username: string;
+  // 思维导图id
   mapid: string;
   constructor(private router: Router,private route: ActivatedRoute, private userService: UserService) { }
 
@@ -43,7 +51,7 @@ export class ThomeworkComponent implements OnInit {
      this.homeworks = [];
     this.getID1();
   }
-
+  // 初始化全局变量
   getID1() {
     const mapid = this.route.snapshot.paramMap.get('mapid');
     this.mapid=mapid;
@@ -112,11 +120,11 @@ export class ThomeworkComponent implements OnInit {
   }
 
 
-
+  // 显示或隐藏下拉菜单
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;
   }
-
+  // 移除作业
   removeHomework(homework : any[]) {
     if(homework[0] === "0"){
       let sq=new SelectQ();
@@ -143,7 +151,7 @@ export class ThomeworkComponent implements OnInit {
     }
     this.homeworks.splice(this.homeworks.indexOf(homework, 0), 1);
   }
-
+  // 增加选择题
   addQuestion0() {
     for (let i = 0; i < this.homeworks.length; i++) {
       if (this.homeworks[i][1] == this.selectQ.title) {
@@ -187,7 +195,7 @@ export class ThomeworkComponent implements OnInit {
           this.selectQ=new SelectQ();
         });
   }
-
+  // 增加简答题
   addQuestion1() {
     for (let i = 0; i < this.homeworks.length; i++) {
       if (this.homeworks[i][1] == this.descripQ.title) {
@@ -210,6 +218,7 @@ export class ThomeworkComponent implements OnInit {
           this.descripQ=new DescripQ1();
         });
   }
+  // 登出
   exitLogin2() {
     this.userService.exitLogin(this.username)
         .subscribe(data => {

@@ -13,15 +13,23 @@ import {Account} from '../../account';
   styleUrls: ['./lessons.component.css']
 })
 export class LessonsComponent implements OnInit {
+  // 老师开设的课程的数组 用于页面显示
   lessons: any[];
+  // 从后端接收到的老师开设的课程的信息
   lesson: Lessons = new Lessons();
+  // 用户
   user: User = new User();
+  // 添加的课程的id
   addLessonId: string;
+  // 添加的课程的名字
   addLessonName: string;
+  // 老师添加课程时添加的课程的对象
   ls: Lesson = new Lesson();
+  // 响应对象
   response: Response = new Response();
-
+  // 新密码
   password1: string;
+  // 确认密码
   password2: string;
 
 
@@ -32,7 +40,7 @@ export class LessonsComponent implements OnInit {
     this.addLessonName = '';
     this.addLessonId = '';
   }
-
+  // 获取老师开设的课程
   getLessons(): void {
     const username = this.route.snapshot.paramMap.get('username');
     console.log(username);
@@ -56,7 +64,7 @@ export class LessonsComponent implements OnInit {
             }
         });
   }
-
+  // 添加课程
   addLesson() {
     console.log(this.addLessonName);
     if (this.addLessonId === '') {
@@ -81,7 +89,7 @@ export class LessonsComponent implements OnInit {
       );
     }
   }
-
+  // 更新老师开设的课程的数组
   updateLesson(lesson: Lessons) {
     let tmp = [];
     this.lessons = [];
@@ -93,7 +101,7 @@ export class LessonsComponent implements OnInit {
       tmp = [];
     }
   }
-
+  // 更新老师开设的课程的数组和从后端接收到的老师开设的课程的信息
   updateAll() {
     this.userService.getLessons(this.user)
         .subscribe(data => {
@@ -103,7 +111,7 @@ export class LessonsComponent implements OnInit {
           this.updateLesson(this.lesson);
         });
   }
-
+  // 修改密码
   changePassword() {
     if (this.password1 != this.password2) {
       alert("两次密码输入不一致，修改失败！");
@@ -124,6 +132,7 @@ export class LessonsComponent implements OnInit {
         }
     });
   }
+    // 登出
     exitLogin11
     () {
         this.userService.exitLogin(this.user.username)

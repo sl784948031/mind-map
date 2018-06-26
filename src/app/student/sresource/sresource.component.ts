@@ -16,18 +16,26 @@ import {Response} from '../../response';
 })
 
 export class SresourceComponent implements OnInit {
-
+  // 下拉菜单的显示判断
   show_hide_val1: boolean = false;
+  // 从后端接收到的已上传文件的信息
   upfiles: UpFiles = new UpFiles();
+  // 已上传文件的数组 用于页面显示
   filenames: Upfile[];
+  // 课程id
   lid: string;
+  // 思维导图节点id
   node_id: string;
+  // 后台处理上传的服务的url
   public url: string = '/mindmap/upload/';
+  // 用户名
   username: string;
+  // 思维导图id
   mapid:string;
+  // 链接数组
   links: Link[];
   constructor(private router: Router,private route: ActivatedRoute,private restService: RestService, private userService: UserService ) { }
-
+  // 获取链接
   showLink() {
     this.restService.showLink(this.lid,this.node_id,this.mapid).subscribe(data => {
       // 数据处理
@@ -38,7 +46,7 @@ export class SresourceComponent implements OnInit {
 
 
 
-
+  // 获取已上传文件的数组
   showFile() {
     let mpnode = new MPNode();
     mpnode.lid=this.lid;
@@ -54,7 +62,7 @@ export class SresourceComponent implements OnInit {
       }
     });
   }
-
+  // 更新已上传文件的数组
   update(upfiles: UpFiles) {
     let tmp = new Upfile();
     this.filenames = [];
@@ -67,10 +75,12 @@ export class SresourceComponent implements OnInit {
       tmp = new Upfile();
     }
   }
+  // 下载文件
   downloadfile(filename) {
     console.log('downloadfile start');
     this.restService.download(filename, '1',this.mapid);
   }
+  // 初始化全局变量
   getID1() {
     const mapid = this.route.snapshot.paramMap.get('mapid');
     this.mapid=mapid;
@@ -108,10 +118,11 @@ export class SresourceComponent implements OnInit {
     console.log(fileitem);
   }
 
-
+  // 显示或隐藏下拉菜单
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;
   }
+  // 登出
   exitLogin6() {
     this.userService.exitLogin(this.username)
         .subscribe(data => {

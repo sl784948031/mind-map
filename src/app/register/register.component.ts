@@ -13,16 +13,19 @@ import {routerNgProbeToken} from '@angular/router/src/router_module';
   providers: [UserService]
 })
 export class RegisterComponent implements OnInit {
+  // 用户对象
   user: User = new User();
+  // 响应对象
   response: Response = new Response();
   title = '欢迎来到注册界面';
   con1 = '用户名';
   con2 = '密码';
   con3 = '密码确认';
-
+  // 用户第二次输入的确认密码
   cpassword : string;
+  // 用户类型
   type : string = 'teacher';
-
+  // 获取用户类型
   getType(type : string) {
     this.type = type;
   }
@@ -31,6 +34,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
   }
+  // 用户注册
   createUser(): void {
     this.user.type = this.type;
     this.user.status = "offline";

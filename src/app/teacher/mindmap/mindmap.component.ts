@@ -27,24 +27,35 @@ const options = {
 
 export class MindmapComponent implements OnInit {
   title = '课程思维导图';
+  // 课程id
   lid: string;
+  // 思维导图对象
   mmp: MindMap = new MindMap();
+  // 思维导图
   mindMap = null;
-
+  // 当前思维导图在数组中的位置
   currentMap : number = 0;
+  // 创建的思维导图的id
   createId : string;
-
+  // 用户
   user : any;
+  // 用户id
   userId : any;
+  // 用户类型
   userType : any;
+  // 用户名
   username: string;
-
+  // 下拉菜单的显示判断
   show_hide_val1 : boolean =false;
   show_hide_val2 : boolean =false;
   show_hide_val3 : boolean =false;
+  // 课程的所有思维导图
   items : any[] = [];
+  // 课程的所有思维导图的id
   ids : string[] = [];
+  // 思维导图id
   mapid: string;
+  // 颜色
   nodeColor : string="#000000";
   fontColor : string="#ffffff";
 
@@ -59,7 +70,7 @@ export class MindmapComponent implements OnInit {
     this.getID1();
     this.getMindMap();
   }
-
+  // 初始化全局变量
   getID1() {
     const lid = this.route.snapshot.paramMap.get('id');
     console.log(lid);
@@ -79,6 +90,7 @@ export class MindmapComponent implements OnInit {
           }
         });
   }
+  // 创建思维导图
   creatMap() {
     const mind1 = {
       "meta":{
@@ -106,19 +118,19 @@ export class MindmapComponent implements OnInit {
     this.saveMindMap();
     this.getMindMap();
   }
-
+  // 切换思维导图
   changeMap(e) {
     this.mapid=this.ids[e];
     console.log(this.mapid);
     this.currentMap = e;
     this.mindMap.show(this.items[e]);
   }
-
+  // 思维导图截图
   mapShoot() {
     // this.mindMap.show(this.currentMap);
     this.mindMap.screenshot.shootDownload();
   }
-
+  // 移除节点
   removeNode() {
     const selected_id = this.mindMap.get_selected_node();
     if(!selected_id){
@@ -133,7 +145,7 @@ export class MindmapComponent implements OnInit {
     this.items[this.currentMap] = this.mindMap.get_data("node_tree");
     this.saveMindMap();
   }
-
+  // 获取选择节点的id
   get_selected_nodeid() {
     const selected_node = this.mindMap.get_selected_node();
     if (!!selected_node) {
@@ -141,7 +153,7 @@ export class MindmapComponent implements OnInit {
       return selected_node.id;
     }
   }
-
+  // 增加子节点
   addChildNode() {
     const selected_node = this.mindMap.get_selected_node();
     if(!selected_node){
@@ -154,7 +166,7 @@ export class MindmapComponent implements OnInit {
     this.items[this.currentMap] = this.mindMap.get_data("node_tree");
     this.saveMindMap();
   }
-
+  // 增加兄弟节点
   addBrotherNode(e) {
     console.log(e)
     const selected_node = this.mindMap.get_selected_node();
@@ -173,7 +185,7 @@ export class MindmapComponent implements OnInit {
     this.items[this.currentMap] = this.mindMap.get_data("node_tree");
     this.saveMindMap();
   }
-
+  // 改变节点颜色
   changeNodeColor() {
     const selected_node = this.mindMap.get_selected_node();
     console.log(selected_node);
@@ -186,7 +198,7 @@ export class MindmapComponent implements OnInit {
     this.items[this.currentMap] = this.mindMap.get_data("node_tree");
     this.saveMindMap();
   }
-
+  // 改变字体颜色
   changeFontColor() {
     const selected_node = this.mindMap.get_selected_node();
     console.log(selected_node);
@@ -199,7 +211,7 @@ export class MindmapComponent implements OnInit {
     this.items[this.currentMap] = this.mindMap.get_data("node_tree");
     this.saveMindMap();
   }
-
+  // 显示或隐藏下拉菜单
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;
   }
@@ -211,7 +223,7 @@ export class MindmapComponent implements OnInit {
   showList3() {
     this.show_hide_val3 = !this.show_hide_val3;
   }
-
+  // 保存思维导图
   saveMindMap() {
     this.mmp.lid = this.lid;
     this.mmp.items = this.items;
@@ -228,7 +240,7 @@ export class MindmapComponent implements OnInit {
         });
 
   }
-
+  // 获取思维导图
   getMindMap(){
     let lesson = new Lesson();
     lesson.id = this.lid;
@@ -253,6 +265,7 @@ export class MindmapComponent implements OnInit {
           }
         });
   }
+  // 登出
   exitLogin4() {
     this.userService.exitLogin(this.username)
         .subscribe(data => {

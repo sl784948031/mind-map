@@ -11,19 +11,21 @@ import { Response } from '../response';
 export class LoginComponent implements OnInit {
   con1 = '用户名';
   con2 = '密码';
+  // 用户对象
   user: User = new User();
+  // 响应对象
   response: Response = new Response();
   constructor(private router: Router, private userService: UserService) { }
-
+  // 用户类型
   type : string = 'teacher';
-
+  // 获取用户类型
   getType(type : string) {
     this.type = type;
   }
 
   ngOnInit() {
   }
-
+  // 用户登录
   login(): void {
     this.user.type = this.type;
     this.user.status ="online";

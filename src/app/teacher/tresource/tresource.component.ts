@@ -16,25 +16,37 @@ import {Response} from '../../response';
   styleUrls: ['./tresource.component.css']
 })
 export class TresourceComponent implements OnInit {
-
+  // 下拉菜单的显示判断
   show_hide_val1: boolean = false;
+  // 从后端接收到的已上传文件的信息
   upfiles: UpFiles = new UpFiles();
+  // 已上传文件的数组 用于页面显示
   filenames: Upfile[];
+  // 课程id
   lid: string;
+  // 思维导图节点id
   node_id: string;
+  // 链接名称
   linkname: string;
+  // 链接描述
   linkcontent: string;
+  // 链接数组
   links: Link[];
+  // 用户名
   username: string;
+  // 思维导图id
   mapid: string;
   constructor(private router: Router,private route: ActivatedRoute, private restService: RestService, private userService: UserService , private elementRef: ElementRef) { }
 
-
+  // 后台处理上传的服务的url
   public url: string = '/mindmap/upload/1';
+  // FileUploader的实例 用来上传文件
   public uploader: FileUploader = new FileUploader({url: this.url});
+  // 选择的文件
   selectedFiles: FileList;
+  // 文件描述链表
   public filedescription: LinkedList<string> = new LinkedList();
-
+  // 获取已上传文件的数组
   showFile() {
     let mpnode = new MPNode();
     mpnode.lid=this.lid;
@@ -50,7 +62,7 @@ export class TresourceComponent implements OnInit {
       }
     });
   }
-
+  // 更新已上传文件的数组
   update(upfiles: UpFiles) {
     let tmp = new Upfile();
     this.filenames = [];
@@ -63,12 +75,12 @@ export class TresourceComponent implements OnInit {
       tmp = new Upfile();
     }
   }
-
+  // 获取html里选择的文件
   selectFile(event) {
     console.log('select file');
     this.selectedFiles = event.target.files;
   }
-
+  // 初始化全局变量
   getID1() {
     const mapid = this.route.snapshot.paramMap.get('mapid');
     this.mapid=mapid;
@@ -95,7 +107,7 @@ export class TresourceComponent implements OnInit {
     console.log(this.url);
     this.uploader=new FileUploader({url: this.url});
   }
-
+  // 添加文件到上传队列里
   addFile() {
     const file = [];
     file.push(this.selectedFiles.item(0));
@@ -106,13 +118,13 @@ export class TresourceComponent implements OnInit {
     console.log(this.filedescription);
     this.uploader.addToQueue(file);
   }
-
+  // 从上传队列里移除文件
   removeFile(item: FileItem) {
     const index = this.uploader.queue.indexOf(item);
     this.filedescription.remove(index);
     item.remove();
   }
-
+  // 从上传队列里移除所有文件
   removeAll() {
     const length = this.filedescription.length;
     for (let i = 0; i < length; i++) {
@@ -121,12 +133,12 @@ export class TresourceComponent implements OnInit {
     this.uploader.clearQueue();
   }
 
-
+  // 上传文件
   uploadFile(item: FileItem) { // 没有传入文件id，如果增加lid参数 则uploadAllFIle的内部实现也要相应改变
     item.upload();
     // 发送请求传递文件描述
   }
-
+  // 上传链接
   uploadLink() {
     this.restService.uploadLink(this.linkname, this.linkcontent,this.lid,this.node_id,this.mapid).subscribe(result => {
       // result返回上传结果 成功或失败
@@ -135,6 +147,7 @@ export class TresourceComponent implements OnInit {
     });
 
   }
+  // 获取链接
   showLink() {
     this.restService.showLink(this.lid,this.node_id,this.mapid).subscribe(data => {
       // 数据处理
@@ -150,11 +163,12 @@ export class TresourceComponent implements OnInit {
     this.uploader.onAfterAddingFile = this.afterAddingFile;
     this.uploader.onSuccessItem = this.afterSuccess.bind(this);
   }
-
+  // 添加文件之后
   afterAddingFile(fileitem: FileItem): any {
     fileitem.withCredentials = false;
     console.log(fileitem);
   }
+  // 上传成功之后
   afterSuccess(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
     const index = this.uploader.queue.indexOf(item);
     const fd = this.filedescription.get(index);
@@ -166,13 +180,16 @@ export class TresourceComponent implements OnInit {
           this.showFile();
         });
   }
+  // 显示或隐藏下拉菜单
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;
   }
+  // 下载文件
   downloadfile(filename) {
     console.log('downloadfile start');
     this.restService.download(filename, this.lid,this.mapid);
   }
+  // 登出
   exitLogin1() {
     this.userService.exitLogin(this.username)
         .subscribe(data => {

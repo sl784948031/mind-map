@@ -10,7 +10,7 @@ import {MindMap} from '../../mindmap';
 import {UserService} from '../../user.service';
 import {Number} from '../../number';
 import {Response} from '../../response';
-
+// 思维导图参数
 const options = {
   container:'jsmind_container',
   theme:'orange',
@@ -26,23 +26,32 @@ const options = {
 
 export class StudentmapComponent implements OnInit {
   title = '课程思维导图';
+  // 课程id
   lid: string;
+  // 思维导图
   mindMap = null;
-
+  // 当前思维导图在数组中的位置
   currentMap : number = 0;
-
+  // 用户
   user : any;
+  // 用户id
   userId : any;
+  // 用户类型
   userType : any;
-    mapid:string;
+  // 思维导图id
+  mapid:string;
+  // 下拉菜单的显示判断
   show_hide_val1 : boolean =false;
   show_hide_val2 : boolean =false;
   show_hide_val3 : boolean =false;
+  // 课程的所有思维导图
   items : any[] = [];
+  // 课程的所有思维导图的id
   ids : string[] = [];
+  // 用户名
   username: string;
   constructor(private router: Router,private route: ActivatedRoute,private userService: UserService) { }
-
+  // 初始化全局变量
   getID1() {
     const lid = this.route.snapshot.paramMap.get('id');
     console.log(lid);
@@ -62,7 +71,7 @@ export class StudentmapComponent implements OnInit {
           }
         });
   }
-
+  // 获取思维导图
   getMindMap(){
     let lesson = new Lesson();
     lesson.id = this.lid;
@@ -127,13 +136,13 @@ export class StudentmapComponent implements OnInit {
   //   this.items.push(mind1);
   //   this.changeMap(this.items.length - 1);
   // }
-
+  // 切换思维导图
   changeMap(e) {
       this.mapid=this.ids[e];
     this.currentMap = e;
     this.mindMap.show(this.items[e]);
   }
-
+  // 思维导图截图
   mapShoot() {
     // this.mindMap.show(this.currentMap);
     this.mindMap.screenshot.shootDownload();
@@ -152,9 +161,9 @@ export class StudentmapComponent implements OnInit {
   //   this.mindMap.remove_node(selected_id);
   //   this.items[this.currentMap] = this.mindMap.get_data("node_tree");
   // }
-    
+
   // addChildNode() {
-  //   const selected_node = this.mindMap.get_selected_node(); 
+  //   const selected_node = this.mindMap.get_selected_node();
   //   if(!selected_node){
   //   alert('请先选择一个节点！');
   //   return;
@@ -167,12 +176,12 @@ export class StudentmapComponent implements OnInit {
 
   // addBrotherNode(e) {
   //   console.log(e)
-  //   const selected_node = this.mindMap.get_selected_node(); 
+  //   const selected_node = this.mindMap.get_selected_node();
   //   if(!selected_node){
   //   alert('请先选择一个节点！');
   //   return;
   //   }
-   
+
   //   if(!selected_node.parent){
   //     alert('根节点无法被添加兄弟节点！');
   //     return;
@@ -192,7 +201,7 @@ export class StudentmapComponent implements OnInit {
   //   this.mindMap.set_node_color(selected_node.id, e.toElement.id, "#fff");
   //   this.items[this.currentMap] = this.mindMap.get_data("node_tree");
   // }
-  
+  // 显示或隐藏下拉菜单
   showList1() {
     this.show_hide_val1 = !this.show_hide_val1;
   }
