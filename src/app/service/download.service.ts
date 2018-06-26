@@ -17,12 +17,12 @@ const httpOptions = {
 export class DownloadService {
 
   constructor( private http: HttpClient ) {}
-
+  // 获取已上传文件的信息
   showfile(url: string): Observable<UpFiles> {
     const body = {};
     return this.http.post<UpFiles>(url, body);
   }
-
+  // 获取已上传链接的信息
   showlink(url: string, data?: any): Observable<any> {// 之后可以用表示链接的类来代替 像Upfile一样
     const body = {};
     return this.http.post<any>(url, data);
@@ -57,7 +57,7 @@ export class DownloadService {
 export class UploadService {
 
   constructor( private http: HttpClient ) {}
-
+  // 上传链接
   uploadLink(url: any, data?: any): Observable<any> {
     return this.http.post(url, data);
   }
@@ -70,7 +70,7 @@ export class UploadService {
 export class RestService {
 
   constructor( private downloadService: DownloadService, private uploadService: UploadService,private http: HttpClient) {}
-  // 导出
+  // 下载文件
   download(fileName: string, lid: string,mapid: string) {
     console.log('restservice export start');
     let url = '/mindmap/download';
@@ -82,6 +82,7 @@ export class RestService {
       this.downloadService.downFile(result, fileName);
     });
   }
+  // 下载文件
   download1(fileName: string, lid: string,mapid: string) {
     console.log('restservice export start');
     let url = '/mindmap/download1';
@@ -92,13 +93,13 @@ export class RestService {
       this.downloadService.downFile(result, fileName);
     });
   }
-
+  // 获取已上传文件的信息
   show(): Observable<UpFiles> {
     const url = '/mindmap/showfile/1';
     // 得到文件名称数组
     return this.downloadService.showfile(url);
   }
-
+  // 获取已上传链接的信息
   showLink(lid: string, node_id: string, mapid:string): Observable<any> {
     const url = '/mindmap/get_link';
     let body = {
@@ -108,7 +109,7 @@ export class RestService {
     };
     return this.downloadService.showlink(url,body);
   }
-
+  // 上传链接
   uploadLink(linkname: string, linkcontent: string, lid: string, node_id: string,mapid:string) {
     let url = '/mindmap/upload_link';
     let body = {
@@ -121,7 +122,7 @@ export class RestService {
 
     return this.uploadService.uploadLink( url, body);
   }
-
+  // 上传文件描述
   uploadFileDescription(filename: string, fd: string, lid: string, node_id: string,mapid:string): Observable<any> {
     console.log("enter");
     let upFile=new Upfile();
@@ -134,6 +135,7 @@ export class RestService {
     let url = '/mindmap/upload_fd';
     return this.http.post<any>( url, upFile);
   }
+  // 上传文件描述
   uploadFileDescription1(filename: string, fd: string, lid: string, node_id: string,mapid:string): Observable<any> {
     console.log("enter");
     let upFile=new Upfile();

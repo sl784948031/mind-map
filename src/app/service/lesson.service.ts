@@ -20,13 +20,13 @@ export class LessonService {
 
 
   constructor(private http: HttpClient) {}
-
+  // 获取老师开设的课程
   public getLessons(user: User): Observable<Array<any>> {
     return this.http.post<Array<any>>(this.lessonUrl, user);
   }
-
+  // 添加老师开设的课程
   public addLessons(lesson: Lesson): Observable<Response> {
     return this.http.post<Response>(this.addUrl, lesson);
   }
-  
+
 }
