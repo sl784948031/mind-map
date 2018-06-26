@@ -19,15 +19,23 @@ import {Account} from "../../entity/account";
     styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
-    chooses: Course[];    // 页面处显示
-    lessons: Lesson[]; // 选课处显示
+    // 学生已选的课程的数组 用于页面显示
+    chooses: Course[];
+    // 老师开设的课程的数组 用于页面显示
+    lessons: Lesson[];
+    // 用户对象
     user: User = new User();
+    // 从后端接收到的老师开设的课程的信息
     lesson: Lessons = new Lessons();
+    // 从后端接收到的学生已选的课程的信息
     course: Courses = new Courses();
+    // 学生选课时选择的课程的对象
     ls: Course = new Course();
+    // 响应对象
     response: Response = new Response();
-
+    // 新密码
     password1: string;
+    // 确认密码
     password2: string;
 
     constructor(private route: ActivatedRoute, private accoutService: AccountService, private courseService: CourseService, private router: Router) {}
@@ -35,7 +43,7 @@ export class CoursesComponent implements OnInit {
         this.getCourses();
         this.getAll();
     }
-
+    // 学生选课
     chooseLesson(choose: Lesson) {
         this.ls.cid = choose.id;
         this.ls.name = choose.name;
@@ -57,7 +65,7 @@ export class CoursesComponent implements OnInit {
             });
         this.lessons.splice(this.lessons.indexOf(choose, 0), 1);
     }
-
+    // 获取老师开设的课程的数组和从后端接收到的老师开设的课程的信息
     getAll(): void {
         this.courseService.addAll(this.user)
             .subscribe(data => {
@@ -65,6 +73,7 @@ export class CoursesComponent implements OnInit {
                 this.updateLesson(this.lesson);
             });
     }
+    // 获取学生已选的课程
     getCourses(): void {
         const username = this.route.snapshot.paramMap.get('username');
         console.log(username);
@@ -87,7 +96,7 @@ export class CoursesComponent implements OnInit {
                 }
             });
     }
-
+    // 更新老师开设的课程的数组
     updateLesson(lesson: Lessons) {
         let tmp = new Lesson();
         this.lessons = [];
@@ -100,6 +109,7 @@ export class CoursesComponent implements OnInit {
             tmp = new Lesson();
         }
     }
+    // 更新学生已选的课程的数组
     updateChoose(lesson: Courses) {
         let tmp = new Course();
         this.chooses = [];
@@ -113,7 +123,7 @@ export class CoursesComponent implements OnInit {
             tmp = new Course();
         }
     }
-
+    // 学生选课后更新学生已选的课程的数组和从后端接收到的学生已选的课程的信息
     updateAll() {
         this.courseService.getCourses(this.user)
             .subscribe(data => {
@@ -123,7 +133,7 @@ export class CoursesComponent implements OnInit {
                 this.updateChoose(this.course);
             });
     }
-
+    // 修改密码
     changePassword() {
         if (this.password1 != this.password2) {
             alert("两次密码输入不一致，修改失败！");
@@ -144,6 +154,7 @@ export class CoursesComponent implements OnInit {
             }
         });
     }
+    // 登出
     exitLogin10
     () {
         this.accoutService.exitLogin(this.user.username)

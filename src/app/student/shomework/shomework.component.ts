@@ -15,16 +15,25 @@ import {DescripQ1} from "../../entity/descripQ";
   styleUrls: ['./shomework.component.css']
 })
 export class ShomeworkComponent implements OnInit {
-
+  // 作业数组
   homeworks : any[];
+  // 答案数组
   answers : any[];
+  // 作业提交信息的数组
   submits : Submit[];
+  // 课程id
   lid: string;
+  // 思维导图节点id
   node_id: string;
+  // 选择题数组
   Q0sum: SelectQ[];
+  // 简答题数组
   Q1sum: DescripQ1[];
+  // 学生答题结果数组
   tm: any[];
+  // 思维导图id
   mapid:string;
+  // 用户名
   username: string;
   constructor(private router: Router,private route: ActivatedRoute,private accountService: AccountService,
               private homeworkService: HomeworkService) { }
@@ -32,7 +41,7 @@ export class ShomeworkComponent implements OnInit {
   ngOnInit() {
     this.getID1();
   }
-
+  // 初始化全局变量
   getID1() {
     const mapid = this.route.snapshot.paramMap.get('mapid');
     this.mapid=mapid;
@@ -104,7 +113,7 @@ export class ShomeworkComponent implements OnInit {
               });
         });
   }
-
+  // 初始化答案
   initAnswer() {
     console.log(this.homeworks.length);
     for (let i = 0; i < this.homeworks.length; i++) {
@@ -116,7 +125,7 @@ export class ShomeworkComponent implements OnInit {
       }
     }
   }
-
+  // 检查选择题答案对错
   checkAnswer() {
       this.tm=[];
     for (let i = 0; i < this.answers.length; i++) {
@@ -156,7 +165,7 @@ export class ShomeworkComponent implements OnInit {
     }
 
   }
-
+  // 提交学生答题结果
   submit() {
     this.checkAnswer();
     console.log(this.tm);
@@ -172,6 +181,7 @@ export class ShomeworkComponent implements OnInit {
            }
         });
   }
+  // 登出
   exitLogin7() {
     this.accountService.exitLogin(this.username)
         .subscribe(data => {
