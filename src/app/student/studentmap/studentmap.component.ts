@@ -62,6 +62,7 @@ export class StudentmapComponent implements OnInit {
     console.log(this.lid);
     const username = this.route.snapshot.paramMap.get('username');
     this.username1 = username;
+      console.log("username"+this.username1);
     this.accountService.examineLogin(this.username1)
         .subscribe(data => {
           let re = new Response();

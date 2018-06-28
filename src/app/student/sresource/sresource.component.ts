@@ -99,6 +99,7 @@ export class SresourceComponent implements OnInit {
     console.log(this.url);
     const username = this.route.snapshot.paramMap.get('username');
     this.username2 = username;
+    console.log("username"+this.username2);
     this.accountService.examineLogin(this.username2)
         .subscribe(data => {
           let re = new Response();
