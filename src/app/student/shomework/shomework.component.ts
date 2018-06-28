@@ -47,7 +47,7 @@ export class ShomeworkComponent implements OnInit {
     this.mapid=mapid;
     const username = this.route.snapshot.paramMap.get('username');
     this.username3 = username;
-    console.log("username"+this.username3);
+    console.log(this.username3);
     this.accountService.examineLogin(this.username3)
         .subscribe(data => {
           let re = new Response();
