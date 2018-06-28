@@ -83,7 +83,7 @@ export class SresourceComponent implements OnInit {
   // 下载文件
   downloadfile(filename) {
     console.log('downloadfile start');
-    this.restService.download(filename, '1',this.mapid);
+    this.restService.download(filename, this.lid,this.mapid);
   }
   // 初始化全局变量
   getID1() {
