@@ -115,7 +115,6 @@ export class MindmapComponent implements OnInit {
     this.changeMap(this.items.length - 1);
     this.createId = null;
     this.saveMindMap();
-    this.getMindMap();
   }
   // 切换思维导图
   changeMap(e) {
@@ -237,7 +236,6 @@ export class MindmapComponent implements OnInit {
         .subscribe(data => {
           console.log(data);
         });
-
   }
   // 获取思维导图
   getMindMap(){
