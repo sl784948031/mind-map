@@ -49,7 +49,7 @@ export class StudentmapComponent implements OnInit {
   // 课程的所有思维导图的id
   ids : string[] = [];
   // 用户名
-  username1: string;
+  username: string;
 
   constructor(private router: Router,private route: ActivatedRoute,private accountService: AccountService,
               private mindmapService: MindmapService) { }
@@ -61,9 +61,9 @@ export class StudentmapComponent implements OnInit {
     this.lid = lid;
     console.log(this.lid);
     const username = this.route.snapshot.paramMap.get('username');
-    this.username1 = username;
-      console.log(this.username1);
-    this.accountService.examineLogin(this.username1)
+    this.username = username;
+      console.log(this.username);
+    this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -134,7 +134,7 @@ export class StudentmapComponent implements OnInit {
     this.show_hide_val3 = !this.show_hide_val3;
   }
   exitLogin5() {
-    this.accountService.exitLogin(this.username1)
+    this.accountService.exitLogin(this.username)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');

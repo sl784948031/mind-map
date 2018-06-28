@@ -34,7 +34,7 @@ export class ShomeworkComponent implements OnInit {
   // 思维导图id
   mapid:string;
   // 用户名
-  username3: string;
+  username: string;
   constructor(private router: Router,private route: ActivatedRoute,private accountService: AccountService,
               private homeworkService: HomeworkService) { }
 
@@ -46,9 +46,9 @@ export class ShomeworkComponent implements OnInit {
     const mapid = this.route.snapshot.paramMap.get('mapid');
     this.mapid=mapid;
     const username = this.route.snapshot.paramMap.get('username');
-    this.username3 = username;
-    console.log(this.username3);
-    this.accountService.examineLogin(this.username3)
+    this.username = username;
+    console.log(this.username);
+    this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -131,7 +131,7 @@ export class ShomeworkComponent implements OnInit {
       this.tm=[];
     for (let i = 0; i < this.answers.length; i++) {
       let sub=new Submit();
-      sub.username=this.username3;
+      sub.username=this.username;
       sub.mapid=this.mapid;
       sub.lid=this.lid;
       sub.node_id=this.node_id;
@@ -184,7 +184,7 @@ export class ShomeworkComponent implements OnInit {
   }
   // 登出
   exitLogin7() {
-    this.accountService.exitLogin(this.username3)
+    this.accountService.exitLogin(this.username)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');

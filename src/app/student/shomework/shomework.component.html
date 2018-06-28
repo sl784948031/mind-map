@@ -15,7 +15,7 @@
               <li><a (click)="creatMap()">简答题</a></li>
             </ul> -->
             <ul id="left-bottom">
-              <li><a routerLink="/student/{{this.username3}}">课程首页</a></li>
+              <li><a routerLink="/student/{{this.username}}">课程首页</a></li>
               <li><a (click)="this.exitLogin7()">退出登录</a></li>
             </ul>
       </ul>
@@ -24,10 +24,10 @@
 
       <div id="right-part" class="col-xs-6 col-sm-10">
         <ul class="nav nav-tabs">
-          <li><a routerLink="/studentmap/{{this.username3}}/{{this.lid}}">思维导图</a></li>
-            <li class="active"><a routerLink="/shomework/{{this.username3}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">作业</a></li>
-          <li><a routerLink="/sresource/{{this.username3}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">资源</a></li>
-          <li><a routerLink="/scourseware/{{this.username3}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">课件</a></li>
+          <li><a routerLink="/studentmap/{{this.username}}/{{this.lid}}">思维导图</a></li>
+            <li class="active"><a routerLink="/shomework/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">作业</a></li>
+          <li><a routerLink="/sresource/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">资源</a></li>
+          <li><a routerLink="/scourseware/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{this.node_id}}">课件</a></li>
         </ul>
    
         <div class="card" *ngFor="let item of homeworks; let i = index">

@@ -21,7 +21,7 @@
               </ul>
             </ul>
             <ul id="left-bottom">
-              <li><a routerLink="/student/{{this.username1}}">课程首页</a></li>
+              <li><a routerLink="/student/{{this.username}}">课程首页</a></li>
               <li><a (click)="this.exitLogin5()">退出登录</a></li>
             </ul>
         </ul>
@@ -30,9 +30,9 @@
         <div id="right-part" class="col-xs-6 col-sm-10">
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">思维导图{{currentMap + 1}}</a></li>
-            <li *ngIf="mindMap.get_selected_node()"><a routerLink="/shomework/{{this.username1}}/{{this.mapid}}/{{this.lid}}/{{mindMap.get_selected_node().id}}">作业</a></li>
-            <li *ngIf="mindMap.get_selected_node()"><a routerLink="/sresource/{{this.username1}}/{{this.mapid}}/{{this.lid}}/{{mindMap.get_selected_node().id}}">资源</a></li>
-            <li *ngIf="mindMap.get_selected_node()"><a routerLink="/scourseware/{{this.username1}}/{{this.mapid}}/{{this.lid}}/{{mindMap.get_selected_node().id}}">课件</a></li>
+            <li *ngIf="mindMap.get_selected_node()"><a routerLink="/shomework/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{mindMap.get_selected_node().id}}">作业</a></li>
+            <li *ngIf="mindMap.get_selected_node()"><a routerLink="/sresource/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{mindMap.get_selected_node().id}}">资源</a></li>
+            <li *ngIf="mindMap.get_selected_node()"><a routerLink="/scourseware/{{this.username}}/{{this.mapid}}/{{this.lid}}/{{mindMap.get_selected_node().id}}">课件</a></li>
           </ul>
         
         <div id="jsmind_container"></div> 
