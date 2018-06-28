@@ -66,7 +66,7 @@ export class ScoursewareComponent implements OnInit {
     console.log(this.url);
     const username = this.route.snapshot.paramMap.get('username');
     this.username = username;
-    console.log(username);
+    console.log("123");
     this.accountService.examineLogin(this.username)
         .subscribe(data => {
           let re = new Response();
