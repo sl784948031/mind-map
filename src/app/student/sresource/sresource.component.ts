@@ -31,7 +31,7 @@ export class SresourceComponent implements OnInit {
   // 后台处理上传的服务的url
   public url: string = '/mindmap/upload/';
   // 用户名
-  username: string;
+  username2: string;
   // 思维导图id
   mapid:string;
   // 链接数组
@@ -98,8 +98,8 @@ export class SresourceComponent implements OnInit {
     this.url='/mindmap/upload_resource/'+this.lid+"/"+this.node_id;
     console.log(this.url);
     const username = this.route.snapshot.paramMap.get('username');
-    this.username = username;
-    this.accountService.examineLogin(this.username)
+    this.username2 = username;
+    this.accountService.examineLogin(this.username2)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -129,7 +129,7 @@ export class SresourceComponent implements OnInit {
   }
   // 登出
   exitLogin6() {
-    this.accountService.exitLogin(this.username)
+    this.accountService.exitLogin(this.username2)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');

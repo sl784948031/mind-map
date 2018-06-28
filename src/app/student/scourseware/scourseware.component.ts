@@ -29,7 +29,7 @@ export class ScoursewareComponent implements OnInit {
   // 思维导图id
   mapid:string;
   // 用户名
-  username: string;
+  username4: string;
 
 
   constructor(private router: Router,private route: ActivatedRoute, private restService: RestService, private accountService: AccountService,
@@ -65,8 +65,8 @@ export class ScoursewareComponent implements OnInit {
     this.url='/mindmap/upload_ware/'+this.lid+"/"+this.node_id;
     console.log(this.url);
     const username = this.route.snapshot.paramMap.get('username');
-    this.username = username;
-    this.accountService.examineLogin(this.username)
+    this.username4 = username;
+    this.accountService.examineLogin(this.username4)
         .subscribe(data => {
           let re = new Response();
           re = data;
@@ -113,7 +113,7 @@ export class ScoursewareComponent implements OnInit {
   // 登出
   exitLogin8
   () {
-    this.accountService.exitLogin(this.username)
+    this.accountService.exitLogin(this.username4)
         .subscribe(data => {
           alert("已登出！");
           this.router.navigateByUrl('login');
